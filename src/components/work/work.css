@@ -146,6 +146,41 @@
 .wk-list__ghost { animation-delay: calc(var(--intro) + 0.5s); }
 @keyframes h-wk { from { transform: translateY(36px); } }
 
+/* A project gallery: image first, essential details underneath. */
+.wk-hd__row { display: block; }
+.wk-hd__h { font-size: clamp(44px, 6.2vw, 92px); margin-top: 18px; }
+.wk-hd__lede { margin-top: 20px; max-width: 52ch; font-size: 17px; color: var(--muted); }
+.wk-sec { margin-top: 44px; }
+.wk-list, .wk-row { border: 0; }
+.wk-row__a { display: flex; flex-direction: column; gap: 24px; padding: 0; }
+.wk-row__no, .wk-row__meta, .wk-row__rule { display: none; }
+.wk-row__shot { order: -1; width: 100%; padding: clamp(24px, 4.6vw, 72px); background: #e8edf6; border-radius: 28px; box-shadow: none; }
+.wk-row__shot .wk-frame__bar { border-radius: 10px 10px 0 0; background: #f8fafc; }
+.wk-row__body { aspect-ratio: 16 / 8.5; border-radius: 0 0 10px 10px; box-shadow: 0 22px 48px -24px rgb(35 49 74 / 0.3); }
+.wk-row__main { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; align-items: center; width: 100%; }
+.wk-row__name { font-size: clamp(26px, 3vw, 40px); }
+.wk-row__kind { margin: 0; color: var(--muted); font-family: var(--font-sans), sans-serif; font-size: 14px; text-transform: none; letter-spacing: 0; white-space: normal; }
+.wk-row__go { grid-column: 2; grid-row: 1 / span 2; margin: 0; padding: 12px 18px; border: 1px solid var(--line-2); border-radius: 999px; }
+.wk-row__cta { font-family: var(--font-sans), sans-serif; font-size: 14px; text-transform: none; letter-spacing: 0; }
+.wk-list__ghost { padding-top: 48px; }
+.wk-ghost { background: var(--surface); border-radius: 20px; }
+.wk-ghost::before { border: 0; }
+.wk-ghost__a { display: flex; gap: 24px; padding: 28px; }
+.wk-ghost__no, .wk-ghost__kind { display: none; }
+.wk-ghost__name { font-size: clamp(24px, 3vw, 36px); }
+.wk-ghost__go { margin-left: auto; padding: 0; }
+@media (max-width: 760px) {
+ .wk-hd__h .h-line { white-space: normal; }
+ .wk-sec { margin-top: 32px; }
+ .wk-row__shot { border-radius: 20px; padding: 20px 14px; }
+ .wk-row__body { aspect-ratio: 4 / 3; }
+ .wk-row__main { gap: 12px; }
+ .wk-row__name { font-size: 26px; }
+ .wk-row__go { width: 44px; height: 44px; padding: 8px; }
+ .wk-row__cta { display: none; }
+ .wk-ghost__a { padding: 24px; }
+}
+
 /* ================= Case study ================= */
 /* CS0 head */
 .cs-hd__eb { color: var(--muted); }

@@ -15,7 +15,7 @@
    1440 × 900; 24vw keeps ≥ 48px between its guides and the end of "trade." down to 1280. */
 @media (min-width: 1280px) {
   .st-hd { position: relative; }
-  .st-h { max-width: calc(100% - min(24vw, 340px) - 64px); font-size: clamp(80px, 8.4vw, 144px); }
+  .st-h { max-width: calc(100% - min(24vw, 340px) - 64px); font-size: clamp(48px, 6vw, 88px); }
   .st-fig { position: absolute; right: var(--g); top: calc(var(--hdr-h) + 124px); width: min(24vw, 340px); }
 }
 @media (max-width: 1023px) {

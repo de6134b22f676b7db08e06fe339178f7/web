@@ -10,8 +10,8 @@ export function Kit() {
           n="04"
           name="The full kit"
           id="kit-h"
-          title="And the rest of the clubhouse."
-          lede="The everyday details matter too. Stories, sponsors and the tools that keep your committee in control."
+          title="The little things, covered."
+          lede="Stories, sponsors and simple tools for your committee."
         />
         <div className="sec-body">
           <KitIndex />

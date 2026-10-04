@@ -12,8 +12,8 @@ export function PlayHQ() {
           n="05"
           name="PlayHQ integration"
           id="playhq-h"
-          title="PlayHQ in. Club site out."
-          lede="Your competition data already lives in PlayHQ. We connect to its API so the site shows the same fixtures, results, ladders and players, without a volunteer copying them across."
+          title="Always up to date."
+          lede="Fixtures, results and ladders, connected directly to PlayHQ."
         />
         <div className="sec-body phq">
           <SyncLine />

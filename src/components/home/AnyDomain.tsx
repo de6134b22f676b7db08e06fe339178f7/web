@@ -152,7 +152,7 @@ export function AnyDomain() {
           name="Design for any domain"
           id="any-h"
           title="Same craft. Any brand."
-          lede="One system underneath three everyday components. Switch the brand and watch type, colour, shape and voice change together."
+          lede="Switch brands. See the design change with it."
           aside={
             <div className="any-bar">
               <Segmented options={OPTS} value={theme} onChange={pick} label="Sample brand" role="radiogroup" />

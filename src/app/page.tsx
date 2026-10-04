@@ -32,7 +32,7 @@ export default function Home() {
       <Kit />
       <PlayHQ />
       <AnyDomain />
-      <ContactBand title="Plant your flag." n="07" mark="scrub" sub="Tell us about your club or your brand. A paragraph is plenty." sec={{ n: "07", name: "Contact" }} />
+      <ContactBand title="Let’s build your club’s next chapter." n="07" mark="scrub" sub="A good project starts with a conversation." sec={{ n: "07", name: "Contact" }} />
     </SportProvider>
   );
 }

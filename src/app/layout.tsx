@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { display, sans, sansItalic, mono } from "./fonts";
+import { sans, sansItalic, mono } from "./fonts";
 import { SITE, og } from "@/lib/site";
 import { InlineScript } from "@/components/InlineScript";
 import { GATE } from "@/lib/gate";
@@ -45,7 +45,7 @@ const organization = {
  */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${display.variable} ${sans.variable} ${sansItalic.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en-AU" className={`${sans.variable} ${sansItalic.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={GATE} />
       </head>

@@ -1,3 +1,7 @@
+# Current visual direction — modern minimal
+
+The latest user direction supersedes the sporting editorial refresh below: no paper/poster treatment, much less promotional text, sentence-case Host Grotesk, calm cool surfaces, rounded controls and large visual previews. Work is a screenshot-led gallery. Home pairs the existing ground geometry and fixture demo in a spacious product preview. Keep existing functional demos, diagrams and animation behavior. Preserve sample-data disclosure and truthful client claims.
+
 # Visual refresh — October 2026
 
 The current implementation updates the visual direction below at the founder’s request. These visual choices supersede the v4 layout and type specifications; the existing animation systems, diagrams, sample-data honesty rules, light theme and flag identity remain in place.

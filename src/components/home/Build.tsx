@@ -16,8 +16,8 @@ export function Build() {
           n="03"
           name="What we build"
           id="build-h"
-          title="A proper home for club life."
-          lede="From the first fixture to the final siren. Try six working pieces of a Websport site. Every club, name and number shown is sample data."
+          title="Everything your club needs."
+          lede="Try it for yourself. Six working demos, all using sample data."
         />
         <div className="sec-body build-body">
           <SportSwitch />

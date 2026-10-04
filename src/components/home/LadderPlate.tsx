@@ -113,7 +113,7 @@ export function LadderPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-lad">
-      <Plate n={2} id="p-lad" title="Ladder" ink cursor="Sort" decision="Rows move, they don’t jump. You see who climbed before you read a number.">
+      <Plate n={2} id="p-lad" title="Ladder" ink cursor="Sort" decision="A live ladder that moves with the season.">
         <div className="lad-wrap" tabIndex={0} role="region" aria-label="Club ladder; scroll horizontally if needed">
           <table className="lad">
             <caption className="sr">Sample ladder after round {st.round}</caption>

@@ -13,8 +13,8 @@ export function Positioning() {
           </p>
           <div className="pos-grid">
             <SplitHeading as="h2" id="pos-h" className="pos-h t-h2">
-              Club sport at heart. <br />
-              <em>Good design, everywhere.</em>
+              Club spirit. <br />
+              <em>Thoughtful design.</em>
             </SplitHeading>
             <FigMark />
             <div className="pos-cols">
@@ -24,7 +24,7 @@ export function Positioning() {
                   Club sport
                 </p>
                 <p>
-                  The fixture changed. The ground moved. Presentation night needs numbers. We build club websites that keep up with the weekend, without a volunteer retyping a thing.
+                  Made for your members. Simple for your volunteers.
                 </p>
               </div>
               <div className="pos-col">
@@ -33,7 +33,7 @@ export function Positioning() {
                   Any domain
                 </p>
                 <p>
-                  Thoughtful type, useful details, systems that hold up. We bring the same care to studios, clinics, makers and brands. Club sport is our speciality, not our limit.
+                  Independent design and development for clubs, brands and the people behind them.
                 </p>
               </div>
             </div>

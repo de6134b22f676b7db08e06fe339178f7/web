@@ -10,8 +10,8 @@ export function Sports() {
           n="02"
           name="The sports"
           id="sports-h"
-          title="Every code. One clubhouse."
-          lede="If your club runs its season on PlayHQ, the site can run off it too. The sport changes the scoring, not the job. Pick one and the whole kit below switches to it."
+          title="Find your game."
+          lede="Choose a sport. See the whole kit adapt."
         />
         <div className="sec-body">
           <SportsStage />

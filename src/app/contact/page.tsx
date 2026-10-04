@@ -41,14 +41,10 @@ export default function Contact() {
         </p>
         <h1 className="pg-h t-display ct-h">
           <span className="h-line" style={{ "--i": 0 } as React.CSSProperties}>
-            Got a club, <br className="m" />
-            or a brief
+            Let’s make
           </span>
           <span className="h-line" style={{ "--i": 1 } as React.CSSProperties}>
-            <em>
-              that deserves <br className="m" />
-              better?
-            </em>
+            <em>something good.</em>
           </span>
         </h1>
       </header>

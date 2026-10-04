@@ -50,7 +50,7 @@ export function PlayerPlate() {
   const stat3 = STAT3[sport][era === "now" ? 0 : 1];
   return (
     <div ref={cell} className="pl-cell pl-pl">
-      <Plate n={6} id="p-pl" title="Player profiles" cursor="Flip" decision="Past players keep their page. Come back in twenty years and your name is still on the club’s site.">
+      <Plate n={6} id="p-pl" title="Player profiles" cursor="Flip" decision="Every player has a place in your club’s story.">
         <Segmented options={ERAS} value={era} onChange={change} label="Player era" idBase="pl" controls="pl-panel" />
         <div id="pl-panel" role="tabpanel" aria-labelledby={`pl-${era}`} className={`pl-card card${swap ? " is-swap" : ""}`}>
           <div className="pl-top">

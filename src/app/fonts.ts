@@ -1,16 +1,4 @@
 import { Host_Grotesk, Martian_Mono } from "next/font/google";
-import localFont from "next/font/local";
-
-/** A compact sporting display face; UI and data retain their existing families. */
-export const display = localFont({
-  src: "../../public/fonts/barlow-condensed-latin-600.woff2",
-  weight: "600",
-  variable: "--font-display",
-  display: "swap",
-  adjustFontFallback: "Arial",
-  preload: true,
-});
-
 /**
  * DESIGN.md v4 §2.4. Host Grotesk (variable wght 300–800) for display + body; its italic is a separate,
  * non-preloaded face used only for `em` in display lines. Martian Mono (wdth 75–112.5) for labels and data.

@@ -11,7 +11,7 @@ export const SIZES = {
   preview: "380px",
   phone: "(min-width:1024px) 22vw, 70vw",
   thumb: "(min-width:1024px) 160px, 92vw",
-  workFeature: "(min-width:1600px) 760px, (min-width:1024px) 47vw, 92vw",
+  workFeature: "(min-width:1600px) 1320px, (min-width:1024px) 84vw, 92vw",
 } as const;
 
 export type Sizes = keyof typeof SIZES | (string & {});

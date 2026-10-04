@@ -83,10 +83,10 @@ export function HeroHead() {
         <span className="sr">Websites and apps for clubs that play every sport.</span>
         <span aria-hidden="true">
           <span className="h-line" style={{ "--i": 0 } as React.CSSProperties}>
-            For clubs
+            A home for
           </span>
           <span className="h-line" style={{ "--i": 1 } as React.CSSProperties}>
-            that play
+            clubs that play
           </span>
           <span className="h-line" style={{ "--i": 2 } as React.CSSProperties}>
             <span className="roller">

@@ -69,7 +69,7 @@ export function LogosPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-logo">
-      <Plate n={3} id="p-logo" title="Club logos" cursor="Match" decision="Every team and every opponent wears its own badge, matched from PlayHQ data. A fixture should read at a glance.">
+      <Plate n={3} id="p-logo" title="Club logos" cursor="Match" decision="Every club, matched to its own badge.">
         <ul ref={grid} className={`lg-grid${run ? ` scan s${run % 2}` : ""}`}>
           {CLUBS.map((c, i) => {
             const on = i < count;

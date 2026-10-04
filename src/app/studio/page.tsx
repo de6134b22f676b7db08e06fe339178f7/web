@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Websport is a design and development studio: specialists in community sports club websites and apps on PlayHQ, and designers for any brand.",
   alternates: { canonical: "/studio" },
-  openGraph: og("/studio", "/og/studio.png", "Websport studio: Club sport is our speciality. Craft is our trade."),
+  openGraph: og("/studio", "/og/studio.png", "Websport studio: Club sport is our speciality. Club-sized ambition."),
 };
 
 const CLUBS = [
@@ -85,18 +85,15 @@ export default function Studio() {
         </p>
         <h1 className="pg-h t-display st-h">
           <span className="h-line" style={{ "--i": 0 } as React.CSSProperties}>
-            Club sport is <br />
-            our speciality.
+            Small studio.
           </span>
           <span className="h-line" style={{ "--i": 1 } as React.CSSProperties}>
-            <em>Craft is our trade.</em>
+            <em>Club-sized ambition.</em>
           </span>
         </h1>
         <div className="st-hd-row">
           <p className="st-lede t-lead h-fade" style={{ "--i": 1 } as React.CSSProperties}>
-            Websport is a design and development studio. Community sports clubs on PlayHQ are what we know best: the
-            fixtures, the committees, the Saturday-morning phone checks. The craft underneath (type, motion, interface,
-            accessibility and speed) isn&rsquo;t sport-specific, so we bring it to any brand that wants to be seen properly.
+            Independent design and development. We make thoughtful digital homes for community clubs and ambitious brands.
           </p>
           <div className="st-fig h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <StudioFig />

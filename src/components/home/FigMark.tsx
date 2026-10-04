@@ -57,7 +57,7 @@ export function FigMark() {
       </svg>
       <figcaption className="fig-cap">
         <span className="mono fig-k">Fig. 1 · The mark</span>
-        Every club plants its flag online. A pennant for the club, a pointer for the web, drawn on one 45° line.
+        A club pennant. A web pointer. One mark.
       </figcaption>
     </figure>
   );

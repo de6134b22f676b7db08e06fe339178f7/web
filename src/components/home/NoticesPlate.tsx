@@ -131,7 +131,7 @@ export function NoticesPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-ann">
-      <Plate n={5} id="p-ann" title="Announcements" cursor="Post" decision="Post once. It shows up everywhere it should, from the home page banner to the archive.">
+      <Plate n={5} id="p-ann" title="Announcements" cursor="Post" decision="Post once. Keep everyone in the loop.">
         <div className="ann-banner is-ink">
           <span className="ann-pin-k mono">Pinned</span>
           <p key={pinned.n} className="ann-pinned">
