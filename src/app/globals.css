@@ -21,15 +21,15 @@
   --breakpoint-3xl: 1920px;
 
   --color-*: initial;
-  --color-paper: #ffffff;
-  --color-surface: #f5f6f8;
+  --color-paper: #fafbfc;
+  --color-surface: #f0f3f7;
   --color-surface-2: #edeff3;
-  --color-ink: #0f1729;
-  --color-ink-2: #2a3346;
-  --color-muted: #5b6475;
-  --color-flag: #1f5bff;
-  --color-flag-text: #1747d1;
-  --color-flag-tint: #e8efff;
+  --color-ink: #00204e;
+  --color-ink-2: #1a3560;
+  --color-muted: #556079;
+  --color-flag: #0061fd;
+  --color-flag-text: #0050d4;
+  --color-flag-tint: #e6f0ff;
   --color-up: #137a4b;
   --color-white: #ffffff;
   --color-transparent: transparent;
@@ -52,19 +52,19 @@
   --paper: #fafbfc;
   --surface: #f0f3f7;
   --surface-2: #edeff3;
-  --line: rgb(15 23 41 / 0.09);
-  --line-2: rgb(15 23 41 / 0.16);
-  --ui-line: rgb(15 23 41 / 0.5);
-  --ink: #0f1729;
-  --ink-2: #2a3346;
-  --muted: #5b6475;
-  --flag: #1f5bff;
-  --flag-hover: #1a4fe0;
-  --flag-text: #1747d1;
-  --flag-tint: #e8efff;
-  --on-flag: #ffffff; /* text on Flag blue: 5.3:1 */
-  --on-ink-muted: #a9b0bf;
-  --on-ink-flag: #7fa3ff;
+  --line: rgb(0 32 78 / 0.09);
+  --line-2: rgb(0 32 78 / 0.16);
+  --ui-line: rgb(0 32 78 / 0.5);
+  --ink: #00204e;
+  --ink-2: #1a3560;
+  --muted: #556079;
+  --flag: #0061fd;
+  --flag-hover: #0054d9;
+  --flag-text: #0050d4;
+  --flag-tint: #e6f0ff;
+  --on-flag: #ffffff; /* text on Flag blue: 5.09:1 */
+  --on-ink-muted: #a9b8d0;
+  --on-ink-flag: #6aa5ff;
   --up: #137a4b;
   --up-on-ink: #7be0a6;
 
@@ -98,7 +98,7 @@
   --hdr-h: 88px;
 
   /* elevation (one only) */
-  --elev: 0 0 0 1px var(--line-2), 0 30px 60px -30px rgb(15 23 41 / 0.35);
+  --elev: 0 0 0 1px var(--line-2), 0 30px 60px -30px rgb(0 32 78 / 0.35);
 }
 /* §3.5: equal specificity, cascade order decides; navigated wins over no-intro. */
 html.no-intro { --intro: 0s; }
@@ -232,10 +232,12 @@ html.no-intro .ld, html.navigated .ld { display: none; }
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--slant) - var(--band)), 0 calc(100% - var(--band)));
 }
 .ld-out { position: absolute; inset: 0 0 calc(var(--slant) + var(--band)) 0; animation: ld-out 0.54s var(--lift) 1.56s forwards; }
-/* --fs is the lockup's type size: flag 1.06fs, wordmark box .93fs (ascender to "p" descender). */
+/* --fs is the lockup's type size: wordmark box .93fs (ascender to "p" descender, baseline at .73fs). The mark is
+   cap height tall (.73fs) and 2.6532x as wide (--fw); a .2fs bottom margin sits its base on the word's baseline. */
 .ld-lockup {
   --fs: clamp(34px, 5.6vw, 80px);
-  --fw: calc(var(--fs) * 1.06);
+  --fh: calc(var(--fs) * 0.73);
+  --fw: calc(var(--fh) * 2.6532);
   --wh: calc(var(--fs) * 0.93);
   --gap: calc(var(--fs) * 0.16);
   position: absolute; left: 50%; top: 50%;
@@ -245,13 +247,14 @@ html.no-intro .ld, html.navigated .ld { display: none; }
   animation: ld-slide 0.6s var(--hand) 0.56s forwards;
 }
 .ld-flag {
-  width: var(--fw); height: var(--fw); flex: none;
+  width: var(--fw); height: var(--fh); flex: none; margin-bottom: calc(var(--fs) * 0.2);
   position: relative; z-index: 2; overflow: visible;
   opacity: 0; transform: translateY(18%) scale(0.72); transform-origin: 50% 60%;
   animation: ld-flag 0.4s var(--expo) 0.12s forwards;
 }
-.ld-flag .mk-pennant { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); animation: ld-pen 0.46s var(--expo) 0.22s forwards; }
-/* The mask's left edge is the flag's right edge; the word travels the gap + its own width, so it emerges at the flag. */
+/* The S wipes on from its left edge (clip, not scale: the letterform never distorts). */
+.ld-flag .mk-pennant { clip-path: inset(0 100% 0 0); animation: ld-pen 0.46s var(--expo) 0.22s forwards; }
+/* The mask's left edge is the mark's right edge; the word travels the gap + its own width, so it emerges at the mark. */
 .ld-mask { display: block; overflow: hidden; height: var(--wh); padding-left: var(--gap); flex: none; }
 .ld-word {
   display: block; height: var(--wh); width: calc(var(--wh) * var(--ww));
@@ -276,7 +279,7 @@ html.no-intro .ld, html.navigated .ld { display: none; }
 @media (pointer: coarse) { .ld-skip-f { display: none; } .ld-skip-t { display: inline; } }
 html.js .ld-skip { display: block; animation: ld-fade 0.3s linear 0.5s forwards, ld-unfade 0.2s linear 1.56s forwards; }
 @keyframes ld-flag { to { opacity: 1; transform: none; } }
-@keyframes ld-pen { to { transform: none; } }
+@keyframes ld-pen { to { clip-path: inset(0); } }
 @keyframes ld-slide { to { transform: translate(-50%, -50%); } }
 @keyframes ld-word { to { transform: none; } }
 @keyframes ld-tld { to { clip-path: inset(0); transform: none; } }
@@ -314,11 +317,12 @@ html.is-scrolled .hdr { box-shadow: 0 1px 0 var(--line); }
 html.hdr-hidden .hdr:not(:focus-within) { transform: translateY(-100%); }
 html.menu-open .hdr { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; transform: none; }
 .hdr-in { height: var(--hdr-h); display: flex; align-items: center; gap: 28px; }
-.brand { display: inline-flex; align-items: center; gap: 9px; flex: none; color: var(--ink); min-height: 44px; }
-.brand-mark { width: 30px; height: 30px; transition: transform 0.7s var(--expo); transform-origin: 30% 80%; }
+/* The mark is the wordmark's cap height (23px box x 73/93 = 18px) and sits on its baseline (20/93 of the box below). */
+.brand { display: inline-flex; align-items: center; gap: 8px; flex: none; color: var(--ink); min-height: 44px; }
+.brand-mark { height: 24px; width: auto; aspect-ratio: 265.32 / 100; flex: none; margin-bottom: 5px; overflow: visible; transition: transform 0.7s var(--expo); transform-origin: 0% 100%; }
 .brand-word { height: 23px; width: auto; }
-.brand:focus-visible .brand-mark { transform: rotate(-8deg) translateY(-1px); }
-@media (hover: hover) and (pointer: fine) { .brand:hover .brand-mark { transform: rotate(-8deg) translateY(-1px); } }
+.brand:focus-visible .brand-mark { transform: skewX(-8deg); }
+@media (hover: hover) and (pointer: fine) { .brand:hover .brand-mark { transform: skewX(-8deg); } }
 .hdr-sec { display: none; align-items: baseline; color: var(--muted); margin-left: 8px; min-width: 138px; white-space: nowrap; overflow: hidden; font-size: 10px; }
 .hdr-sec b { color: var(--ink); font-weight: 400; min-width: 2.2ch; display: inline-block; }
 .hdr-sec .hdr-sec-name { margin-left: 12px; display: inline-block; }
@@ -391,7 +395,7 @@ html.menu-open .hdr { background: transparent; -webkit-backdrop-filter: none; ba
 .ftr-top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); row-gap: 28px; align-items: start; }
 .ftr-brand { grid-column: 1 / span 5; display: flex; align-items: center; gap: 14px; }
 .ftr-brand p { font-size: clamp(20px, 2vw, 28px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
-.ftr-brand .mark { width: 34px; height: 34px; flex: none; }
+.ftr-brand .mark { height: 26px; width: auto; aspect-ratio: 265.32 / 100; flex: none; }
 .ftr-nav { grid-column: 7 / span 6; display: flex; flex-wrap: wrap; gap: 4px 28px; justify-content: flex-end; font-size: 15px; font-weight: 500; }
 .ftr-nav a { min-height: 44px; display: inline-flex; align-items: center; }
 .ftr-legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
@@ -494,7 +498,7 @@ a:focus-visible .roll-ch, button:focus-visible .roll-ch, .roll-host:focus-visibl
 .seg-btn[aria-selected="true"], .seg-btn[aria-checked="true"] { color: var(--ink); }
 .seg-ind {
   position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 0; border-radius: 999px;
-  background: #fff; box-shadow: 0 1px 2px rgb(15 23 41 / 0.08), 0 0 0 1px var(--line);
+  background: #fff; box-shadow: 0 1px 2px rgb(0 32 78 / 0.08), 0 0 0 1px var(--line);
   width: var(--w, 0px); transform: translateX(var(--x, 0px));
   transition: transform 0.55s var(--expo), width 0.55s var(--expo);
 }
@@ -565,7 +569,7 @@ a:focus-visible .roll-ch, button:focus-visible .roll-ch, .roll-host:focus-visibl
 /* Crest (§2.9.2) */
 .crest { width: 28px; height: 28px; flex: none; }
 .crest svg { width: 100%; height: 100%; }
-.crest-ph path { fill: rgb(15 23 41 / 0.09); stroke: var(--ui-line); stroke-dasharray: 3 3; }
+.crest-ph path { fill: rgb(0 32 78 / 0.09); stroke: var(--ui-line); stroke-dasharray: 3 3; }
 
 /* Clear section introductions; numbering remains in data attributes for navigation. */
 .sec-hd { padding-top: 0; }
@@ -595,13 +599,13 @@ a:focus-visible .roll-ch, button:focus-visible .roll-ch, .roll-host:focus-visibl
 .cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 28px; margin-top: clamp(28px, 4vw, 48px); }
 .cta-sub { color: var(--muted); margin-top: 20px; font-size: 17px; max-width: 44ch; }
 .cmark { position: relative; width: 100%; }
-.cmark-art { aspect-ratio: 1; }
+.cmark-art { aspect-ratio: 318 / 136; }
 .cmark svg { width: 100%; height: 100%; overflow: visible; }
 .cm-cap { margin-top: 18px; color: var(--muted); font-size: 15px; line-height: 1.5; max-width: 40ch; }
 .cm-cap .fig-k { display: block; color: var(--flag-text); margin-bottom: 6px; }
-.cmark .cm-guide { fill: none; stroke: var(--ink); stroke-opacity: 0.22; stroke-width: 0.28; }
-.cmark .cm-note { font-family: var(--font-mono), ui-monospace, monospace; font-size: 3px; letter-spacing: 0.06em; fill: var(--muted); text-transform: uppercase; paint-order: stroke; stroke: var(--paper); stroke-width: 1.1px; stroke-linejoin: round; }
-.cmark .mk-pennant { transform-box: fill-box; transform-origin: 0 50%; }
+.cmark .cm-guide { fill: none; stroke: var(--ink); stroke-opacity: 0.22; stroke-width: 0.75; }
+.cmark .cm-note { font-family: var(--font-mono), ui-monospace, monospace; font-size: 7.5px; letter-spacing: 0.06em; fill: var(--muted); text-transform: uppercase; paint-order: stroke; stroke: var(--cm-halo, var(--paper)); stroke-width: 2.6px; stroke-linejoin: round; }
+.cmark .mk-pennant { transform-box: fill-box; transform-origin: 0 100%; }
 @media (max-width: 760px) {
   .cta-band .cta-h, .cta-band .cta-mark { grid-column: 1 / -1; }
   .cta-band .cta-mark { justify-self: start; width: min(64vw, 260px); }
@@ -633,13 +637,13 @@ a:focus-visible .roll-ch, button:focus-visible .roll-ch, .roll-host:focus-visibl
 /* 404 (§6.6, M38). Here, not in contact.css: the root not-found boundary is part of every route's tree, so a
    stylesheet imported by it would be preloaded (unused) on every page. */
 .nf-top { position: relative; display: flex; align-items: flex-end; gap: clamp(12px, 3vw, 48px); }
-.nf-mark { display: block; flex: none; width: clamp(72px, 9vw, 120px); height: clamp(72px, 9vw, 120px); margin-bottom: 0.04em; }
+.nf-mark { display: block; flex: none; height: clamp(32px, 5.4vw, 72px); width: auto; aspect-ratio: 265.32 / 100; margin-bottom: 0.04em; }
 .nf-mark-in { display: block; width: 100%; height: 100%; }
-.nf-svg { width: 100%; height: 100%; transform: rotate(-14deg); transform-origin: 22% 92%; }
+.nf-svg { width: 100%; height: 100%; overflow: visible; transform: rotate(-8deg); transform-origin: 22% 92%; }
 @media (prefers-reduced-motion: no-preference) {
   .nf-svg { animation: h-nf-drop 0.9s var(--expo) calc(var(--intro) + 0.4s) both; }
 }
-@keyframes h-nf-drop { from { transform: translateY(-46%) rotate(-48deg); opacity: 0; } }
+@keyframes h-nf-drop { from { transform: translateY(-60%) rotate(-30deg); opacity: 0; } }
 
 .nf-nav { margin-top: clamp(40px, 5vw, 72px); }
 .nf-list { border-bottom: 1px solid var(--line-2); }
@@ -709,7 +713,7 @@ html.has-cursor .cursor { display: block; }
 @media (hover: none), (pointer: coarse) { .cursor { display: none !important; } }
 
 /* =====================================================================
-   PAGE TRANSITIONS (§4.4): old page lifts + dims; new page wipes up on the flag slant with the red band
+   PAGE TRANSITIONS (§4.4): old page lifts + dims; new page wipes up on the flag slant with the Flag band
    ===================================================================== */
 ::view-transition-group(root) { animation: none; }
 ::view-transition-old(root) { display: none; }
@@ -730,7 +734,7 @@ html.has-cursor .cursor { display: block; }
   from { clip-path: polygon(0 calc(100vh + var(--slant)), 100% 100vh, 100% calc(100vh + 1px), 0 calc(100vh + var(--slant) + 1px)); }
   to { clip-path: polygon(0 0, 100% calc(var(--slant) * -1), 100% 100%, 0 100%); }
 }
-/* The band: a red parallelogram riding just above the wipe's leading edge (left side lower, like the loader). */
+/* The band: a Flag parallelogram riding just above the wipe's leading edge (left side lower, like the loader). */
 .vt-edge {
   position: fixed; top: 0; left: 0; right: 0; z-index: 130; pointer-events: none;
   height: calc(var(--slant) + var(--band));
@@ -795,6 +799,7 @@ html:active-view-transition .vt-edge { visibility: visible; }
 /* Minimal studio shell. Technical data retains its monospace face. */
 .pg-eyebrow { font-family: var(--font-sans), sans-serif; text-transform: none; font-size: 14px; letter-spacing: 0; }
 .pg-eyebrow span:first-child { color: var(--muted); }
+.cta-band { --cm-halo: #edf1f7; }
 .cta-band > .wrap { background: #edf1f7; border-radius: 28px; padding: clamp(32px, 5vw, 80px); width: calc(100% - var(--g) * 2); }
 .cta-band .cta-grid { margin-top: 24px; }
 .cta-band .cta-h { letter-spacing: -0.055em; }

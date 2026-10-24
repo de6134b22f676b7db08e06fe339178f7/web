@@ -1,10 +1,11 @@
 "use client";
 /**
- * Site header (C2, M10, M31). Fixed, 68px (60 under 760), white .86 + blur. Brand (Mark 26 + Wordmark) -> "/",
+ * Site header (C2, M10, M31). Fixed, 68px (60 under 760), white .86 + blur. Brand (Mark at the wordmark's cap
+ * height, on its baseline + Wordmark) -> "/",
  * home-only section counter (>= 1100; reads `[data-sec][data-sec-name]` sections), nav (>= 1100) with M6
  * underline + aria-current, "Start a project" Ink button (> 760), Menu button (< 1100).
  * Hides on scroll down past 120px via html.hdr-hidden (MotionProvider), never while focus is inside it.
- * Red progress hairline at the bottom edge. Owns the menu state + side effects (html.menu-open, Lenis stop,
+ * Flag progress hairline at the bottom edge. Owns the menu state + side effects (html.menu-open, Lenis stop,
  * `inert` on #main + footer, focus move/trap/return, Esc).
  */
 import Link from "@/components/IntentLink";
@@ -25,7 +26,7 @@ export function SkipLink() {
   );
 }
 
-/** Brand lockup: Mark 26 + wordmark (paths), one link home. */
+/** Brand lockup: Mark (cap height, wide) + wordmark (paths), one link home. */
 export function Brand({ className = "" }: { className?: string }) {
   return (
     <Link href="/" aria-label="Websport, home" className={`brand ${className}`}>

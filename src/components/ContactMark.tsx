@@ -1,18 +1,18 @@
 "use client";
 /**
- * Contact mark, "Fig. 2" (M28). The mark built from its construction: guides (cap line, baseline, W/S seam,
- * blade, the 100-unit square) with mono annotations.
- * mode "scrub" (home): guides draw (pathLength=1 dashes), the pole fills with a 45° clip wipe, then the pennant
- * unfurls (scaleX 0 -> 1), scrubbed from "top 80%" to "center" (scrub .6); on phones/touch from "top 100%" to
- * "top 40%".
- * mode "static": complete. Both: with a fine pointer the pennant flutters with pointer speed and settles straight
- * (the drawing never rests crooked). The caption sits under the drawing, in the Fig. 1 pattern. Reduced motion: static.
- * SSR markup is the complete mark (no-JS correct).
+ * Contact mark, "Fig. 2" (M28). The mark built from its construction: guides (artwork box, cap line, baseline,
+ * W/S seam, S bar rows, the cursor) with mono annotations.
+ * mode "scrub" (home): guides draw (pathLength=1 dashes), the W fills with a diagonal clip wipe, then the S wipes
+ * on from its left edge (clip-path inset), scrubbed from "top 80%" to "center" (scrub .6); on phones/touch from
+ * "top 100%" to "top 40%". The W and S never overlap, so no frame needs a cut-out.
+ * mode "static": complete. Both: with a fine pointer the S leans with pointer speed (skewX, anchored on the
+ * baseline) and settles straight (the drawing never rests crooked). The caption sits under the drawing, in the
+ * Fig. 1 pattern. Reduced motion: static. SSR markup is the complete mark (no-JS correct).
  */
-import { useId, useRef } from "react";
+import { useRef } from "react";
 import { gsap, useGSAP } from "@/motion/gsap";
 import { MQ } from "@/motion/tokens";
-import { MARK_GUIDES, MARK_PATH, MARK_PENNANT } from "./Mark";
+import { FIG_NOTES, FIG_VIEWBOX, MARK_GUIDES, MARK_S, MARK_W } from "./Mark";
 
 export function ContactMark({
   mode = "scrub",
@@ -22,7 +22,6 @@ export function ContactMark({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const cutId = `cm-cut-${useId().replace(/:/g, "")}`;
   useGSAP(
     () => {
       const root = ref.current;
@@ -32,7 +31,7 @@ export function ContactMark({
       if (mode === "scrub") {
         mm.add(MQ.motion, () => {
           // Phones / touch: the scrub starts as soon as the figure enters (top 100%) and is complete by the time
-          // it reaches 40%, so it never sits on screen as an empty square of faint guides.
+          // it reaches 40%, so it never sits on screen as an empty box of faint guides.
           const small = window.matchMedia(
             "(max-width: 760px), (pointer: coarse)",
           ).matches;
@@ -51,7 +50,7 @@ export function ContactMark({
               {
                 strokeDashoffset: 0,
                 ease: "none",
-                stagger: 0.08,
+                stagger: 0.06,
                 duration: 0.5,
               },
             )
@@ -73,28 +72,18 @@ export function ContactMark({
             )
             .fromTo(
               q(".mk-pennant"),
-              { scaleX: 0, transformOrigin: "0% 50%" },
-              { scaleX: 1, ease: "none", duration: 0.25 },
+              { clipPath: "inset(0% 100% 0% 0%)" },
+              { clipPath: "inset(0% 0% 0% 0%)", ease: "none", duration: 0.25 },
               0.8,
-            )
-            // The pole path includes the pennant's area: until the pennant has fully unfurled, that triangle is
-            // masked out of the pole, so no frame shows Ink where the Flag belongs (DESIGN 2.1). At the end the
-            // cut goes, and the finished state is the exact mark (no seam on the hypotenuse).
-            .fromTo(
-              q(".cm-cut"),
-              { opacity: 1 },
-              { opacity: 1, duration: 0.001, immediateRender: true },
-              0,
-            )
-            .set(q(".cm-cut"), { opacity: 0 }, 1.05);
+            );
         });
       }
-      // Fine pointer: the pennant flutters with pointer speed (skew, .6s) and settles straight when the pointer
-      // stops, so the drawing always rests on its exact construction; the pole, guides and notes never move.
+      // Fine pointer: the S leans with pointer speed (skewX, .6s) and settles straight when the pointer stops, so
+      // the drawing always rests on its exact construction; the W, guides and notes never move.
       mm.add(`${MQ.motion} and ${MQ.fine}`, () => {
-        const pen = q(".mk-pennant")[0];
-        gsap.set(pen, { transformOrigin: "0% 50%" });
-        const qs = gsap.quickTo(pen, "skewY", {
+        const s = q(".mk-pennant")[0];
+        gsap.set(s, { transformOrigin: "0% 100%" });
+        const qs = gsap.quickTo(s, "skewX", {
           duration: 0.6,
           ease: "power3.out",
         });
@@ -119,52 +108,22 @@ export function ContactMark({
   return (
     <div ref={ref} className={`cmark ${className}`.trim()} aria-hidden="true">
       <div className="cmark-art">
-        <svg viewBox="-6 -4 112 108">
+        <svg viewBox={FIG_VIEWBOX}>
           {MARK_GUIDES.map((d, i) => (
             <path key={i} className="cm-guide" d={d} pathLength={1} strokeDasharray="1" />
           ))}
-          <polygon className="cm-guide" points={MARK_PENNANT} pathLength={1} strokeDasharray="1" />
-          <mask
-            id={cutId}
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="100"
-            height="100"
-          >
-            <rect x="0" y="0" width="100" height="100" fill="#fff" />
-            <polygon
-              className="cm-cut"
-              points={MARK_PENNANT}
-              fill="#000"
-              opacity={0}
-            />
-          </mask>
-          <path
-            className="mk-pole"
-            d={MARK_PATH}
-            fill="var(--ink)"
-            mask={`url(#${cutId})`}
-          />
-          <polygon
-            className="mk-pennant"
-            points={MARK_PENNANT}
-            fill="var(--flag)"
-          />
-          <text className="cm-note" x="100" y="4" textAnchor="end">
-            Cap
-          </text>
-          <text className="cm-note" x="100" y="99" textAnchor="end">
-            Base
-          </text>
-          <text className="cm-note" x="-4" y="50">
-            Blade
-          </text>
+          <path className="mk-pole" d={MARK_W} fill="var(--ink)" />
+          <path className="mk-pennant" d={MARK_S} fill="var(--flag)" />
+          {FIG_NOTES.map(([t, x, y, a]) => (
+            <text key={t} className="cm-note" x={x} y={y} textAnchor={a}>
+              {t}
+            </text>
+          ))}
         </svg>
       </div>
       <p className="cm-cap">
         <span className="mono fig-k">Fig. 2 · Built from its construction</span>
-        One square, two letters, one blade.
+        Two letters, one cursor, one line from cap to base.
       </p>
     </div>
   );

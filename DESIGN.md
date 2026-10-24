@@ -27,7 +27,7 @@ White mode. An editorial specimen book for club software, set on a pure white Sw
 - **Inputs:** BRIEF.md, v4-research.md, the three judge verdicts and the founder's direction for this round.
 
 **Hard rules (founder)**
-1. The site is light: white ground, Ink text, Flag red accent. No dark mode and no dark hero.
+1. The site is light: white ground, Ink text, Flag blue accent. No dark mode and no dark hero.
 2. The signature loader: the flag appears, slides left, and `websport.com.au` grows out from behind it. Done in 2.2 s or less, pure CSS, from first paint.
 3. **There is no Lang Lang on the home page.** No visuals, no section, no screenshots, no "featured work". The only links to Work are the nav, the menu and the footer.
 4. The home page proves capability through craft and interactive component demos, all labelled **Sample data**.
@@ -54,7 +54,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 | W4 | Loader frame at 750 ms showed "rt.com.au" / a detached ".au": `.com.au` faded in before "websport" was out of its mask (judges 1 and 2) | `.com.au` is now a **sibling outside the mask**. It starts at **1100 ms**, when "websport" is about 99% revealed (hand curve at 540/600), and wipes on with a clip-path from its left edge, so it can never appear detached. The mask's left edge stays pinned to the flag's right edge (live-components geometry) | 3.2, 3.3 |
 | W5 | The 72 px cursor disc sat on top of the hovered sport name and hid letters (judge 2). Cursor labels garbled "Play next round" (all prototypes) | The cursor becomes an **8 px dot plus a flag-shaped tag offset to the bottom right** of the pointer (+16, +18 px). The tag never shows over elements that have their own text label (links, buttons, tabs, inputs); there the dot becomes a 28 px ring. It never covers type | 4.5 |
 | W6 | Large empty bands under the hero, between sections, and above "Same craft. Any brand." (judges 2 and 3) | The hero foot gains the **Next up live card** (fixed size). Section padding drops from `clamp(96,13vw,200)` to `clamp(88px,10vw,160px)`. Every section head now sits on an Ink rule with content starting ≤ 72 px below it. The Any-domain bar is merged into its section head | 5.2, 6.1 |
-| W7 | Red curtain floods a big diagonal of the screen at 1.8–1.9 s, which reads less white (judges 2 and 3; same issue in live-components) | **No curtain.** A fixed-thickness red band `clamp(10px,1.4vw,20px)` rides the slanted bottom edge of the white sheet. It is part of the same element, with no lag, so it can never widen into a flood. At most about 1.5% of the viewport is red at any frame | 3.2 |
+| W7 | Flag curtain floods a big diagonal of the screen at 1.8–1.9 s, which reads less white (judges 2 and 3; same issue in live-components) | **No curtain.** A fixed-thickness Flag band `clamp(10px,1.4vw,20px)` rides the slanted bottom edge of the white sheet. It is part of the same element, with no lag, so it can never widen into a flood. At most about 1.5% of the viewport is Flag blue at any frame | 3.2 |
 | W8 | Shield grid shows "?" placeholders until it is triggered (judge 3) | The server-rendered initial state is **neutral monogram shields** (Ink 9% fill, initials in Martian Mono, dashed `--ui-line` outline) labelled "Unmatched". Matching runs automatically once at 50% visibility, and the button then becomes "Run again" | 5.3 P3 |
 | W9 | Giant footer "websport" bleeds off the right edge at 390 (judge 3) | The wordmark is outlined SVG paths in a `viewBox` sized to the glyphs, set to `width:100%` of the content box, so it can never overflow at any width | 5.1 C9 |
 | W10 | No visual proof above the fold; the hero is all type (judge 3) | **Next up card** in the hero foot: a live sample fixture that follows the sport roller, showing each sport's real score format, with crests. Tapping it opens the kit in that sport. It has fixed dimensions, so LCP stays the headline and there is no shift | 5.2 C11, 6.1 H0 |
@@ -64,7 +64,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 | W14 | Live-components: the floating dock covered content. Live-components and pitch-lines: linework ran through text, with translucent white patches | No floating chrome other than the header (which hides on scroll down). Ground linework appears only on the Sports stage, in its own column. **It never runs behind text**, and there are no white patches anywhere | 6.1 H2 |
 | W15 | Live-components: a mirror image halfway through the crest flip, and text blur on the tilted card | Crests resolve by **scale and rotate in 2D** (no rotateY). The player card's Present/Past switch is a 2D crossfade plus a stat roll, with no 3D tilt, so text stays sharp | 5.3 P3, P6 |
 | W16 | Mobile: truncated ladder names, overlapping labels (live-components and pitch-lines) | Every demo has a defined 390 layout (5.3). Club names use a short form at ≤ 480 (`short` field). There is no absolutely-positioned text in diagrams on mobile (the sync line turns vertical, with labels in flow) | 5.3, 7.1 |
-| W17 | Pitch-lines loader felt flat (white lifting off white) | The white sheet's slanted edge plus the thin red band gives the lift a visible leading edge. The lockup rises 22vh and fades on the same curve | 3.2 |
+| W17 | Pitch-lines loader felt flat (white lifting off white) | The white sheet's slanted edge plus the thin Flag band gives the lift a visible leading edge. The lockup rises 22vh and fades on the same curve | 3.2 |
 
 ---
 
@@ -80,7 +80,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 2. **Designers for any domain.** The same craft, proven on this site, goes into any brand.
 
 ### 1.3 Principles
-1. **White, structured by Ink.** Pure white ground, hairline construction, and one heavy Ink mass per screen (the ladder stage, the sync log, the contact mark, the footer wordmark). Red is a signal, never a wash.
+1. **White, structured by Ink.** Pure white ground, hairline construction, and one heavy Ink mass per screen (the ladder stage, the sync log, the contact mark, the footer wordmark). Flag blue is a signal, never a wash.
 2. **The flag is the grid.** Its 45° line and pennant triangle recur as structure: the sheet edges, the wedge sweeps, corner tabs, tag bullets, the cursor tag, focus-corner details and the page wipe.
 3. **Show, don't claim.** Every capability is a working component on sample data. No adjectives where a demo can do the job.
 4. **Two eases, one rhythm.** Arrivals use expo-out. Hand-offs use one of two in-outs (4.2). Nothing bounces except the magnetic release.
@@ -103,12 +103,13 @@ Every weakness that any of the three judges raised against editorial-white, plus
 
 ### 2.1 The mark (exact, never redrawn)
 ```svg
-<svg viewBox="14 13 66 66"><path d="M20 16 L72.38 68.38 A5.5 5.5 0 0 1 64.61 76.16 L43.83 55.38 L20 68 Z" fill="#0F1729"/><polygon points="20,31.56 20,68 43.83,55.38" fill="#1F5BFF"/></svg>
+<svg viewBox="0 0 265.32 100"><path d="M0 0L44.62 0L68.42 49.88L97.58 8.63A20.43 20.43 0 0 1 129.83 7.19L178.44 64.38L157.14 64.38L122.72 37.9L122.72 82.93L115.8 93.74L99.73 66.18L80 91.29A22.8 22.8 0 0 1 41.51 87.01Z" fill="#00204e"/><path d="M132.72 0L265.32 0L235.7 28.76L157.16 28.76ZM162.99 35.62L226.08 35.62A32.19 32.19 0 0 1 226.08 100L116.96 100L134.06 73.12L145.16 93.13L150.71 90.05L140.27 71.24L224.4 71.24A3.43 3.43 0 0 0 224.4 64.38L187.44 64.38Z" fill="#0061fd"/></svg>
 ```
-- The pole/pointer path is Ink and the pennant is Flag.
-- **On the Ink stage:** the path turns white and the pennant stays Flag.
-- **On Flag:** the path is Ink and the pennant is white.
-- `Mark.tsx` takes `size`, `tone: "ink" | "white"`, and `parts` (to expose `.mk-pole` and `.mk-pennant` for animation).
+- A WS monogram, wide (2.65:1), both letters cap to baseline. The W is Ink and the S is Flag; the cursor is the negative space between them (tip on the W's middle stroke, tail notched into the S's foot). Two letters, one cursor.
+- **On the Ink stage:** the W turns white and the S stays Flag (3.1:1 on Ink, clears the 3:1 non-text bar).
+- **On Flag:** the W is white and the S is Ink. The W is never white on a light surface.
+- `Mark.tsx` exports `MARK_W`, `MARK_S`, `MARK_VIEWBOX`, `MARK_GUIDES`, and `<Mark size tone="ink" | "white" | "onflag">` (size = height). The hooks stay `.mk-pole` (W) and `.mk-pennant` (S); the S is revealed with a clip wipe, never scaled.
+- Sizing: set by height, width auto. In the header and loader the mark is the wordmark's cap height and sits on its baseline.
 
 ### 2.2 Wordmark: outlined paths, never a font
 - **Source font:** Sora 800, as the brief specifies.
@@ -125,28 +126,28 @@ Every weakness that any of the three judges raised against editorial-white, plus
 
 | Token | Value | Use | Verified ratio |
 |---|---|---|---|
-| `--paper` | `#FFFFFF` | Page ground | — |
-| `--surface` | `#F5F6F8` | Plates, panels, segmented tracks | Ink 16.53, muted 5.51 |
+| `--paper` | `#FAFBFC` | Page ground | — |
+| `--surface` | `#F0F3F7` | Plates, panels, segmented tracks | Ink 14.33, muted 5.66 |
 | `--surface-2` | `#EDEFF3` | Inactive bars, timeline rest state | Ink 15.53, muted 5.18 |
-| `--line` | `rgba(15,23,41,.09)` (≈ #E9EAEC) | Decorative hairlines only | 1.20 (decorative) |
-| `--line-2` | `rgba(15,23,41,.16)` (≈ #D9DADD) | Decorative row rules only | 1.40 (decorative) |
-| `--ui-line` | `rgba(15,23,41,.50)` (≈ #878B94) | **Boundaries of controls**: ghost buttons, chips, steppers, tags, inputs, the unmatched-crest dashed outline | **3.41** on paper, 3.33 on surface (passes 1.4.11) |
-| `--ink` | `#0F1729` | Text, Ink stage, primary buttons, focus ring | 17.87 on paper |
-| `--ink-2` | `#2A3346` | Secondary body copy on paper | 12.65 |
-| `--muted` | `#5B6475` | Captions, ledes, labels | 5.96 paper / 5.51 surface |
-| `--flag` | `#1F5BFF` | The mark, fills, display type ≥ 24 px (or ≥ 18.66 px bold), the red band, wedges | 3.97 on paper (large text and UI only) |
-| `--flag-text` | `#1747D1` | Red text under 24 px: section numbers, "Interact ↗", new-item times | 5.25 paper / 4.85 surface / 4.61 on flag-tint |
-| `--flag-tint` | `#FDEDE9` | Tag/pill fills behind `--flag-text` | Ink 15.72 |
-| `--on-ink-muted` | `#A9B0BF` | Muted text on the Ink stage | 8.21 on Ink |
-| `--on-ink-flag` | `#7FA3FF` | Red text on Ink (movement down, "Interact") | 7.78 on Ink |
+| `--line` | `rgba(0,32,78,.09)` (≈ #E9EAEC) | Decorative hairlines only | 1.20 (decorative) |
+| `--line-2` | `rgba(0,32,78,.16)` (≈ #D9DADD) | Decorative row rules only | 1.40 (decorative) |
+| `--ui-line` | `rgba(0,32,78,.50)` (≈ #878B94) | **Boundaries of controls**: ghost buttons, chips, steppers, tags, inputs, the unmatched-crest dashed outline | **3.41** on paper, 3.33 on surface (passes 1.4.11) |
+| `--ink` | `#00204e` | Text, Ink stage, primary buttons, focus ring | 15.40 on paper |
+| `--ink-2` | `#1a3560` | Secondary body copy on paper | 11.77 |
+| `--muted` | `#556079` | Captions, ledes, labels | 6.08 paper / 5.66 surface |
+| `--flag` | `#0061fd` | The mark, fills, display type ≥ 24 px (or ≥ 18.66 px bold), the Flag band, wedges | 4.91 on paper (large text and UI only) |
+| `--flag-text` | `#0050d4` | Flag text under 24 px: section numbers, "Interact ↗", new-item times | 6.54 paper / 6.09 surface / 5.90 on flag-tint |
+| `--flag-tint` | `#E6F0FF` | Tag/pill fills behind `--flag-text` | Ink 13.88 |
+| `--on-ink-muted` | `#a9b8d0` | Muted text on the Ink stage | 8.21 on Ink |
+| `--on-ink-flag` | `#6aa5ff` | Flag text on Ink (movement down, "Interact") | 6.41 on Ink |
 | `--up` / `--up-on-ink` | `#137A4B` / `#7BE0A6` | Movement up, win, paid | 5.37 paper / 11.11 Ink |
 
 **Pairing rules**
-- Flag buttons always get **Ink labels** (4.51). Never put white on Flag (3.97).
-- Ink buttons have white labels (17.87). On hover they fill with Flag and the label turns Ink.
+- Flag buttons get **white labels** (5.09). Never put Ink on Flag (3.13).
+- Ink buttons have white labels (15.95). On hover they fill with Flag and the label turns Ink.
 - Never use `--flag` for text under 24 px; use `--flag-text`.
 - `::selection` is Flag with Ink text.
-- **Focus ring:** `outline: 2px solid var(--ink); outline-offset: 2px` everywhere. Inside `.is-ink`, the ring is `#fff` (17.87). Focusable plates add a 6 px Flag pennant notch at the top right while focused (M32). It is decoration; the ring is what carries focus.
+- **Focus ring:** `outline: 2px solid var(--ink); outline-offset: 2px` everywhere. Inside `.is-ink`, the ring is `#fff` (15.95). Focusable plates add a 6 px Flag pennant notch at the top right while focused (M32). It is decoration; the ring is what carries focus.
 - **Forced colours:** outlines become `CanvasText`, the Ink stage keeps its `1px solid CanvasText` border, and crests keep their outline.
 
 ### 2.4 Typefaces (`next/font/google`, all OFL; `src/app/fonts.ts`, replacing Instrument Serif/Geist)
@@ -212,7 +213,7 @@ export const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable:
 ### 2.8 Radii, borders, elevation
 - **Radii:** plates and panels 4 px; inner cards 3 px; buttons, segmented controls and chips 999 px; tags 999 px; crests are shape-defined. No other radii.
 - **Borders:** decorative hairlines use `--line` or `--line-2`. Control boundaries use `--ui-line` (inset box-shadow 1 px).
-- **Elevation:** one elevation only, for floating items (hover preview, menu, lifted crest): `0 0 0 1px var(--line-2), 0 30px 60px -30px rgba(15,23,41,.35)`. Nothing else casts a shadow. Inner cards on plates use `0 0 0 1px var(--line)` (a white card on surface, so the edge is visible).
+- **Elevation:** one elevation only, for floating items (hover preview, menu, lifted crest): `0 0 0 1px var(--line-2), 0 30px 60px -30px rgba(0,32,78,.35)`. Nothing else casts a shadow. Inner cards on plates use `0 0 0 1px var(--line)` (a white card on surface, so the edge is visible).
 
 ### 2.9 Illustration systems (all in code, all `aria-hidden` unless stated)
 1. **Ground linework** (`src/content/grounds.ts`): eight precomputed SVG path sets on a `0 0 1200 800` canvas. Each set has `boundary`, `markings[]`, `dots[]` and `flag: {x, y, rot}` (where the corner flag is planted).
@@ -234,7 +235,7 @@ export const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable:
 ## 3. Loader (signature intro)
 
 ### 3.1 Goals and guarantees
-- **Looks:** the flag appears in the centre, then slides left while `websport` grows out from behind its right edge. `.com.au` follows in red. A brief hold, then the white sheet lifts on a slanted edge with a thin red band, revealing the hero, which rises.
+- **Looks:** the flag appears in the centre, then slides left while `websport` grows out from behind its right edge. `.com.au` follows in Flag blue. A brief hold, then the white sheet lifts on a slanted edge with a thin Flag band, revealing the hero, which rises.
 - **Timing:** it finishes visually by **2.10 s** and is **hidden by CSS at 2.20 s**, with or without JS.
 - **Starts at first paint:** it runs from CSS keyframes in the server-rendered HTML and needs no JS to start or finish. Hydration is deferred until after first contentful paint by `scripts/defer-hydration.mjs`, so React is never involved in the loader.
 - **Never traps the user:** `animation-fill-mode: forwards` ends at `visibility:hidden; pointer-events:none`.
@@ -250,13 +251,13 @@ export const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable:
 |---|---|---|---|---|
 | 0 | `.ld` (sheet) | White sheet covers the viewport; the H1 is already painted beneath it | — | — |
 | 120 | `.ld-flag` | opacity 0→1, `translateY(18%)→0`, `scale(.72)→1` (origin 50% 60%) | 400 | expo `cubic-bezier(.16,1,.3,1)` |
-| 220 | `.ld-pennant` | `scaleX(0)→1`, origin at the pole (`transform-box: fill-box; transform-origin: 0 50%`) | 460 | expo |
+| 220 | `.ld-flag .mk-pennant` (the S) | `clip-path: inset(0 100% 0 0)→inset(0)`, wiping on from its left edge | 460 | expo |
 | 500 | `.ld-skip` (only `html.js`) | opacity 0→1: "Click or press any key to skip" | 300 | linear |
 | 560 | `.ld-lockup` | `translateX(var(--from))` → `translateX(-50%)`. `--from` = −(flag width ÷ 2), so at the start the flag sits centred | 600 | hand `cubic-bezier(.65,0,.35,1)` |
 | 560 | `.ld-word` (inside `.ld-mask`) | `translateX(-101%)→0`: "websport" slides out from behind the flag's right edge | 600 | hand (same curve and same start as the lockup, so the seam stays locked) |
 | 1100 | `.ld-tld` (sibling **after** the mask) | `clip-path: inset(0 100% 0 0)` → `inset(0)` plus `translateX(-.18em)→0` | 380 | expo |
 | 1160–1560 | — | Hold. The full lockup reads complete from about 1.25 s | — | — |
-| 1560 | `.ld-sheet` | `translateY(0)→translateY(-101%)`. The sheet is `height: calc(100% + 9vw + var(--band))`, its bottom edge slanted 9vw at the flag angle, with a red band of `--band: clamp(10px,1.4vw,20px)` along that edge | 540 | lift `cubic-bezier(.76,0,.24,1)` |
+| 1560 | `.ld-sheet` | `translateY(0)→translateY(-101%)`. The sheet is `height: calc(100% + 9vw + var(--band))`, its bottom edge slanted 9vw at the flag angle, with a Flag band of `--band: clamp(10px,1.4vw,20px)` along that edge | 540 | lift `cubic-bezier(.76,0,.24,1)` |
 | 1560 | `.ld-out` (lockup wrapper) | `translateY(0)→-22vh`, opacity 1→0 | 540 | lift |
 | 1560 | `.ld-skip` | opacity →0 | 200 | linear |
 | 1640 + i·70 | `.h-line` (the 3 H1 lines) | `translateY(.42em)→0`. **Opacity stays 1 throughout** | 950 | expo |
@@ -270,7 +271,7 @@ The hero entrance is all CSS, keyed to `--intro: 1.56s`. On `html.no-intro`, `--
 
 ```tsx
 <div className="ld" aria-hidden="true">
-  <div className="ld-sheet">            {/* red background = the band; translates on lift */}
+  <div className="ld-sheet">            {/* Flag background = the band; translates on lift */}
     <div className="ld-white">          {/* white, clip-path polygon(0 0,100% 0,100% calc(100% - 9vw - var(--band)),0 calc(100% - var(--band))) */}
       <div className="ld-out">
         <div className="ld-lockup">
@@ -320,7 +321,7 @@ html.js .ld-skip{display:block;animation:ld-fade .3s linear .5s forwards, ld-unf
 - `.ld-tld` sits outside the mask and starts only at 1100 ms, when "websport" is about 99% out. (At 1060 ms a 2–6 px gap could show for a frame or two; if the filmstrip still shows daylight before the ".", move the start to 1120 ms. It still ends inside the hold.) Its clip grows from its own left edge, which is the word's final right edge, so no "rt.com.au" or detached ".au" frame is possible.
 - **Verify:** a filmstrip of seeked frames every 50 ms from 600 to 1300 ms. Every frame must read as flag + growing word, or flag + word + growing TLD.
 
-**Band rule (W7):** the red band is the `.ld-sheet` background showing beneath `.ld-white`'s shorter polygon. It moves with the sheet, with no second animation and no lag, so its thickness is constant at `--band`.
+**Band rule (W7):** the Flag band is the `.ld-sheet` background showing beneath `.ld-white`'s shorter polygon. It moves with the sheet, with no second animation and no lag, so its thickness is constant at `--band`.
 
 ### 3.4 Inline head script: replaces `src/lib/gate.ts` (`GATE`), rendered by `InlineScript` in `<head>`
 ```js
@@ -417,9 +418,9 @@ elastic.out(1,.45)                                magnetic release only
 
 ### 4.4 Page transitions (React `ViewTransition`, existing `PageTransition.tsx`)
 - **Exit** (`::view-transition-old(.ws-page-out)`): the old page moves `translateY(-4vh)` and its opacity goes 1 → .6 over .5 s lift.
-- **Enter:** the new page wipes up from the bottom. Its leading top edge is slanted at the flag angle (9vw), with the same **thin red band** as the loader riding that edge.
+- **Enter:** the new page wipes up from the bottom. Its leading top edge is slanted at the flag angle (9vw), with the same **thin Flag band** as the loader riding that edge.
   - Implementation: keep `PageTransition`'s React props `enter="ws-page-in"` / `exit="ws-page-out"`. In `globals.css`, `::view-transition-new(.ws-page-in)` animates `clip-path: polygon(0 calc(100% + 9vw), 100% 100%, 100% 100%, 0 calc(100% + 9vw))` → `polygon(0 0, 100% -9vw, 100% 100%, 0 100%)` over .7 s lift.
-  - The band is the existing `.vt-edge` element (fixed, `view-transition-name: ws-edge`). It is a red parallelogram of thickness `--band`, animated `translateY(100vh)→translateY(-12vw)` on the same curve and duration.
+  - The band is the existing `.vt-edge` element (fixed, `view-transition-name: ws-edge`). It is a Flag parallelogram of thickness `--band`, animated `translateY(100vh)→translateY(-12vw)` on the same curve and duration.
 - **Then:** the new H1 lines rise (`--intro: .38s`).
 - **Reduced motion:** a .2 s crossfade only, with no band.
 - If view transitions are unsupported, navigation is instant.
@@ -451,18 +452,18 @@ All entries obey 4.2. "RM" is the reduced-motion behaviour; "Touch" is the coars
 | M7 | Magnetic CTAs (`Magnetic`) | Pointer within the button box + 24 px | The button follows at 0.28×/0.4× and its label at 0.1×/0.14× (quickTo .6 s expo). Release: elastic.out(1,.45) .9 s | — | Off | Off |
 | M8 | Ink button fill (`Button`) | Hover or focus | A Flag circle grows from the cursor point (`--mx/--my`; centre on focus). The label turns Ink | 600 ms expo | Instant colour | Press state only |
 | M9 | Button press | `:active` | scale .97 | 120 ms | Same | Same |
-| M10 | Header (`Header`) | Scroll | Hides on scroll down after 120 px (`translateY(-100%)`, 600 ms lift), returns on scroll up. A red progress hairline scales on X. Home only: the section counter "0X/07 Name" swaps (characters lift in, 550 ms expo) | — | Never hides; progress still updates | Same |
+| M10 | Header (`Header`) | Scroll | Hides on scroll down after 120 px (`translateY(-100%)`, 600 ms lift), returns on scroll up. A Flag progress hairline scales on X. Home only: the section counter "0X/07 Name" swaps (characters lift in, 550 ms expo) | — | Never hides; progress still updates | Same |
 | M11 | Menu (`MenuOverlay`) | Menu button | Full-screen white sheet wipes down with a slanted bottom edge (clip-path, 700 ms lift). Links rise from masks (800 ms expo, 50 ms stagger). The icon morphs to an X (500 ms expo). Link hover: weight glide 600 → 780 plus Flag number | — | Instant show, no rise | Same, no weight glide |
 | M12 | Split-line headings (`SplitHeading`) | 15% in view (once) | Lines rise from 108% inside masks | 1050 ms expo, 80 ms per line | Static | Same |
 | M13 | Fig. 1 construction (`FigMark`) | 30% in view (once) | Guides draw (dashoffset 1 → 0, 1.6 s hand, 100 ms stagger), then annotations fade (800 ms linear, +1 s). Hover: the pennant skews (−6°) and scales on X 1.08 (900 ms expo) | — | Static drawn | Tap toggles the skew |
-| M14 | Sports row wedge (`SportsIndex`) | Hover, focus, or being the scroll-active row | A `--surface` slab sweeps across the row's left 7 columns from the column edge with a slanted leading edge (clip-path, 700 ms hand); a 5 px Flag band lands on that edge (300 ms, after the sweep), so red stays a signal (§1.3). The name glides weight 600 → 760 (700 ms expo) without moving on x. The data line rises (400/600 ms expo). Phones (≤760): no stage; the active row draws its own 72 × 45 ground thumbnail | — | Instant fill, no shift | The active row from scroll gets the slab; the data line is always visible |
+| M14 | Sports row wedge (`SportsIndex`) | Hover, focus, or being the scroll-active row | A `--surface` slab sweeps across the row's left 7 columns from the column edge with a slanted leading edge (clip-path, 700 ms hand); a 5 px Flag band lands on that edge (300 ms, after the sweep), so Flag blue stays a signal (§1.3). The name glides weight 600 → 760 (700 ms expo) without moving on x. The data line rises (400/600 ms expo). Phones (≤760): no stage; the active row draws its own 72 × 45 ground thumbnail | — | Instant fill, no shift | The active row from scroll gets the slab; the data line is always visible |
 | M15 | Ground stage (`GroundStage`) | Active row changes (scroll centre, hover or focus) | The old ground un-draws (dashoffset 0 → 1, 450 ms hand, 12 ms stagger). The new ground draws outward from the centre (1000 ms expo, 40 ms stagger). Dots pop in (scale 0 → 1, 500 ms expo). The corner flag (a 28 px Mark) glides to the new `flag` point and rotation (900 ms hand). The ground caption rolls ("Ground 03 · Basketball court, 28 × 15 m") | Throttled: only the latest target animates | Instant swap | Sticky strip above the list; follows scroll and tap |
 | M16 | Fixtures plate (`FixturesPlate`) | Tab or grade chip | The segmented indicator slides (550 ms expo). Rows exit (opacity/−6 px, 200 ms), then enter (10 px → 0, 600 ms expo, 45 ms stagger). Arrow keys move between tabs | — | Instant | Same |
 | M17 | Ladder re-sort (`LadderPlate`) | "Play next round" | Random sample results. Rows FLIP to their new positions (WAAPI, 760 ms hand, longer moves +120 ms). Points roll as an odometer (800 ms expo, 40 ms per digit). ▲/▼ markers fade in. Movers get a 1.2 s white 6% flash. aria-live: "Round 9 played. Northside Comets move up to 2nd." | — | Instant reorder + announcement | Same |
-| M18 | Club logos (`LogosPlate`) | Auto once at 50% visible, then "Run again" | A red scan line sweeps the grid (1.1 s hand). Placeholders resolve row by row (300 ms per row, 70 ms per tile): the real crest goes scale .6 → 1 and rotate −8° → 0 (700 ms expo) while the placeholder scales up 1.2 and fades. The count "n of 12 matched" rolls. Then the "Next match" strip fades in with two matched crests. Tile hover/focus: lift 3 px and show the name | — | Instant matched, count announced | Tap shows the name |
+| M18 | Club logos (`LogosPlate`) | Auto once at 50% visible, then "Run again" | A Flag scan line sweeps the grid (1.1 s hand). Placeholders resolve row by row (300 ms per row, 70 ms per tile): the real crest goes scale .6 → 1 and rotate −8° → 0 (700 ms expo) while the placeholder scales up 1.2 and fades. The count "n of 12 matched" rolls. Then the "Next match" strip fades in with two matched crests. Tile hover/focus: lift 3 px and show the name | — | Instant matched, count announced | Tap shows the name |
 | M19 | RSVP (`RsvpPlate`) | Segmented choice, meal chips, stepper | Headcount odometer (800 ms expo). A "You" avatar pops in (scale 0 → 1, 600 ms expo). The pay row appears (fx-in 600 ms expo). The amount rolls. Stepper press scales to .9. aria-live: "You're going. 47 going." | — | Instant | Same |
 | M20 | Announcements (`NoticesPlate`) | "Post a notice", Pin | A new item drops in from the top (−100% → 0, 700 ms expo) while the others FLIP down (650 ms hand). Pin moves the item into the Ink banner with a 250 ms crossfade, and the pin icon rotates 45° (500 ms expo) | — | Instant | Swipe left past 96 px dismisses the item, with a spring back below that threshold and an Undo toast 4 s. A "Dismiss" button exists for keyboard users |
-| M21 | Player profile (`PlayerPlate`) | Present/Past | The identity fades and swaps (260 ms out, 600 ms expo in). Stats roll as odometers. The 1998–2026 timeline bars animate height (700 ms expo, 18 ms per bar): red for the current era, Ink for the past one | — | Instant | Same |
+| M21 | Player profile (`PlayerPlate`) | Present/Past | The identity fades and swaps (260 ms out, 600 ms expo in). Stats roll as odometers. The 1998–2026 timeline bars animate height (700 ms expo, 18 ms per bar): Flag for the current era, Ink for the past one | — | Instant | Same |
 | M22 | Kit index accordion (`KitIndex`) | Click / Enter on a row (every width) | One row open at a time (the first starts open). The panel opens inline (grid rows 0fr → 1fr, 500 ms expo): description under the title, beside it (below under 1024) a small working mock-up with labelled sample text. Fine pointer hover: the title glides 600 → 720 and nudges 12 px, other closed titles dim to `--muted`, the + turns. Nothing floats over the list (W5/W14) | — | Instant open/close | Rows are accordions (`aria-expanded`); closed panels are `inert` + visibility:hidden |
 | M23 | PlayHQ sync line (`SyncLine`) | Scroll scrub (start: top 70%, end: bottom 60%, scrub .6) | A 2 px Flag line draws along the path PlayHQ → Sync → Site: horizontal, a 45° drop, horizontal. Four stations (Fixtures, Results, Ladders, Club logos) fill Flag and their labels lift in as the line passes them | Linear (scrub) | Fully drawn, all lit | Vertical path, labels in flow, same scrub |
 | M24 | Global sport switch (`SportSwitch`) | Click/Enter on a sport row ("Use AFL in the kit"), or a chip in the sticky control above the plates | Every plate re-skins: the score format, ladder columns (AFL %, soccer/hockey GD, basketball/baseball PCT, netball %, cricket %), stat labels, event name and grade names. A plate-wide crossfade (opacity .4 → 1 with a 6 px lift, 450 ms expo, 40 ms stagger across plates). The chip indicator slides (550 ms hand). The Next up card follows. aria-live: "Kit now showing netball" | — | Instant | The chip row scrolls horizontally |
@@ -651,7 +652,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 
 **H1 `01 — Positioning`**
 - H2 (split): "Specialists in club sport. *Designers for everything else.*" (italic in muted).
-- Fig. 1, "The mark" (columns 9–12). Caption: "Every club plants its flag online. A pennant for the club, a pointer for the web, drawn on one 45° line."
+- Fig. 1, "The mark" (columns 9–12). Caption: "Two letters, one cursor. The pointer lives in the space between them." Guides: artwork box, Cap, Base, Seam, Bars, Cursor.
 - Two columns:
   - "Club sport": "We work with community clubs across every code on PlayHQ. We know what a weekend looks like from the committee's side: the fixture changed, the ground moved, the presentation night needs numbers. A club site should keep up without anyone retyping a thing."
   - "Any domain": "The craft that makes a club site feel alive (type, motion, systems that hold up) is the same craft we bring to studios, clinics, makers and brands. Club sport is our speciality, not our limit."
@@ -662,7 +663,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   - Left (columns 1–7): the sports list, rows in `--t-row`, each with the number, the name and the data line "Fixtures · Ladders · Results · Players". Row 08 is "And the rest", with the data line "If it's on PlayHQ, ask us".
   - Right (columns 8–12): the `GroundStage`, `position: sticky; top: calc(50vh - 22vw)`, 4:3, with the caption under it.
   - The active row is the one crossing the viewport centre (ScrollTrigger per row, `start: "top center", end: "bottom center"`). Hover or focus overrides it while held.
-  - The red wedge (M14) fills only the left columns, so it never runs under the stage. **Linework never sits behind text** (W14).
+  - The Flag wedge (M14) fills only the left columns, so it never runs under the stage. **Linework never sits behind text** (W14).
 - **Under 1024:** the stage is a sticky strip (`top: 60px`, height `min(36svh, 240px)`, white background, `--line` bottom rule) above the list. Grounds are drawn landscape at the strip size. Tap selects the active row.
 - Each row's button: "Use {Sport} in the kit" (visually, a mono "Use in kit →" appears in the data line on hover or focus). It sets the global sport and smooth-scrolls to `#build`.
 - Stage captions:
@@ -818,7 +819,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   - Text: "Our first customer is a sports club, and we don't have work outside sport to show yet. So judge us on this site: every interaction, every contrast ratio and every millisecond here is the standard we'd bring to yours."
   - Links: "Try the any-domain demo →" (`/#any`) and "Read the Lang Lang case study →".
 
-**ST2 `02 — How we work`** (`id="process"`; the scrubbed rail, a red line scaling on X from 0 to 1 with steps lighting at i/4; vertical rail under 760): "From first chat / *to first fixture.*"
+**ST2 `02 — How we work`** (`id="process"`; the scrubbed rail, a Flag line scaling on X from 0 to 1 with steps lighting at i/4; vertical rail under 760): "From first chat / *to first fixture.*"
 1. "Listen": "We sit down with the committee or your team and learn how things actually run: who posts what, where members look, what the old site gets wrong."
 2. "Design in the browser": "Type, colour and components designed as working pages, so you react to the real thing rather than a picture of it."
 3. "Build & connect": "We build it, connect PlayHQ and your payment links, and set up the admin around how your people work."
@@ -932,7 +933,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - `metadataBase: https://websport.com.au`, per-page metadata (6.x), canonical URLs, `twitter.card = summary_large_image`.
 - `viewport.themeColor` is `#FFFFFF` and `colorScheme` is `light` (this replaces v3's dark values).
 - **OG images** (1200 × 630) from `scripts/og.mjs`, rewritten for white:
-  - Ground: white with the 12-column hairline grid at `--line`, a 45° guide, and the Mark at the right (Fig. style with guides).
+  - Ground: white with the 12-column hairline grid at `--line`, and the WS Mark at the right (Fig. style with guides: Cap, Base, Seam, Bars, Cursor).
   - Title in Host Grotesk 600 Ink with an accent word in Flag, and "websport.com.au" as wordmark paths at the bottom left.
   - Per route:
     - home: "Every club plants its flag online."
@@ -946,7 +947,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   - Case study: `CreativeWork`.
   - Optional `WebSite` on home.
 - `sitemap.ts`: `/`, `/work`, `/work/lang-lang`, `/studio`, `/contact`. `robots.ts`: allow all.
-- Icons: `icon.svg` is the Mark on white (Ink pole, Flag pennant), plus a 180 px `apple-icon.png` on white.
+- Icons: `icon.svg` is the Mark on a rounded Ink tile (white W, Flag S, ~14% padding), plus a 180 px full-bleed Ink `apple-icon.png` rendered from the same.
 
 ---
 
@@ -993,7 +994,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - **Credits:** Websport (design and development).
 - **Tech:** Next.js, React, GSAP, Lenis, Tailwind CSS, Vercel.
 - **Fonts:** Host Grotesk, Martian Mono, Sora (wordmark).
-- **Colours:** #FFFFFF, #F5F6F8, #0F1729, #5B6475, #1F5BFF.
+- **Colours:** #FAFBFC, #F0F3F7, #00204e, #556079, #0061fd.
 - **Assets:**
   - 1440 screenshots: the loader mid-slide, the hero, the sports stage on basketball, the plates with the ladder mid-sort, PlayHQ, any-domain on Studio, contact, the footer.
   - 390 screenshots: hero, stage strip, plates, menu.

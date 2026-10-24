@@ -40,10 +40,10 @@ export function Crest({ club, initials, size = 28, label, className = "", keylin
         {pattern}
       </g>
       {/* On the Ink stage a white keyline keeps an Ink half (split, stripe) from vanishing into the ground. */}
-      <path d={p} fill="none" stroke={keyline ? "rgba(255,255,255,.92)" : "rgba(15,23,41,.18)"} strokeWidth={keyline ? 2.5 : 1} />
+      <path d={p} fill="none" stroke={keyline ? "rgba(255,255,255,.92)" : "rgba(0,32,78,.18)"} strokeWidth={keyline ? 2.5 : 1} />
       {size >= 28 ? (
         <g>
-          <circle cx="24" cy={club.shape === 3 ? 23 : 24} r="12.5" fill="rgba(15,23,41,.9)" />
+          <circle cx="24" cy={club.shape === 3 ? 23 : 24} r="12.5" fill="rgba(0,32,78,.9)" />
           <text x="24" y={club.shape === 3 ? 27 : 28} textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontWeight="700" fontSize="11" letterSpacing="-.3" fill="#fff">
             {club.initials}
           </text>

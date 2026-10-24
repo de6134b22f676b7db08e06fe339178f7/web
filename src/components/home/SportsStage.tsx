@@ -4,17 +4,17 @@
  * centre (IntersectionObserver on a zero-height centre band); hover or focus overrides it while held.
  * Active row: a Flag wedge sweeps the row (slanted leading edge, 700ms hand), the name shifts .18em and glides
  * 600 → 760, the data line rises. The stage (aria-hidden) un-draws the old ground (450ms hand) and draws the new
- * one (1000ms expo, 40ms stagger), dots pop, the corner flag glides to the new corner (900ms hand), and the
+ * one (1000ms expo, 40ms stagger), dots pop, the mark glides to the new corner (900ms hand), and the
  * mono caption rolls. Linework lives only in the stage column; it never runs behind text.
  * Each row is a button: "Use {Sport} in the kit" sets the global sport and scrolls to #build.
  * 761–1023: the stage is a sticky strip above the list. Phones (≤760): no stage (a figure above the list would swap
  * off-screen); each row carries its own small ground, drawn when the row becomes active. The data pairs wrap on a
  * gap, never on a dangling middot.
  * Active row (all widths): a --surface slab on the column edge with a thin Flag band riding its slanted leading
- * edge (red stays a signal, §1.3); the name glides in weight only, its x never moves.
+ * edge (Flag blue stays a signal, §1.3); the name glides in weight only, its x never moves.
  */
 import { useEffect, useRef, useState } from "react";
-import { MARK_PATH, MARK_PENNANT } from "@/components/Mark";
+import { MARK_PATH, MARK_PENNANT_D, MARK_VIEWBOX } from "@/components/Mark";
 import { useMotion } from "@/motion/useMotion";
 import type { SportId } from "@/content/sample";
 import { SPORT_ROWS } from "./data";
@@ -68,9 +68,9 @@ export function SportsStage() {
               </g>
             ))}
             <g className="gs-flag" style={{ transform: `translate(${ground.flag[0]}px, ${ground.flag[1]}px) rotate(${ground.flag[2]}deg)` }}>
-              <svg x={-12} y={-6} width={110} height={110} viewBox="0 0 100 100" overflow="visible">
+              <svg x={-12} y={24} width={132} height={50} viewBox={MARK_VIEWBOX} overflow="visible">
                 <path d={MARK_PATH} fill="var(--ink)" />
-                <polygon className="gs-pen" points={MARK_PENNANT} fill="var(--flag)" />
+                <path className="gs-pen" d={MARK_PENNANT_D} fill="var(--flag)" />
               </svg>
             </g>
           </svg>

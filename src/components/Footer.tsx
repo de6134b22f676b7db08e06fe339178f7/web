@@ -4,7 +4,7 @@ import { Mark } from "./Mark";
 import { FooterWordmark } from "./FooterWordmark";
 
 /**
- * Footer (C9). Ink rule; brand line + Mark; footer nav (Work · Studio · PlayHQ · Contact · Email); legal line +
+ * Footer (C9). Ink rule; brand line + Mark (26px tall, ink tone on paper); footer nav (Work · Studio · PlayHQ · Contact · Email); legal line +
  * PlayHQ trademark note; the giant outlined wordmark (M27). The only Work link besides the header nav and menu.
  */
 const LINKS = [

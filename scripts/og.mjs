@@ -1,8 +1,8 @@
 // Open Graph images (DESIGN.md v4 §7.4), 1200x630, white "Plates":
 // pure white ground, a column ruler (12-column ticks on an Ink rule at the top and a hairline at the foot; no
-// linework ever runs behind text), the title in Host Grotesk 600 Ink with one accent word in Flag, the mark as a
-// Fig. 1 construction drawing on the right (45° guide, pole, baseline, pennant, R 5.5 tip, the 66-unit square),
-// and "websport.com.au" as the real wordmark paths bottom left. The case study swaps the figure for its home
+// linework ever runs behind text), the title in Host Grotesk 600 Ink with one accent word in Flag, the WS mark
+// (navy W, blue S) as a Fig. 1 construction drawing on the right (artwork box, cap line, baseline, the W/S seam,
+// the S bar rows and the cursor), and "websport.com.au" as the real wordmark paths bottom left. The case study swaps the figure for its home
 // capture in a light browser frame.
 //
 //   npm run og
@@ -23,8 +23,8 @@ import { WM } from "../src/components/wordmark.generated.ts";
 
 const W = 1200, H = 630, X = 80;
 const C = {
-  paper: "#FFFFFF", surface: "#F5F6F8", ink: "#0F1729", ink2: "#2A3346", muted: "#5B6475",
-  flag: "#1F5BFF", flagText: "#1747D1", line: "rgba(15,23,41,0.09)", line2: "rgba(15,23,41,0.16)", guide: "rgba(15,23,41,0.22)",
+  paper: "#FFFFFF", surface: "#F5F6F8", ink: "#00204e", ink2: "#1a3560", muted: "#556079",
+  flag: "#0061fd", flagText: "#0050d4", line: "rgba(0,32,78,0.09)", line2: "rgba(0,32,78,0.16)", guide: "rgba(0,32,78,0.22)",
 };
 
 /* ---------- fonts ---------- */
@@ -128,34 +128,40 @@ const mono = (text, x, y, size, fill, anchor = "start") => {
 };
 
 /* ---------- pieces ---------- */
-const MARK_PATH =
-  "M6.93 44L46.91 42.87L55.29 6L44.36 6L36.27 41.62L36.93 6L26 6L17.9 41.62L18.56 6L7.63 6ZM42.44 43L6.71 56L6 94L16.93 94L25.03 58.38L24.36 94L35.3 94L46.91 42.87ZM94 15.27C90.59 8.31 83.6 4.83 76.1 6.35C68.6 7.88 61.96 14.14 59.12 22.38C56.27 30.62 57.73 39.32 62.85 44.67L79.85 62.39C83.15 65.83 83.27 71.93 80.12 76.55C76.97 81.16 71.56 82.82 67.56 80.39C63.57 77.96 62.26 72.22 64.53 67.07L54.79 62.8C49.87 73.93 52.7 86.34 61.34 91.59C69.98 96.84 81.68 93.27 88.5 83.29C95.31 73.31 95.06 60.12 87.92 52.67L70.92 34.94C68.74 32.67 68.12 28.97 69.33 25.47C70.54 21.96 73.36 19.3 76.55 18.65C79.74 18 82.72 19.48 84.16 22.44Z";
-const MARK_PENNANT = "6.71,56 42.7,43 6.93,44";
-const markAt = (x, y, size, pole = C.ink, pennant = C.flag) =>
-  `<g transform="translate(${x} ${y}) scale(${size / 100})"><path d="${MARK_PATH}" fill="${pole}"/><polygon points="${MARK_PENNANT}" fill="${pennant}"/></g>`;
+// Same geometry as src/components/Mark.tsx (viewBox 0 0 265.32 100; W = "pole", S = "pennant").
+const MARK_W =
+  "M0 0L44.62 0L68.42 49.88L97.58 8.63A20.43 20.43 0 0 1 129.83 7.19L178.44 64.38L157.14 64.38L122.72 37.9L122.72 82.93L115.8 93.74L99.73 66.18L80 91.29A22.8 22.8 0 0 1 41.51 87.01Z";
+const MARK_S =
+  "M132.72 0L265.32 0L235.7 28.76L157.16 28.76ZM162.99 35.62L226.08 35.62A32.19 32.19 0 0 1 226.08 100L116.96 100L134.06 73.12L145.16 93.13L150.71 90.05L140.27 71.24L224.4 71.24A3.43 3.43 0 0 0 224.4 64.38L187.44 64.38Z";
+const MARK_UW = 265.32;
+/** The mark with its top left at (x, y), `h` tall (width = h * 2.6532). */
+const markAt = (x, y, h, w = C.ink, sFill = C.flag) =>
+  `<g transform="translate(${x} ${y}) scale(${h / 100})"><path d="${MARK_W}" fill="${w}"/><path d="${MARK_S}" fill="${sFill}"/></g>`;
 
-/** Fig. 1: the mark over its construction guides. (x, y) = top left of the 100-unit square, `size` its side. */
-function figure(x, y, size) {
-  const s = size / 100, sw = 1.25 / s;
+/** Fig. 1: the mark over its construction guides. (x, y) = top left of the artwork box, `h` its height. */
+function figure(x, y, h) {
+  const s = h / 100, sw = 1.25 / s;
   const g = `fill="none" stroke="${C.guide}" stroke-width="${n(sw)}"`;
-  // Notes are laid out in page pixels (so the mono stays a crisp 13px), placed at user-space anchors.
+  // Notes are laid out in page pixels (so the mono stays a crisp 12.5px), placed at user-space anchors.
   const at = (ux, uy) => [x + ux * s, y + uy * s];
   const note = (t, ux, uy, anchor) => {
     const [px, py] = at(ux, uy);
     return mono(t, px, py, 12.5, C.muted, anchor);
   };
-  const [cx0, cy0] = at(0, 0);
-  return `<g transform="translate(${x} ${y}) scale(${s})">
-    <rect x="6" y="6" width="88" height="88" ${g}/>
-    <line x1="-4" y1="6" x2="104" y2="6" ${g}/>
-    <line x1="-4" y1="94" x2="104" y2="94" ${g}/>
-    <line x1="50.5" y1="2" x2="50.5" y2="98" ${g}/>
-    <polygon points="${MARK_PENNANT}" ${g}/>
-    <path d="${MARK_PATH}" fill="${C.ink}"/>
-    <polygon points="${MARK_PENNANT}" fill="${C.flag}"/>
+  const bars = [28.76, 35.62, 64.38, 71.24].map((by) => `<line x1="104" y1="${by}" x2="275" y2="${by}" ${g}/>`).join("");
+  return `<g transform="translate(${n(x)} ${n(y)}) scale(${n(s)})">
+    <rect x="0" y="0" width="${MARK_UW}" height="100" ${g}/>
+    <line x1="0" y1="0" x2="${MARK_UW + 6}" y2="0" ${g}/>
+    <line x1="0" y1="100" x2="${MARK_UW + 6}" y2="100" ${g}/>
+    <line x1="123.12" y1="-6" x2="182.94" y2="64.38" ${g}/>
+    ${bars}
+    <path d="M122.72 37.9L157.14 64.38L140.27 71.24L150.71 90.05L145.16 93.13L134.06 73.12L122.72 82.93Z" ${g}/>
+    <path d="${MARK_W}" fill="${C.ink}"/>
+    <path d="${MARK_S}" fill="${C.flag}"/>
   </g>
-  ${note("Cap", 104, 3, "end")}${note("Base", 104, 91, "end")}${note("Blade", -6, 50, "end")}
-  ${mono("Fig. 1", cx0, cy0 + size + 50, 12.5, C.flagText)}${mono("The mark, constructed", cx0 + 70, cy0 + size + 50, 12.5, C.muted)}`;
+  ${note("Cap", MARK_UW + 6, -5, "end")}${note("Seam", 119, -5, "end")}${note("Bars", 279, 35.5, "start")}
+  ${note("Base", MARK_UW + 6, 115, "end")}${note("Cursor", 134, 115, "middle")}
+  ${mono("Fig. 1", x, y + h + 50, 12.5, C.flagText)}${mono("Two letters, one cursor", x + 70, y + h + 50, 12.5, C.muted)}`;
 }
 
 /** The real wordmark (Sora 800 outlines): "websport" Ink + ".com.au" Flag. `h` = cap-to-descender box height. */
@@ -208,7 +214,7 @@ async function render(page) {
   const composites = [];
   if (page.capture) {
     const fw = 480, bar = 32, fh = Math.round((fw * 10) / 16), fx = W - X - fw, fy = Math.round(top + (bottom - top - fh - bar) / 2) + 6;
-    right = `<rect x="${fx + 20}" y="${fy + 40}" width="${fw - 40}" height="${fh + bar - 30}" rx="6" fill="rgba(15,23,41,0.28)" filter="url(#elev)"/>
+    right = `<rect x="${fx + 20}" y="${fy + 40}" width="${fw - 40}" height="${fh + bar - 30}" rx="6" fill="rgba(0,32,78,0.28)" filter="url(#elev)"/>
       <rect x="${fx}" y="${fy}" width="${fw}" height="${fh + bar}" rx="5" fill="${C.surface}"/>
       <rect x="${fx + 0.5}" y="${fy + 0.5}" width="${fw - 1}" height="${fh + bar - 1}" rx="5" fill="none" stroke="${C.line2}"/>
       ${[0, 1, 2].map((i) => `<circle cx="${fx + 18 + i * 14}" cy="${fy + bar / 2}" r="4" fill="#D9DADD"/>`).join("")}
@@ -218,15 +224,18 @@ async function render(page) {
     const rounded = await sharp(img).composite([{ input: mask, blend: "dest-in" }]).png().toBuffer();
     composites.push({ input: rounded, left: fx + 1, top: fy + bar });
   } else {
-    const size = 268;
-    right = figure(W - X - size - 26, Math.round(top + (bottom - top - size) / 2) - 8, size);
+    // Height 125 => artwork 332 wide; the "Bars" note (~36px) after the rows ends at the right margin.
+    const h = 125, s = h / 100;
+    const fx = Math.round(W - X - 36 - 279 * s);
+    const blockTop = -16 * s, blockH = h + 50 - blockTop; // guides/notes above the cap line down to the caption
+    right = figure(fx, Math.round(top + (bottom - top - blockH) / 2 - blockTop), h);
   }
 
   const wm = wordmark(X, H - 52, 30);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   ${DEFS}
   <rect width="${W}" height="${H}" fill="${C.paper}"/>
-  ${markAt(X, 40, 30)}
+  ${markAt(X, 44, 26)}
   ${mono("websport.com.au", W - X, 60, 12.5, C.muted, "end")}
   ${ruler(92, C.ink, 7, false)}
   ${mono(page.label, X, 124, 13, C.flagText)}

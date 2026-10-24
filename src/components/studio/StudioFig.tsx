@@ -1,15 +1,15 @@
 "use client";
 /**
- * Studio "Fig. 1" (§6.4 ST0): the mark drawn over its construction guides (45° axis, pole line, baseline,
- * blade, the 100-unit square) with mono annotations.
+ * Studio "Fig. 1" (§6.4 ST0): the mark drawn over its construction guides (artwork box, cap line, baseline, the
+ * W/S seam, the S bar rows, the cursor) with mono annotations.
  * - First paint: complete (SSR markup is the finished figure; no-JS and reduced motion stay static).
- * - With motion allowed, the guides draw once with the hero (CSS keyframes off --intro, studio.css).
- * - Fine pointer: the whole figure tilts ±4° toward the pointer (quickTo .8s); hover skews the pennant (M13).
+ * - With motion allowed, the guides draw once with the hero and the S wipes on (CSS keyframes off --intro, studio.css).
+ * - Fine pointer: the whole figure tilts ±4° toward the pointer (quickTo .8s); hover leans the S (M13).
  */
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/motion/gsap";
 import { MQ } from "@/motion/tokens";
-import { MARK_GUIDES, MARK_PATH, MARK_PENNANT } from "@/components/Mark";
+import { FIG_NOTES, FIG_VIEWBOX, MARK_GUIDES, MARK_S, MARK_W } from "@/components/Mark";
 
 export function StudioFig({ className = "" }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,22 +36,23 @@ export function StudioFig({ className = "" }: { className?: string }) {
   );
   return (
     <figure ref={ref} className={`sfig ${className}`.trim()} data-cursor="Look">
-      <svg viewBox="-6 -4 112 108" aria-hidden="true" focusable="false">
+      <svg viewBox={FIG_VIEWBOX} aria-hidden="true" focusable="false">
         {MARK_GUIDES.map((d, i) => (
           <path key={i} className="sf-g" style={{ "--k": i } as React.CSSProperties} d={d} pathLength={1} />
         ))}
-        <polygon className="sf-g" style={{ "--k": MARK_GUIDES.length } as React.CSSProperties} points={MARK_PENNANT} pathLength={1} />
-        <path className="mk-pole" d={MARK_PATH} fill="var(--ink)" />
-        <polygon className="mk-pennant" points={MARK_PENNANT} fill="var(--flag)" />
+        <path className="mk-pole" d={MARK_W} fill="var(--ink)" />
+        <path className="mk-pennant" d={MARK_S} fill="var(--flag)" />
         <g className="sf-notes">
-          <text x="100" y="4" textAnchor="end">Cap</text>
-          <text x="100" y="99" textAnchor="end">Base</text>
-          <text x="-4" y="50">Blade</text>
+          {FIG_NOTES.map(([t, x, y, a]) => (
+            <text key={t} x={x} y={y} textAnchor={a}>
+              {t}
+            </text>
+          ))}
         </g>
       </svg>
       <figcaption className="mono sf-cap">
         <span>Fig. 1</span>
-        <span>The mark, constructed: two letters and one blade</span>
+        <span>The mark, constructed: two letters, one cursor</span>
       </figcaption>
     </figure>
   );

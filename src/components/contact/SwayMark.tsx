@@ -1,8 +1,9 @@
 "use client";
 /**
- * 404 mark (M38). The drop-in is CSS (globals.css "404": rotate −40° -> −14°, 900ms expo, off --intro), so it lands
- * with the H1 and works before hydration. This island adds the pointer sway (±6° around the resting tilt,
- * quickTo .8s) on fine pointers with motion allowed. Reduced motion and touch: static at −14°.
+ * 404 mark (M38). The drop-in is CSS (globals.css "404": rotate −30° -> −8°, 900ms expo, off --intro), so it lands
+ * with the H1 and works before hydration. The mark is wide (2.65:1), sized by height next to the H1, ink tone
+ * on paper. This island adds the pointer sway (±6° around the resting tilt, quickTo .8s) on fine pointers with
+ * motion allowed. Reduced motion and touch: static at −8°.
  */
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/motion/gsap";

@@ -57,7 +57,7 @@ export function Wordmark({ part = "full", glyphs = false, className, decorative 
       overflow="visible"
     >
       {part !== "tld" ? <Glyphs part={WM.word} glyphs={glyphs} fill="currentColor" offset={0} /> : null}
-      {part !== "word" ? <Glyphs part={WM.tld} glyphs={glyphs} fill="var(--flag, #1F5BFF)" offset={WM.word.glyphs.length} /> : null}
+      {part !== "word" ? <Glyphs part={WM.tld} glyphs={glyphs} fill="var(--flag, #0061fd)" offset={WM.word.glyphs.length} /> : null}
     </svg>
   );
 }

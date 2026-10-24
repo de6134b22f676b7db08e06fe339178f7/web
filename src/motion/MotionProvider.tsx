@@ -7,7 +7,7 @@
  * - html flags: `hydrated` (gates the split-heading hidden state), `has-cursor` (fine pointer + motion),
  *   `is-scrolled` / `hdr-hidden` (scroll down past 120px; never under reduced motion or while the menu is open),
  *   `navigated` (first client-side pathname change; never removed; --intro .38s + loader display:none, §3.5),
- *   `data-vt` (during a forward route change: the page-wipe red band)
+ *   `data-vt` (during a forward route change: the page-wipe Flag band)
  * - Ink button fill origin: --mx/--my on `.btn-ink` from the pointer entry point (M8)
  * - context { reduced, fine, lenis, scrollTo, stop, start }
  * Nothing in v4 depends on hydration for visibility: the loader and hero entrance are CSS (globals.css).
@@ -180,7 +180,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     };
   }, [scrollTo]);
 
-  // Back/forward runs no view transition, so it must not get the red edge sweep (data-vt) either.
+  // Back/forward runs no view transition, so it must not get the Flag edge sweep (data-vt) either.
   const popped = useRef(false);
   useEffect(() => {
     const pop = () => (popped.current = true);

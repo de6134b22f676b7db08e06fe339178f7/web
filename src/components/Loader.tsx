@@ -1,9 +1,9 @@
 /**
  * Signature loader (DESIGN.md v4 §3). Server component, rendered in layout.tsx before <Header>, outside the
  * MotionProvider: React is never involved. Pure CSS keyframes from first paint (globals.css "LOADER"):
- *   120 flag in · 220 pennant unfurls · 560 lockup slides left while "websport" slides out of the mask that
- *   starts at the flag's right edge · 1100 ".com.au" wipes on (sibling outside the mask) · hold ·
- *   1560 sheet lifts on a 9vw slant with a constant --band red edge · 2200 visibility:hidden (always, no JS).
+ *   120 mark in (the W) · 220 the S wipes on from its left edge · 560 lockup slides left while "websport" slides
+ *   out of the mask that starts at the mark's right edge · 1100 ".com.au" wipes on (sibling outside the mask) · hold ·
+ *   1560 sheet lifts on a 9vw slant with a constant --band Flag edge · 2200 visibility:hidden (always, no JS).
  * Repeat visits: html.no-intro (head script) => display:none. Reduced motion: static lockup, 300ms fade at .6s.
  */
 import { Mark } from "./Mark";

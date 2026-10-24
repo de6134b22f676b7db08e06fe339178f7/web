@@ -2,7 +2,7 @@
 /**
  * Sync log (M25) on the Ink stage. The sample sync runs once by itself when the log is 50% in view (like the
  * logos plate), streaming sample log lines, 380ms per line (fx-in 500ms expo); the last line is in the on-ink
- * red. "Run again" replays it. The button is busy ("Syncing…", aria-busy) while streaming.
+ * Flag blue. "Run again" replays it. The button is busy ("Syncing…", aria-busy) while streaming.
  * The log is a polite live region. Reduced motion: all lines at once. Sample run.
  */
 import { useEffect, useRef, useState } from "react";
