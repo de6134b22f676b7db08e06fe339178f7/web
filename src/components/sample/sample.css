@@ -1,0 +1,1133 @@
+/* Sample club screens (src/components/sample/Screens.tsx): a fictional club, "Northside Comets", in its own colours so
+   the sample reads as a client site, never as Websport. Design sizes: desk 1280x800, phone 390x844 (DESIGN.md §5).
+   The fill rule (§4.7): every root is a grid of nav / main / foot (`auto 1fr auto`) at exactly the frame height, the
+   main region fills 1fr and its cards stretch, so nothing is cut and no screen shows a void.
+   `.live-dot` + `pulse` stay in globals.css (shared with the scoreboard). */
+.club {
+  --c: #0f3d2e;
+  --c-2: #0a2a1f;
+  --c-3: #185a44;
+  --c-acc: #ffb020;
+  --c-ink: #10151a;
+  --c-mute: #5d6670;
+  --c-line: #e4e7ea;
+  --c-bg: #f6f7f5;
+  --c-win: #1f8a5b;
+  --c-loss: #c7ccd1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 100%;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.club-main {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
+}
+.club-main-2 {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+/* Nav. */
+.club-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 32px;
+  background: var(--c);
+  color: #fff;
+}
+.club-crest {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.club-crest i {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: conic-gradient(var(--c-acc) 0 50%, #fff 50% 100%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4) inset;
+}
+.club-links {
+  display: flex;
+  gap: 26px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+.club-links b {
+  font-weight: 600;
+  opacity: 1;
+  box-shadow: 0 2px 0 var(--c-acc);
+}
+.club-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: var(--c-acc);
+  color: var(--c-ink);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.club-btn.ghost {
+  background: transparent;
+  box-shadow: 0 0 0 1px rgba(16, 21, 26, 0.25) inset;
+}
+
+/* Hero row: copy left, a card right. */
+.club-hero {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 32px;
+  padding: 22px 32px 16px;
+  align-items: stretch;
+}
+.club-hero-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.club-hero-3 {
+  grid-template-columns: 1fr 1.5fr;
+}
+.club-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+.club-hero-copy > .club-card {
+  width: 100%;
+  margin-top: auto;
+}
+.club-hero-copy > .club-card + .club-card {
+  margin-top: 12px;
+}
+.club-card-tight {
+  padding: 14px 18px;
+}
+.club-card-tight .fx-list li {
+  padding: 7px 0;
+}
+.club-kicker {
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+}
+.club-h {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+  max-width: 13ch;
+  text-wrap: balance;
+}
+.club-sub {
+  margin: 0 0 18px;
+  color: var(--c-mute);
+  max-width: 44ch;
+  font-size: 15px;
+}
+.club-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+.club-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.club-chips span {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 21, 26, 0.18);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+.club-chips span.on {
+  background: var(--c);
+  border-color: var(--c);
+  color: #fff;
+}
+
+/* Cards. */
+.club-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px 20px;
+}
+.club-card-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+.club-card > .club-tbl,
+.club-card > .fx-list {
+  flex: 1 1 auto;
+}
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--live);
+  font-weight: 600;
+}
+
+/* The live match card. */
+.club-live {
+  background: var(--c);
+  border-color: var(--c);
+  color: #fff;
+}
+.club-live .club-card-h {
+  color: rgba(255, 255, 255, 0.7);
+}
+.club-live .live-pill {
+  color: #fff;
+}
+.match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0 8px;
+}
+.match-team {
+  display: grid;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.15;
+  min-width: 0;
+}
+.match-team:last-child {
+  text-align: right;
+}
+.match-team small {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
+.match-score {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.match-score span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0;
+}
+.quarters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 2px 0 8px;
+}
+.quarters span {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+.quarters span.on {
+  background: rgba(255, 176, 32, 0.18);
+  color: var(--c-acc);
+}
+.quarters small {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.quarters span.on small {
+  color: var(--c-acc);
+}
+/* Desk live card only: two facts in the club's voice between the quarters and the meta row, so the card is full. */
+.match-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.match-line > span {
+  display: grid;
+  gap: 2px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.match-line small {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.match-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+.match-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.form {
+  display: inline-flex;
+  gap: 4px;
+}
+.form i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-loss);
+}
+.form i.w {
+  background: var(--c-win);
+}
+.club-live .form i.w {
+  background: var(--c-acc);
+}
+.club-live .form i.l {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Table. */
+.club-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.club-tbl th,
+.club-tbl td {
+  padding: 9px 8px;
+  text-align: right;
+  border-bottom: 1px solid var(--c-line);
+  white-space: nowrap;
+}
+.club-tbl tr:last-child td {
+  border-bottom: 0;
+}
+.club-tbl th {
+  padding-top: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+}
+.club-tbl .l {
+  text-align: left;
+}
+.club-tbl td.l {
+  font-weight: 500;
+}
+.club-tbl tr.ours td {
+  background: rgba(15, 61, 46, 0.07);
+  font-weight: 600;
+}
+.club-tbl tr.ours td.l {
+  color: var(--c);
+}
+.club-tbl .pos {
+  width: 2.2em;
+  text-align: left;
+  color: var(--c-mute);
+  font-family: var(--font-mono);
+}
+.club-tbl tr.ours .pos {
+  color: var(--c);
+}
+
+/* Three-up card grid. */
+.club-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0 32px 14px;
+  min-height: 0;
+}
+.club-grid .club-card {
+  padding: 14px 18px;
+}
+.club-ev > b {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.club-ev > small {
+  display: block;
+  color: var(--c-mute);
+  font-size: 12px;
+  margin-top: 6px;
+}
+.club-ev > small b {
+  color: var(--c-ink);
+  font-weight: 700;
+}
+.club-ev-when {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+.club-ev-meter {
+  height: 6px;
+  margin-top: 14px;
+  border-radius: 3px;
+  background: var(--c-line);
+  overflow: hidden;
+}
+.club-ev-meter i {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  border-radius: 3px;
+}
+.club-ev .club-btn {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 0;
+  height: 32px;
+  padding-inline: 14px;
+  font-size: 13px;
+}
+.club-ev .club-btn {
+  margin-top: 14px;
+}
+
+/* Fixture / result rows. */
+.fx-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-auto-rows: 1fr;
+}
+.fx-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  gap: 2px 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--c-line);
+  font-size: 14px;
+  min-width: 0;
+}
+.fx-list li:last-child {
+  border-bottom: 0;
+}
+.fx-list b {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-list b i {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--c-mute);
+  padding-inline: 2px;
+}
+.fx-list small {
+  color: var(--c-mute);
+  font-size: 12px;
+  grid-column: 1 / -1;
+}
+.fx-list .r {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fx-one li {
+  grid-template-columns: 1fr auto;
+  padding: 4px 0;
+}
+.scr .fx-one li {
+  padding: 2px 0;
+}
+.fx-list .r.won {
+  color: var(--c-win);
+  font-weight: 600;
+}
+.fx-list .r.lost {
+  color: var(--c-mute);
+}
+
+/* "From the Clubhouse": typographic post cards. */
+.club-strip {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1.1fr);
+  gap: 16px;
+  align-items: stretch;
+  padding: 16px 32px 18px;
+  border-top: 1px solid var(--c-line);
+  background: #fff;
+}
+.club-strip h5,
+.club-form h5 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  align-self: center;
+}
+.club-strip h5 small,
+.club-form h5 small {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--c-mute);
+  letter-spacing: 0;
+}
+.club-post {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 4px;
+  min-height: 92px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--c-2);
+  color: #fff;
+}
+.club-post-l {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-acc);
+}
+.club-post-f {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  padding: 4px 0 6px;
+}
+.club-post b {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.club-post > small:last-child {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+}
+
+/* Form strip (ladder screen). */
+.club-form {
+  display: grid;
+  grid-template-columns: 1fr repeat(6, minmax(0, 0.9fr));
+  gap: 12px;
+  align-items: stretch;
+  padding: 20px 32px 24px;
+  border-top: 1px solid var(--c-line);
+  background: #fff;
+}
+.club-form > div {
+  display: grid;
+  gap: 10px;
+  align-content: center;
+  padding: 14px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.club-form > div.ours {
+  background: rgba(15, 61, 46, 0.07);
+  border-color: rgba(15, 61, 46, 0.2);
+  color: var(--c);
+}
+.club-form .form i {
+  width: 12px;
+  height: 12px;
+}
+
+/* Foot. */
+.club-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 32px;
+  background: var(--c-2);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.club-foot b {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---------- Phone screens: status strip, top bar, main, tab bar. ---------- */
+.scr {
+  --pad: 16px;
+}
+.scr-main {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  align-content: start;
+  min-height: 0;
+  padding-bottom: 0;
+}
+.scr-main > .scr-sec:last-child {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.scr-main > .scr-sec:last-child > .club-card {
+  min-height: 0;
+}
+.scr-status {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  height: 54px;
+  padding: 0 24px 6px;
+  background: var(--c-2);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.scr-status > span:nth-child(2) {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.scr-sig {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.scr-sig i {
+  display: block;
+  width: 4px;
+  background: #fff;
+  border-radius: 1px;
+}
+.scr-sig i:nth-child(1) {
+  height: 5px;
+}
+.scr-sig i:nth-child(2) {
+  height: 8px;
+}
+.scr-sig i:nth-child(3) {
+  height: 12px;
+}
+.scr-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--pad) 14px;
+  background: var(--c);
+  color: #fff;
+  font-weight: 600;
+}
+.scr-top .club-crest i {
+  width: 24px;
+  height: 24px;
+}
+.scr-top-r {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.scr-sec {
+  padding: 12px var(--pad) 0;
+}
+.scr-h {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 8px;
+}
+.scr-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+  margin: 0 0 8px;
+}
+.scr .club-sub {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.scr .club-card {
+  padding: 11px 14px;
+}
+.scr .club-card-h {
+  margin-bottom: 8px;
+}
+.scr .match {
+  padding: 2px 0 10px;
+}
+.scr .match-score {
+  font-size: 34px;
+}
+.scr .match-team {
+  font-size: 15px;
+}
+.scr .quarters {
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.scr .quarters span {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.scr .match-meta {
+  font-size: 10px;
+  padding-top: 8px;
+}
+.scr .club-tbl th,
+.scr .club-tbl td {
+  padding: 7px 6px;
+  font-size: 13px;
+}
+.scr .fx-list li {
+  padding: 8px 0;
+}
+.scr .club-btn {
+  width: 100%;
+  justify-content: center;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-top: 12px;
+}
+.scr-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 84px;
+  padding: 10px 8px 22px;
+  background: #fff;
+  border-top: 1px solid var(--c-line);
+}
+.scr-tabs span {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--c-mute);
+}
+.scr-tabs span i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: currentColor;
+  opacity: 0.35;
+}
+.scr-tabs span.on {
+  color: var(--c);
+  font-weight: 600;
+}
+.scr-tabs span.on i {
+  background: var(--c-acc);
+  opacity: 1;
+}
+
+/* RSVP card. */
+.rsvp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 2px 0 12px;
+}
+.rsvp span {
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--c-bg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-mute);
+}
+.rsvp b {
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-ink);
+  letter-spacing: -0.02em;
+}
+.avatars {
+  display: flex;
+  align-items: center;
+}
+.avatars i {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--c-2);
+  margin-left: -8px;
+}
+.avatars i:first-child {
+  margin-left: 0;
+}
+.avatars i:nth-child(2n) {
+  background: var(--c-acc);
+}
+.avatars i:nth-child(3n) {
+  background: #7c8a97;
+}
+.avatars small {
+  margin-left: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-mute);
+}
+.club-people {
+  display: grid;
+  gap: 0;
+}
+.club-people > div {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  column-gap: 10px;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--c-line);
+}
+.club-people > div i {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--c);
+  color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+}
+.club-people > div:nth-child(2n) i {
+  background: var(--c-acc);
+  color: var(--c-ink);
+}
+.club-people > div b {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.club-people > div small {
+  font-size: 11px;
+  color: var(--c-mute);
+}
+.club-people > div:last-child {
+  border-bottom: 0;
+}
+
+/* Player. */
+.player {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+.player i {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--c), var(--c-2));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 22px;
+  font-style: normal;
+}
+.player b {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: block;
+  line-height: 1.1;
+}
+.player small {
+  color: var(--c-mute);
+  font-size: 12px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+.stats span {
+  display: grid;
+  gap: 2px;
+  padding: 10px 6px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--c-line);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-mute);
+  text-align: center;
+}
+.stats b {
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-ink);
+  letter-spacing: -0.02em;
+}
+.career .l {
+  padding-left: 0;
+}
+
+/* ---------- Admin screen. ---------- */
+.admin {
+  grid-template-rows: 1fr;
+  grid-template-columns: 220px minmax(0, 1fr);
+  background: #fff;
+}
+.admin-side {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 18px;
+  background: var(--c-bg);
+  border-right: 1px solid var(--c-line);
+  padding: 22px 18px 18px;
+  font-size: 14px;
+  min-height: 0;
+}
+.admin-nav {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+.admin-nav span {
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--c-mute);
+}
+.admin-nav span.on {
+  background: #fff;
+  color: var(--c-ink);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.admin-user {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-line);
+  font-size: 12px;
+  color: var(--c-mute);
+}
+.admin-user i {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--c);
+  color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+}
+.admin-user b {
+  display: block;
+  color: var(--c-ink);
+  font-weight: 600;
+  font-size: 13px;
+}
+.admin-main {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  padding: 24px 32px;
+  min-height: 0;
+}
+.admin-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.admin-top span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+}
+.admin-sum {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.admin-sum span {
+  display: grid;
+  gap: 2px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  font-size: 12px;
+  color: var(--c-mute);
+}
+.admin-sum b {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--c-ink);
+}
+.admin-sec {
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  align-content: start;
+  min-height: 0;
+}
+.admin-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.admin-h h4,
+.admin-top h4 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.admin-h .club-btn {
+  height: 32px;
+  font-size: 13px;
+}
+.admin-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  font-size: 14px;
+  min-height: 0;
+}
+.admin-row b {
+  display: block;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.admin-row small {
+  color: var(--c-mute);
+  font-size: 12px;
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(15, 61, 46, 0.1);
+  color: var(--c);
+  white-space: nowrap;
+}
+.chip.draft {
+  background: rgba(255, 176, 32, 0.2);
+  color: #7a4d00;
+}

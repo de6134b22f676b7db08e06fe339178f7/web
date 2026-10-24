@@ -8,11 +8,9 @@ export const captures = {
     "fixtures-full": { width: 2880, height: 4640 },
     "home": { width: 2880, height: 1800 },
     "mobile-announcements-full": { width: 780, height: 5070 },
-    "mobile-events": { width: 780, height: 1688 },
     "mobile-home": { width: 780, height: 1688 },
     "mobile-player": { width: 780, height: 1688 },
     "player-full": { width: 2880, height: 3934 },
-    "story-full": { width: 2880, height: 5400 },
     "team-full": { width: 2880, height: 5400 },
   },
 } as const;

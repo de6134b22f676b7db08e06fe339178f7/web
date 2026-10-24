@@ -1,6 +1,6 @@
 "use client";
 /**
- * next/link with intent prefetch. Viewport prefetch is off (it fired ~400ms after first paint, under the loader,
+ * next/link with intent prefetch. Viewport prefetch is off (it fired ~400ms after first paint, competing with hydration,
  * and injected <link rel=preload as=style> for every linked route's CSS, which Chrome then flagged as unused).
  * The route is prefetched on pointerenter / focus / touchstart instead, so whatever loads is used within seconds.
  */

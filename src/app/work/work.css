@@ -1,0 +1,313 @@
+/* Work + case study (BRIEF 5). Entry, case head + meta cells, hero reveal, before/now, the brief, features, the close. */
+
+/* ---------- /work entry ---------- */
+.work-entry {
+  padding-bottom: var(--sec-s);
+}
+.work-entry .rail {
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+.work-link {
+  display: block;
+}
+.work-row {
+  margin-top: clamp(32px, 4vw, 56px);
+  align-items: end;
+}
+.work-outcome {
+  margin: 0;
+  max-width: 40ch;
+  color: var(--ink-2);
+}
+
+/* ---------- case study head ---------- */
+.case-head .ph-grid {
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
+.case-hero {
+  padding-bottom: 0;
+}
+.case-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px var(--gap);
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.case-meta > div {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.case-meta dd {
+  margin: 0;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.case-meta .arrow {
+  min-height: 0;
+}
+@media (min-width: 600px) {
+  .case-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .case-meta > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 900px) {
+  .case-meta {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .case-meta > div:nth-child(1) {
+    grid-column: 1 / 4;
+  }
+  .case-meta > div:nth-child(2) {
+    grid-column: 4 / 7;
+  }
+  .case-meta > div:nth-child(3) {
+    grid-column: 7 / 13;
+  }
+}
+
+/* The first capture is revealed by a clip-path on load (not under reduced motion; not without JS). */
+@keyframes cap-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+html.js:not(.reduce) .cap-reveal .cap-img {
+  animation: cap-reveal 1100ms var(--ease-expo) 350ms both;
+}
+html.js:not(.reduce) .cap-reveal .duo-phone {
+  animation: fade-up 800ms var(--ease-expo) 900ms both;
+}
+
+/* ---------- 01 before / now ---------- */
+.cmp-stage {
+  position: relative;
+}
+.cmp-now {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 100%);
+}
+.cmp-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--blue);
+}
+.cmp-labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-width: 0;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.cmp-l {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.cmp-is {
+  margin-left: auto;
+  text-align: right;
+  color: var(--ink);
+}
+html.reduce .cmp-stage,
+html:not(.js) .cmp-stage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+html.reduce .cmp-now,
+html:not(.js) .cmp-now {
+  position: static;
+  clip-path: none;
+}
+html.reduce .cmp-edge,
+html:not(.js) .cmp-edge {
+  display: none;
+}
+.pair-bodies {
+  margin-top: clamp(24px, 3vw, 40px);
+  align-items: start;
+}
+.pair-b {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+
+/* ---------- 02 the brief ---------- */
+.case-brief {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  margin-top: clamp(24px, 3vw, 40px);
+}
+.case-brief .h2 {
+  max-width: 14ch;
+}
+.scrub-words > p {
+  margin: 0;
+}
+.sw {
+  will-change: opacity;
+}
+@media (min-width: 900px) {
+  .case-brief {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .case-brief > * {
+    grid-column: 1 / 11;
+  }
+}
+
+/* ---------- 03 features ---------- */
+.feats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(56px, 7vw, 96px);
+}
+.feat {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.feat-text {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+.feat-no {
+  margin: 0;
+  color: var(--ink-3);
+}
+.feat-t {
+  max-width: 16ch;
+}
+.feat-b {
+  margin: 4px 0 0;
+  color: var(--ink-2);
+  max-width: 40ch;
+}
+.feat-cap {
+  position: relative;
+}
+.feat-phone {
+  display: none;
+}
+
+/* Under 900px: the phone capture is the image when one exists; otherwise the window is zoomed so the club site's
+   headline is legible (a 4:5 window at 180%, a 4:3 window at 140% between 600 and 899). */
+@media (max-width: 899px) {
+  .feat-cap.has-phone .feat-desk {
+    display: none;
+  }
+  .feat-cap.has-phone .feat-phone {
+    display: block;
+    width: min(300px, 76%);
+    margin-inline: auto;
+    border-radius: 28px;
+  }
+  .feat-cap.has-phone .cap-cap {
+    text-align: center;
+  }
+  .feat-cap.no-phone .feat-desk {
+    aspect-ratio: 4 / 3;
+  }
+  .feat-cap.no-phone .feat-desk picture {
+    width: 140%;
+    right: auto;
+    left: calc(var(--zx, 0.1) * -140%);
+  }
+}
+@media (max-width: 599px) {
+  .feat-cap.no-phone .feat-desk {
+    aspect-ratio: 4 / 5;
+  }
+  /* A short subject (the 2:1 ladder window) gets a square window so the empty block under it stays out of frame. */
+  .feat-cap.feat-wide .feat-desk {
+    aspect-ratio: 1 / 1;
+  }
+  .feat-cap.no-phone .feat-desk picture {
+    width: 180%;
+    left: calc(var(--zx, 0.1) * -180%);
+  }
+}
+@media (min-width: 900px) {
+  .feat {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+    align-items: start;
+  }
+  .feat-side {
+    grid-column: 1 / 6;
+    align-self: stretch;
+  }
+  .feat-text {
+    position: sticky;
+    top: calc(var(--head) + 32px);
+  }
+  .feat-cap {
+    grid-column: 6 / 13;
+  }
+  .feat-cap.has-phone .feat-desk {
+    width: 82%;
+  }
+  .feat-phone {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 12%;
+    width: 26%;
+    border-radius: var(--r-phone);
+    box-shadow: 0 40px 80px -30px rgba(6, 13, 31, 0.5);
+  }
+  .feat-cap.has-phone .cap-cap {
+    max-width: 82%;
+  }
+}
+
+/* ---------- 04 run by the club ---------- */
+.case-close {
+  padding-bottom: var(--sec);
+}
+.close-split {
+  align-items: start;
+}
+.close-body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--t-lede);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.close-outcome {
+  margin: 0;
+  max-width: 24ch;
+  font-size: var(--t-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}

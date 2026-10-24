@@ -1,34 +1,29 @@
-import { Host_Grotesk, Martian_Mono } from "next/font/google";
+import localFont from "next/font/local";
+
 /**
- * DESIGN.md v4 §2.4. Host Grotesk (variable wght 300–800) for display + body; its italic is a separate,
- * non-preloaded face used only for `em` in display lines. Martian Mono (wdth 75–112.5) for labels and data.
- * The wordmark is never a font (outlined Sora paths, src/components/wordmark.generated.ts).
+ * Two families (DESIGN.md §3.2), both self-hosted, latin only, preloaded.
+ * - Mona Sans (OFL, ./fonts/MonaSans-OFL.txt): display, headings and body. Variable wght 200-900 and wdth 75-125;
+ *   the display voice is 800 at ~90% width. `font-stretch` is declared so CSS can use it.
+ * - Geist Mono (OFL, ./fonts/GeistMono-OFL.txt): every label, index, table numeral and the scoreboard. Variable 100-900.
+ * The logo wordmark is outlined type (brand.generated.ts) and never waits on either file.
  */
-export const sans = Host_Grotesk({
-  subsets: ["latin"],
+export const mona = localFont({
+  src: "./fonts/mona-sans-latin-wdth-normal.woff2",
+  variable: "--font-mona",
+  weight: "200 900",
   style: "normal",
-  variable: "--font-sans",
   display: "swap",
-  adjustFontFallback: true,
   preload: true,
+  declarations: [{ prop: "font-stretch", value: "75% 125%" }],
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"],
 });
 
-export const sansItalic = Host_Grotesk({
-  subsets: ["latin"],
-  style: "italic",
-  variable: "--font-sans-italic",
-  display: "swap",
-  adjustFontFallback: true,
-  preload: false,
-});
-
-export const mono = Martian_Mono({
-  subsets: ["latin"],
-  axes: ["wdth"],
+export const mono = localFont({
+  src: "./fonts/geist-mono-latin-wght-normal.woff2",
   variable: "--font-mono",
+  weight: "100 900",
+  style: "normal",
   display: "swap",
-  // A real monospace fallback (close widths) instead of size-adjusted Arial, so a late font never rewraps a label.
-  adjustFontFallback: false,
-  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
   preload: true,
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
 });

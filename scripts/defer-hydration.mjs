@@ -1,7 +1,7 @@
 // Post-build (static export): run the Next.js chunk scripts only after the first paint has been presented.
 //
 // Next emits every chunk as `<script src async>` in <head> (plus `<link rel=preload as=script>` hints). On a fast
-// connection they arrive before the first frame and their evaluation (React, router, GSAP) sits between parsing and
+// connection they arrive before the first frame and their evaluation (React, the router, the page islands) sits between parsing and
 // the first paint, delaying FCP/LCP. Here the chunk <script> tags AND every script preload (including Next's
 // bootstrap preload) are removed from the HTML, so nothing JS is fetched before first paint. A tiny inline loader
 // then inserts the same chunks as `<script async>` right after the first-contentful-paint entry (fallback: a 1.5s

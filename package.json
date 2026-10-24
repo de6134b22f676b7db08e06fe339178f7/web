@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "postbuild": "node scripts/defer-hydration.mjs",
     "start": "next start",
     "lint": "eslint",
     "prebuild": "node scripts/optimize-images.mjs",
     "og": "node scripts/og.mjs",
-    "capture": "node scripts/capture.mjs"
+    "capture": "node scripts/capture.mjs",
+    "brand": "node scripts/brand.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

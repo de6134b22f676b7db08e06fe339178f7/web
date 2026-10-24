@@ -1,0 +1,77 @@
+/* Studio: the head's right half carries the codes list; 01 is h2 (cols 1-5) beside the statement (cols 6-13). */
+
+/* Head aside: a mono list of the codes, one per row, each with its index. Fills cols 7-13 at >= 900px. */
+.codes {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.codes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gap);
+  border-top: 1px solid var(--line);
+}
+.codes-list li {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+.codes-i {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+@media (min-width: 900px) {
+  .studio-head .ph-aside {
+    align-self: end;
+  }
+  .studio-head .ph-grid > .lede {
+    max-width: 46ch;
+  }
+}
+
+/* 01: the h2 narrower than the default .col-head so the statement has room; both start-aligned. */
+.studio-split {
+  margin-top: clamp(32px, 4vw, 56px);
+  align-items: start;
+  row-gap: 32px;
+}
+@media (min-width: 900px) {
+  .studio-split > .col-head {
+    grid-column: 1 / 6;
+  }
+  .studio-split > .col-body {
+    grid-column: 6 / 13;
+  }
+  .studio-split .statement {
+    max-width: 30ch;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .studio-split .statement {
+    max-width: 34ch;
+  }
+}
+.scrub-words > p {
+  margin: 0;
+}
+.sw {
+  will-change: opacity;
+}
+
+/* 02: the ledger closes the section; no empty navy under it. */
+.get {
+  padding-bottom: var(--sec-s);
+}

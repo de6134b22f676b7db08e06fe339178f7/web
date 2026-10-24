@@ -1,11 +1,7 @@
-import { PageTransition } from "@/components/PageTransition";
-
 /**
- * Route surface (DESIGN.md 3.4, M16): the old page moves up and dims, the new one wipes up (CSS in globals.css).
- * PageTransition keys it by pathname, because this template only remounts when the first segment changes.
- * Renders the single <main id="main">, so pages render sections only; the menu marks #main inert, and `.page`
- * is the footer-curtain surface (M38).
+ * Route transition (DESIGN.md §6.3): every navigation re-mounts this wrapper, which enters with a 420ms opacity fade
+ * (CSS `.page-enter`, off under reduced motion). No exit animation: navigation is never blocked.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <PageTransition>{children}</PageTransition>;
+  return <div className="page-enter">{children}</div>;
 }

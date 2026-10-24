@@ -1,23 +1,21 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import type { CSSProperties, ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { allWork, getWork } from "@/content/work";
-import { PLAYHQ_NOTE, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
+import { ArrowLink } from "@/components/Button";
+import { Capture } from "@/components/Capture";
 import { Picture } from "@/components/Picture";
-import { SecHead } from "@/components/SecHead";
-import { ClipReveal, Rise } from "@/components/Reveal";
-import { TextLink } from "@/components/Button";
+import { DotList } from "@/components/DotList";
 import { JsonLd, breadcrumbs } from "@/components/JsonLd";
-import { CaseHero } from "@/components/work/CaseHero";
-import { Compare } from "@/components/work/Compare";
-import { FeatureFrame, FeatureIndex, type FeatureView } from "@/components/work/Features";
-import { Counter } from "@/components/work/Counter";
-import { PhoneStrip } from "@/components/work/PhoneStrip";
-import { StoryExcerpt } from "@/components/work/StoryExcerpt";
-import { GhostRow } from "@/components/work/GhostRow";
-import "@/components/work/work.css";
+import { PageHead } from "@/components/PageHead";
+import { Rail } from "@/components/Rail";
+import { Rise } from "@/components/motion/Rise";
+import { Pan } from "@/components/motion/Pan";
+import { Compare } from "@/components/motion/Compare";
+import { ScrubWords } from "@/components/motion/ScrubWords";
+import "../work.css";
 
 export const dynamicParams = false;
 
@@ -25,7 +23,6 @@ export function generateStaticParams() {
   return allWork.map((w) => ({ slug: w.slug }));
 }
 
-/** Per-case OG card from `npm run og`; a case study without one falls back to the site card. */
 function ogImage(slug: string) {
   return existsSync(path.join(process.cwd(), "public", "og", `${slug}.png`)) ? `/og/${slug}.png` : "/og.png";
 }
@@ -34,6 +31,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   const { slug } = await params;
   const w = getWork(slug);
   if (!w) return {};
+  const title = w.headline.split("|").join(" ");
   return {
     title: w.client,
     description: w.summary,
@@ -43,7 +41,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
       locale: "en_AU",
       siteName: SITE.name,
       url: `/work/${w.slug}`,
-      title: `${w.client} — ${w.headline}`,
+      title: `${w.client}: ${title}.`,
       description: w.summary,
       images: [{ url: ogImage(w.slug), width: 1200, height: 630, alt: `${w.client} case study by Websport` }],
     },
@@ -51,305 +49,183 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   };
 }
 
-/** Render `text` with its trailing `tail` muted in the italic face (content keeps plain strings). */
-function tail(text: string, end: string): ReactNode {
-  if (!text.endsWith(end)) return text;
-  return (
-    <>
-      {text.slice(0, -end.length)}
-      <em>{end}</em>
-    </>
-  );
-}
+/** Full-measure captures (hero, the pair). */
+const FULL = "(min-width:1440px) 1325px, 92vw";
+/** Feature windows: cols 6-13 at >= 900px; under 900px the window is zoomed to 180% of its 92vw frame. */
+const FEAT = "(min-width:1440px) 763px, (min-width:900px) 54vw, (min-width:600px) 130vw, 166vw";
+const label = (s: string) => s.replace(" · ", ": ");
 
-const i = (n: number) => ({ "--i": n }) as CSSProperties;
-
-/** Case study (DESIGN.md v4 §6.3), light. No sample crests, no mock UI, no year: real captures only. */
+/**
+ * Case study (BRIEF 5.2). Content from src/content/work/<slug>.ts, in its order: head, the hero capture (first fold),
+ * the meta cells, 01 before/now, 02 the brief, 03 what we built (five features, sticky copy beside a panning
+ * capture), 04 run by the club. The footer closes the page.
+ */
 export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
   const w = getWork(slug);
   if (!w) notFound();
-
-  const words = w.client.split(" ");
-  const h1 = words.length > 2 ? [words.slice(0, 2).join(" "), words.slice(2).join(" ")] : [w.client];
-  const domain = w.live.label;
-  const features: FeatureView[] = w.built.primary.map((f) => ({
-    no: f.no,
-    title: f.title,
-    body: f.body,
-    shot: f.shots[0],
-    path: f.path,
-    scroll: f.scroll,
-    indexAt: f.indexAt,
-    caption: f.caption,
-  }));
-  const [stories, admin] = w.built.supporting;
-
+  const title = w.headline.split("|").join(" ");
+  const phoneOf = (label: string) => w.mobile.shots.find((s) => s.label === label)?.shot;
+  const article = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: `${w.client}: ${title}.`,
+    description: w.summary,
+    url: `${SITE.url}/work/${w.slug}`,
+    creator: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  };
   return (
     <>
-      {/* CS0 hero */}
-      <header className="wrap pg-hd cs-hd">
-        <p className="pg-eyebrow mono h-fade" style={i(0)}>
-          <span>Case study</span>
-          <span className="cs-hd__eb">Our first customer · {w.kind}</span>
-        </p>
-        <div className="cs-hd__row">
-          <h1 className="pg-h t-display cs-hd__h">
-            {h1.map((l, k) => (
-              <span key={l} className="h-line" style={i(k)}>
-                {l}
-              </span>
-            ))}
-          </h1>
-          <div className="cs-hd__side">
-            <p className="cs-hd__sub t-lead h-fade" style={i(1)}>
-              {w.headline}
-            </p>
-          <dl className="cs-meta h-fade" style={i(2)}>
-            <div>
-              <dt className="mono">Client</dt>
-              <dd>{w.client}</dd>
-            </div>
-            <div>
-              <dt className="mono">Work</dt>
-              <dd>{w.kind}</dd>
-            </div>
-            <div>
-              <dt className="mono">Stack</dt>
-              <dd>{w.stack.join(" · ")}</dd>
-            </div>
-            <div>
-              <dt className="mono">Live</dt>
-              <dd>
-                <a href={w.live.href} target="_blank" rel="noopener" className="cs-live u-line">
-                  {w.live.label}&nbsp;↗<span className="sr"> (opens in a new tab)</span>
-                </a>
-              </dd>
-            </div>
-          </dl>
-          </div>
-        </div>
-      </header>
-
-      <CaseHero
-        domain={domain}
-        caption={
-          <>
-            <b>Now</b> {domain}, the club&rsquo;s front door.
-          </>
-        }
-      >
-        <Picture slug={w.slug} shot={w.hero} sizes="(min-width:1600px) 1504px, 92vw" priority />
-      </CaseHero>
-
-      {/* CS1 the brief */}
-      <section className="sec" aria-labelledby="cs-brief">
+      <section className="page-head case-head" aria-labelledby="case-h">
         <div className="wrap">
-          <SecHead n="01" name={w.vision.label} id="cs-brief" title={tail(w.vision.heading, "stats and titles.")} />
-          <div className="sec-body cs-brief">
-            <Rise className="cs-brief__lead">
-              <p className="t-lead">{w.intro}</p>
-            </Rise>
-            <Rise className="cs-brief__p">
-              {w.vision.paragraphs.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
-              ))}
-            </Rise>
+          <PageHead id="case-h" kicker={w.client} note="Case study" title={w.headline} lede={w.intro} wide />
+        </div>
+      </section>
+
+      {/* The hero capture, first fold at 1440x900, revealed by a clip-path on load (CSS). Eager, not preloaded: on
+          phones it sits under the intro and a preload would compete with the h1's font (the LCP there). */}
+      <div className="wrap cap-reveal case-hero">
+        <Capture slug={w.slug} shot={w.hero} phoneShot={phoneOf("Home")} sizes={FULL} crop={0} ratio={w.heroRatio} eager />
+      </div>
+
+      <div className="wrap">
+        <dl className="case-meta">
+          <div>
+            <dt className="kicker">Project</dt>
+            <dd>{w.kind}</dd>
+          </div>
+          <div>
+            <dt className="kicker">Live</dt>
+            <dd>
+              <ArrowLink href={w.live.href} external>
+                {w.live.label}
+              </ArrowLink>
+            </dd>
+          </div>
+          <div>
+            <dt className="kicker">What the club got</dt>
+            <dd>
+              <DotList items={w.got} />
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      {/* 01. Before / Now: the Now wipes in from the right and rests as a split. */}
+      <section className="sec" aria-labelledby="before-h">
+        <div className="wrap">
+          <Rail index="01" name="Before and now" note={label(w.before.old.label)} />
+          <Rise className="sec-head">
+            <h2 id="before-h" className="h2 rise">
+              {w.before.heading.replace(/\.$/, "")}
+              <span className="accent">.</span>
+            </h2>
+          </Rise>
+          <Compare
+            labels={[label(w.before.old.label), label(w.before.now.label)]}
+            before={
+              <div className="cap-img cap-crop" style={{ "--ratio": w.heroRatio } as React.CSSProperties}>
+                <Picture slug={w.slug} shot={w.before.old.shot} sizes={FULL} />
+              </div>
+            }
+            now={
+              <div className="cap-img cap-crop" style={{ "--ratio": w.heroRatio } as React.CSSProperties}>
+                <Picture slug={w.slug} shot={w.before.now.shot} sizes={FULL} decorative />
+              </div>
+            }
+          />
+          <div className="pair-bodies split">
+            <p className="pair-b">{w.before.old.body}</p>
+            <p className="pair-b">{w.before.now.body}</p>
           </div>
         </div>
       </section>
 
-      {/* CS2 before / now (M35) */}
-      <section className="sec" aria-labelledby="cs-compare">
+      {/* 02. The brief: the h2, then the statement that resolves word by word as it crosses the viewport. */}
+      <section className="sec sec-tight" aria-labelledby="vision-h">
         <div className="wrap">
-          <SecHead n="02" name="Before and now" id="cs-compare" title={tail(w.before.heading, "to a clubhouse.")} lede="Drag the handle, or use the arrow keys." />
-          <div className="sec-body">
-            <Compare
-              labels={[w.before.old.label, w.before.now.label]}
-              before={<Picture slug={w.slug} shot={w.before.old.shot} sizes="92vw" />}
-              now={<Picture slug={w.slug} shot={w.before.now.shot} sizes="92vw" />}
-            />
-            <Rise className="cs-cmp__caps">
-              {[w.before.old, w.before.now].map((s) => (
-                <div key={s.label}>
-                  <h3 className="mono">{s.label}</h3>
-                  <p>{s.body}</p>
-                </div>
-              ))}
+          <Rail index="02" name="The brief" note="What the committee asked for" />
+          <div className="case-brief">
+            <Rise>
+              <h2 id="vision-h" className="h2 rise">
+                {w.vision.heading.replace(/\.$/, "")}
+                <span className="accent">.</span>
+              </h2>
             </Rise>
+            <ScrubWords className="stack" size="statement" paragraphs={w.vision.paragraphs} />
           </div>
         </div>
       </section>
 
-      {/* CS3 what we built (M34): founder order */}
-      <section className="sec" aria-labelledby="cs-built">
+      {/* 03. Features, in the club's own order. At >= 900px the copy sits in a sticky column beside the capture,
+          which pans as it crosses the viewport. Under 900px the phone capture (when there is one) or a 180% zoom
+          of the window is the image. */}
+      <section className="sec" aria-labelledby="built-h">
         <div className="wrap">
-          <SecHead n="03" name="What we built" id="cs-built" title={tail(w.built.heading, "in one place.")} lede={w.built.note} />
-          <div className="sec-body">
-            <FeatureFrame slug={w.slug} domain={domain} features={features} />
-            <FeatureIndex slug={w.slug} features={features} />
-            <p className="cs-tm mono">{PLAYHQ_NOTE}</p>
-          </div>
-
-          <div className="cs-also">
-            <p className="cs-also__k mono">
-              <span className="pen" aria-hidden="true" /> Also in the build
-            </p>
-            <div className="cs-also__grid">
-              {stories ? (
-                <article className="cs-also__item" aria-labelledby="cs-also-1">
-                  <div className="cs-also__copy">
-                    <h3 id="cs-also-1" className="t-h3">
-                      {stories.title}
-                    </h3>
-                    <p className="cs-also__b">{stories.body}</p>
-                    {stories.href ? (
-                      <a href={stories.href} target="_blank" rel="noopener" className="link-u cs-also__link">
-                        Read a published story
-                        <svg className="btn-arr is-ne" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M4 12L12 4M5.5 4H12v6.5" />
-                        </svg>
-                        <span className="sr"> (opens in a new tab)</span>
-                      </a>
-                    ) : null}
-                  </div>
-                  {stories.shot && stories.href ? (
-                    <ClipReveal className="cs-also__side">
-                      <a href={stories.href} target="_blank" rel="noopener" className="cs-also__shot wk-frame" data-cursor="Read ↗" tabIndex={-1} aria-hidden="true">
-                        <span className="wk-frame__bar">
-                          <span className="wk-dots">
-                            <i />
-                            <i />
-                            <i />
-                          </span>
-                          <span className="wk-frame__url mono">
-                            <b>{domain}</b>/history
-                          </span>
-                        </span>
-                        <span className="cs-also__img" data-reveal-inner="">
-                          <Picture slug={w.slug} shot={stories.shot} sizes="(min-width:1024px) 46vw, 92vw" />
-                        </span>
-                      </a>
-                    </ClipReveal>
-                  ) : null}
-                </article>
-              ) : null}
-              {admin ? (
-                <article className="cs-also__item" aria-labelledby="cs-also-2">
-                  <div className="cs-also__copy">
-                    <h3 id="cs-also-2" className="t-h3">
-                      {admin.title}
-                    </h3>
-                    <p className="cs-also__b">{admin.body}</p>
-                    {admin.note ? <p className="cs-also__note mono">{admin.note}</p> : null}
-                  </div>
-                  {admin.chips ? (
-                    <div className="cs-also__side cs-admin">
-                      <p className="cs-admin__k mono" aria-hidden="true">
-                        <span>Committee</span>
-                        <span>{String(admin.chips.length).padStart(2, "0")} areas</span>
+          <Rail index="03" name="What we built" note={w.built.note} />
+          <Rise className="sec-head">
+            <h2 id="built-h" className="h2 rise">
+              {w.built.heading.replace(/\.$/, "")}
+              <span className="accent">.</span>
+            </h2>
+          </Rise>
+          <ol className="feats">
+            {w.built.primary.map((f) => {
+              const phone = f.phone ? phoneOf(f.phone) : undefined;
+              const cls = ["cap feat-cap", phone ? "has-phone" : "no-phone", f.ratio ? "feat-wide" : ""].filter(Boolean).join(" ");
+              return (
+                <li key={f.no} className="feat">
+                  <div className="feat-side">
+                    <Rise className="feat-text">
+                      <p className="index feat-no rise" aria-hidden="true">
+                        {f.no}
                       </p>
-                      <Rise selector="li" stagger={0.045}>
-                        <ul className="cs-admin__list" aria-label="What the committee manages">
-                        {admin.chips.map((c, k) => (
-                          <li key={c} className="cs-admin__item">
-                            <span className="cs-admin__n mono" aria-hidden="true">
-                              {String(k + 1).padStart(2, "0")}
-                            </span>
-                            <span className="cs-admin__t">{c}</span>
-                          </li>
-                        ))}
-                        </ul>
-                      </Rise>
-                      {admin.action ? (
-                        <p className="cs-admin__act">
-                          <span className="cs-admin__act-k mono">Plus</span>
-                          <span className="cs-admin__act-b">
-                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M13.5 8a5.5 5.5 0 1 1-1.8-4.1M13.5 2.5v3h-3" />
-                            </svg>
-                            {admin.action}
-                          </span>
-                        </p>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </article>
-              ) : null}
+                      <h3 className="h3-lg feat-t rise">
+                        <span className="sr-only">{f.no}. </span>
+                        {f.title}
+                      </h3>
+                      <p className="feat-b rise">{f.body}</p>
+                    </Rise>
+                  </div>
+                  <figure className={cls} style={{ "--zx": f.zoomX ?? 0.1 } as React.CSSProperties}>
+                    <Pan from={f.at} to={f.to} ratio={f.ratio ?? "16 / 10"} className="feat-desk">
+                      <Picture slug={w.slug} shot={f.shots[0]} sizes={FEAT} />
+                    </Pan>
+                    {phone ? (
+                      <Pan from={0.04} to={0.45} ratio="780 / 1200" className="feat-phone cap-phone">
+                        <Picture slug={w.slug} shot={phone} sizes="(min-width:900px) 200px, min(300px, 76vw)" decorative />
+                      </Pan>
+                    ) : null}
+                    <figcaption className="meta cap-cap">{f.caption}</figcaption>
+                  </figure>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      {/* 04. Run by the club: the close. No admin capture exists, so this is words only. */}
+      <section className="sec case-close" aria-labelledby="close-h">
+        <div className="wrap">
+          <Rail index="04" name="Run by the club" note={w.close.note} />
+          <Rise className="sec-head">
+            <h2 id="close-h" className="h2 rise">
+              {w.close.heading.replace(/\.$/, "")}
+              <span className="accent">.</span>
+            </h2>
+          </Rise>
+          <div className="split close-split">
+            <p className="close-body">{w.close.body}</p>
+            <div className="stack">
+              <p className="close-outcome">{w.close.outcome}</p>
+              <ArrowLink href="/contact">Start a project</ArrowLink>
             </div>
           </div>
         </div>
       </section>
-
-      {/* CS4 numbers */}
-      <section className="sec" aria-labelledby="cs-nums">
-        <div className="wrap">
-          <div className="sec-hd">
-            <p className="sec-k mono">
-              <span>04</span>
-              <span id="cs-nums">The build in numbers</span>
-            </p>
-          </div>
-          <dl className="cs-nums">
-            {w.numbers.map((n) => (
-              <Counter key={n.label} value={n.value} label={n.label} />
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* CS5 member story: never a testimonial */}
-      <StoryExcerpt n="05" quote={w.excerpt.quote} caption={w.excerpt.caption} href={w.excerpt.href} />
-
-      {/* CS6 on a phone (M36) */}
-      <section className="sec cs-phones" aria-labelledby="cs-phone">
-        <div className="wrap">
-          <SecHead n="06" name="On a phone" id="cs-phone" title={tail(w.mobile.heading, "not the desk.")} />
-          <div className="sec-body">
-            <PhoneStrip slug={w.slug} client={w.client} phones={w.mobile.shots} />
-          </div>
-        </div>
-      </section>
-
-      {/* CS7 next */}
-      <section className="sec cs-next" aria-labelledby="cs-next">
-        <div className="wrap">
-          <div className="sec-hd">
-            <p className="sec-k mono">
-              <span>07</span>
-              <span id="cs-next">Next</span>
-            </p>
-          </div>
-          <div className="sec-body">
-            <GhostRow name="Your club, next." kind="Start a project" sub="Any code on PlayHQ. Tell us what you play." />
-            <div className="cs-next__all">
-              <TextLink href="/work" arrow="→">
-                All work
-              </TextLink>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "CreativeWork",
-          name: `${w.client} — website & club platform`,
-          description: w.summary,
-          about: { "@type": "SportsOrganization", name: w.client, url: w.live.href },
-          creator: { "@type": "Organization", name: SITE.name, url: SITE.url },
-          url: `${SITE.url}/work/${w.slug}`,
-          image: `${SITE.url}/work/${w.slug}/${w.og.file}-1440.jpg`,
-        }}
-      />
-      <JsonLd
-        data={breadcrumbs([
-          ["Home", "/"],
-          ["Work", "/work"],
-          [w.client, `/work/${w.slug}`],
-        ])}
-      />
+      <JsonLd data={article} />
+      <JsonLd data={breadcrumbs([["Home", "/"], ["Work", "/work"], [w.client, `/work/${w.slug}`]])} />
     </>
   );
 }

@@ -1,41 +1,48 @@
 "use client";
 /**
- * Email address link (mailto, char-roll) + "Copy email" Flag button (Ink label) + polite status (M29).
- * Copied: the label lifts out and "Copied ✓" rolls in (450ms expo), reverting after 2.2s; status "Email address
- * copied". Clipboard blocked -> execCommand("copy") -> else the address is selected and status says
- * "Press Ctrl+C to copy" (Cmd+C on Apple platforms).
+ * Email address (mailto) + a Copy control + polite status (DESIGN.md §5). Clipboard blocked -> execCommand("copy")
+ * -> else the address is selected and the status says "Press Ctrl+C to copy" (Cmd+C on Apple).
+ * `variant`: "text" (default, the footer) is a mono "Copy" word; "icon" (/contact) is a 44x44 button holding a 16px
+ * copy glyph on the same line as the address, with a mono "Copied" replacing the glyph for 1.5s.
  * `email` comes from the server parent (SITE.email) so the island does not ship the site config.
  */
 import { useEffect, useRef, useState } from "react";
-import { Roll } from "./Roll";
 
 export type CopyEmailProps = {
   email: string;
-  /** "mail": --t-mail display address (contact bands); "ui": 17px. */
-  size?: "mail" | "ui";
-  /** Button label (default "Copy email"). */
-  label?: string;
-  /** mailto query; defaults to "?subject=New%20project" (every CTA uses the same subject). Pass "" for none. */
+  /** mailto query; defaults to "?subject=New%20project". Pass "" for none. */
   query?: string;
   className?: string;
+  variant?: "text" | "icon";
 };
 
-export function CopyEmail({ email, size = "ui", query = "?subject=New%20project", label = "Copy email", className = "" }: CopyEmailProps) {
-  const [state, setState] = useState<"idle" | "copied">("idle");
+function CopyGlyph() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+      <path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2" />
+    </svg>
+  );
+}
+
+export function CopyEmail({ email, query = "?subject=New%20project", className = "", variant = "text" }: CopyEmailProps) {
+  const [copied, setCopied] = useState(false);
   const [status, setStatus] = useState("");
   const addr = useRef<HTMLAnchorElement>(null);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
-  const [user, domain] = email.split("@");
 
   function done() {
-    setState("copied");
+    setCopied(true);
     setStatus("Email address copied");
     window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => {
-      setState("idle");
-      setStatus("");
-    }, 2200);
+    timer.current = window.setTimeout(
+      () => {
+        setCopied(false);
+        setStatus("");
+      },
+      variant === "icon" ? 1500 : 2200,
+    );
   }
 
   function legacy(): boolean {
@@ -64,26 +71,30 @@ export function CopyEmail({ email, size = "ui", query = "?subject=New%20project"
     }
     const sel = window.getSelection();
     if (sel && addr.current) {
-      const r = document.createRange();
-      r.selectNodeContents(addr.current);
+      const range = document.createRange();
+      range.selectNodeContents(addr.current);
       sel.removeAllRanges();
-      sel.addRange(r);
+      sel.addRange(range);
     }
     setStatus(/Mac|iPhone|iPad/.test(navigator.platform) ? "Press Cmd+C to copy" : "Press Ctrl+C to copy");
   }
 
+  const icon = variant === "icon";
   return (
-    <div className={`copy ${className}`}>
-      <a ref={addr} href={`mailto:${email}${query}`} className={`copy-addr ${size === "mail" ? "t-mail" : "is-ui"}`} data-cursor="Copy">
-        <Roll text={`${user}@${domain}`} />
+    <div className={`copy ${icon ? "copy-icon" : ""} ${className}`.replace(/\s+/g, " ").trim()}>
+      <a ref={addr} href={`mailto:${email}${query}`} className="copy-addr">
+        {email}
       </a>
-      <button type="button" className="btn btn-flag copy-btn" data-state={state} onClick={copy} aria-label={`${label}: ${email}`}>
-        <span className="copy-lbl" aria-hidden="true">
-          <span data-k="idle">{label}</span>
-          <span data-k="copied">Copied ✓</span>
-        </span>
+      <button
+        type="button"
+        className="copy-btn"
+        onClick={copy}
+        data-copied={copied ? "1" : undefined}
+        aria-label={copied ? `Copied email address ${email}` : `Copy email address ${email}`}
+      >
+        {icon ? copied ? "Copied" : <CopyGlyph /> : copied ? "Copied" : "Copy"}
       </button>
-      <span role="status" aria-live="polite" className="sr">
+      <span role="status" aria-live="polite" className="sr-only">
         {status}
       </span>
     </div>

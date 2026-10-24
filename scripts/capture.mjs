@@ -21,12 +21,13 @@ const CAP = { desktop: 1.875, phone: 6.5 }; // max height / width, after DPR (ph
 // so they are not captured; the viewport home shots (home.jpg, mobile-home.jpg) are separate.
 const PAGES = [
   { name: "fixtures", url: "/fixtures" },
-  // Feature 02: one side's team page (B Grade), its PlayHQ ladder with every opponent by club, then its fixtures.
-  { name: "team", url: "/fixtures?season=Summer%202026%2F27&team=9ad1241c-0f78-418e-b9f6-e0e74bff69a0" },
+  // Feature 02: one side's team page (B Grade), its PlayHQ ladder with every opponent by club, then its fixtures and
+  // results. Captured on the last completed season (Summer 2025/26, BRIEF 5.3) so the ladder and results carry
+  // numbers; the current season's team page is all zeros before round one.
+  { name: "team", url: "/fixtures?season=Summer%202025%2F26&team=61e6c836-a80b-49f1-ae65-625bd0f55016" },
   { name: "announcements", url: "/announcements" },
   { name: "event-rsvp", url: "/events/16" }, // Legends Launch Night
   { name: "player", url: "/players/alexander-giacco" },
-  { name: "story", url: "/history/more-than-cricket-finding-home-at-lang-lang" },
   { name: "mobile-announcements", url: "/announcements", phone: true },
 ];
 

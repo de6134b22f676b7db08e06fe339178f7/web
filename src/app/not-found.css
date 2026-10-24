@@ -1,0 +1,7 @@
+/* 404: a normal page head that closes on the rule, then the footer. */
+.nf {
+  padding-bottom: var(--sec-s);
+}
+.nf .actions {
+  gap: 16px 32px;
+}

@@ -1,0 +1,115 @@
+/* Contact: the address as a second headline (cols 1-5, sticky), the form (cols 6-13) with hairline fields. */
+.contact-body {
+  padding-bottom: var(--sec);
+}
+.contact-grid {
+  margin-top: clamp(28px, 4vw, 56px);
+  align-items: start;
+  row-gap: 40px;
+}
+.contact-mail {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.contact-mail > .meta {
+  margin: 0;
+}
+/* The address: Mona 800, one line with the 44px copy button beside it. */
+.contact-email .copy-addr {
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 800;
+  font-stretch: 90%;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  padding-block: 6px;
+  text-decoration: underline 2px var(--line-strong);
+  text-underline-offset: 7px;
+  transition: text-decoration-color 150ms;
+}
+.contact-email .copy-addr:hover {
+  text-decoration-color: var(--blue);
+}
+@media (min-width: 900px) {
+  .contact-mail {
+    grid-column: 1 / 6;
+    position: sticky;
+    top: calc(var(--head) + 32px);
+  }
+  .contact-form {
+    grid-column: 6 / 13;
+  }
+}
+
+/* The form. */
+.form {
+  display: grid;
+  gap: 28px;
+}
+.form-foot {
+  display: grid;
+  gap: 16px;
+  padding-top: 8px;
+  justify-items: start;
+}
+.form-foot .meta {
+  margin: 0;
+}
+.form-err {
+  margin: 0;
+  font-size: var(--t-meta);
+  color: var(--err);
+}
+/* Done state: replaces the form in place; the same measure, a rule above, a mono index like the rail. */
+.form-done {
+  display: grid;
+  gap: 16px;
+  padding: 28px 0 8px;
+  border-top: 1px solid var(--ink);
+}
+.form-done p {
+  margin: 0;
+}
+.form-done .h3 {
+  max-width: 28ch;
+}
+.form-done .meta-2 {
+  font-size: var(--t-lede);
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+.form-done .meta-2 a {
+  color: var(--ink);
+  text-decoration: underline 1px var(--line-strong);
+  text-underline-offset: 4px;
+}
+.form-done .meta-2 a:hover {
+  text-decoration-color: var(--blue);
+}
+.form-done .actions {
+  padding-top: 8px;
+}
+/* Fields stagger in on load (CSS only; off under reduced motion). */
+html.js:not(.reduce) .field,
+html.js:not(.reduce) .form-foot {
+  animation: fade-up 700ms var(--ease-expo) calc(var(--n, 0) * 60ms + 350ms) both;
+}
+.form .field:nth-child(1) {
+  --n: 0;
+}
+.form .field:nth-child(2) {
+  --n: 1;
+}
+.form .field:nth-child(3) {
+  --n: 2;
+}
+.form .field:nth-child(4) {
+  --n: 3;
+}
+.form .field:nth-child(5) {
+  --n: 4;
+}
+.form-foot {
+  --n: 5;
+}

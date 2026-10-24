@@ -4,21 +4,9 @@ import type { Shot } from "@/content/work";
 const DESKTOP = [720, 1080, 1440, 2880];
 const PHONE = [390, 780];
 
-/** `sizes` presets (DESIGN.md 4.26). */
-export const SIZES = {
-  flood: "(min-width:1024px) 34vw, 92vw",
-  featureFrame: "(min-width:1024px) 56vw, 92vw",
-  preview: "380px",
-  phone: "(min-width:1024px) 22vw, 70vw",
-  thumb: "(min-width:1024px) 160px, 92vw",
-  workFeature: "(min-width:1600px) 1320px, (min-width:1024px) 84vw, 92vw",
-} as const;
-
-export type Sizes = keyof typeof SIZES | (string & {});
-
-export function sizesOf(s: Sizes): string {
-  return (SIZES as Record<string, string>)[s] ?? s;
-}
+/** Below this width a `phoneShot` replaces the desktop capture (DESIGN.md §5 Capture). */
+export const PHONE_MEDIA = "(max-width: 599px)";
+const WIDE_MEDIA = "(min-width: 600px)";
 
 /** Phone captures are 780 wide; everything else (viewport and -full) is 2880. */
 export function isPhone(shot: Shot): boolean {
@@ -39,49 +27,47 @@ export function srcFor(slug: string, shot: Shot) {
 export type PictureProps = {
   slug: string;
   shot: Shot;
-  /** Shown below 768 instead of `shot`; its <source media> is emitted first. */
+  /** Shown below 600px instead of `shot` (art direction); its <source media> is emitted first. */
   phoneShot?: Shot;
-  /** A preset name from SIZES or a raw `sizes` expression. */
-  sizes: Sizes;
-  /** Only for the phone source; defaults to "100vw". */
+  sizes: string;
+  /** `sizes` for the phone source. */
   phoneSizes?: string;
   priority?: boolean;
-  /** Eager without preload or high priority: an image that is the LCP on some viewports (desktop) but below the
-   *  fold on others (phones), where a preload would compete with the real LCP. */
+  /** Eager + fetchPriority high, but no preload: an image that is the LCP on some viewports but below the fold on
+   *  others, where a preload would compete with the real LCP. */
   eager?: boolean;
-  className?: string;
-  imgClassName?: string;
+  /** alt="" for an image that repeats one already described (e.g. the phone half of a CaptureDuo). */
+  decorative?: boolean;
 };
 
 /**
  * Responsive <picture> for a pre-optimised capture (scripts/optimize-images.mjs).
  * Explicit width/height from the content model; CLS 0. `priority` = LCP image (eager, fetchPriority high, preload()).
  */
-export function Picture({ slug, shot, phoneShot, sizes, phoneSizes = "100vw", priority = false, eager = false, className = "", imgClassName = "" }: PictureProps) {
+export function Picture({ slug, shot, phoneShot, sizes, phoneSizes = "100vw", priority = false, eager = false, decorative = false }: PictureProps) {
   const d = srcFor(slug, shot);
   const p = phoneShot ? srcFor(slug, phoneShot) : null;
-  const s = sizesOf(sizes);
   if (priority) {
     if (p) {
-      preload(p.jpg, { as: "image", imageSrcSet: p.srcSet, imageSizes: phoneSizes, fetchPriority: "high", media: "(max-width: 767px)" });
-      preload(d.jpg, { as: "image", imageSrcSet: d.srcSet, imageSizes: s, fetchPriority: "high", media: "(min-width: 768px)" });
+      preload(p.jpg, { as: "image", imageSrcSet: p.srcSet, imageSizes: phoneSizes, fetchPriority: "high", media: PHONE_MEDIA });
+      preload(d.jpg, { as: "image", imageSrcSet: d.srcSet, imageSizes: sizes, fetchPriority: "high", media: WIDE_MEDIA });
     } else {
-      preload(d.jpg, { as: "image", imageSrcSet: d.srcSet, imageSizes: s, fetchPriority: "high" });
+      preload(d.jpg, { as: "image", imageSrcSet: d.srcSet, imageSizes: sizes, fetchPriority: "high" });
     }
   }
   return (
-    <picture className={className || undefined}>
-      {p ? <source media="(max-width: 767px)" type="image/webp" srcSet={p.srcSet} sizes={phoneSizes} /> : null}
-      <source type="image/webp" srcSet={d.srcSet} sizes={s} />
+    <picture>
+      {p ? <source media={PHONE_MEDIA} type="image/webp" srcSet={p.srcSet} sizes={phoneSizes} /> : null}
+      <source type="image/webp" srcSet={d.srcSet} sizes={sizes} />
       <img
         src={d.jpg}
-        alt={shot.alt}
+        alt={decorative ? "" : shot.alt}
         width={shot.width}
         height={shot.height}
         loading={priority || eager ? "eager" : "lazy"}
         decoding={priority ? "sync" : "async"}
-        fetchPriority={priority ? "high" : eager ? "auto" : "low"}
-        className={`block h-auto w-full ${imgClassName}`}
+        fetchPriority={priority || eager ? "high" : "low"}
+        className="block h-auto w-full"
       />
     </picture>
   );

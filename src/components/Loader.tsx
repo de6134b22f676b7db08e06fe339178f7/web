@@ -1,40 +1,26 @@
-/**
- * Signature loader (DESIGN.md v4 §3). Server component, rendered in layout.tsx before <Header>, outside the
- * MotionProvider: React is never involved. Pure CSS keyframes from first paint (globals.css "LOADER"):
- *   120 flag in · 220 pennant unfurls · 560 lockup slides left while "websport" slides out of the mask that
- *   starts at the flag's right edge · 1100 ".com.au" wipes on (sibling outside the mask) · hold ·
- *   1560 sheet lifts on a 9vw slant with a constant --band red edge · 2200 visibility:hidden (always, no JS).
- * Repeat visits: html.no-intro (head script) => display:none. Reduced motion: static lockup, 300ms fade at .6s.
- */
-import { Mark } from "./Mark";
-import { Wordmark, wordmarkBox } from "./Wordmark";
+import { BRAND } from "./brand.generated";
 
-const word = wordmarkBox("word");
-const tld = wordmarkBox("tld");
+/**
+ * The home loader (DESIGN.md §6.2): a night curtain (`.ldr-sheet`) with the icon tile (blue, white W, navy ball) in
+ * the centre. The tile builds, the ball drops into the W, the tile fades and the curtain lifts (440ms) while the hero
+ * headline is already rising through it. Pure CSS keyframes gated by `html.intro` (lib/gate.ts), so it never renders
+ * for a repeat visit, under reduced motion or without JS; the page under it is complete at first paint and nothing
+ * here waits on React. Server component, decorative. 1.1s in all; `.ldr` is display:none at 1120ms whatever happens.
+ */
+const { d, ball } = BRAND.mark;
 
 export function Loader() {
   return (
-    <div
-      className="ld"
-      aria-hidden="true"
-      style={{ "--ww": (word.w / word.h).toFixed(4), "--tw": (tld.w / tld.h).toFixed(4) } as React.CSSProperties}
-    >
-      <div className="ld-sheet">
-        <div className="ld-white">
-          <div className="ld-out">
-            <div className="ld-lockup">
-              <Mark className="ld-flag" />
-              <span className="ld-mask">
-                <Wordmark part="word" className="ld-word" decorative />
-              </span>
-              <Wordmark part="tld" className="ld-tld" decorative />
-            </div>
-          </div>
-          <span className="ld-skip">
-            <span className="ld-skip-f">Click or press any key to skip</span>
-            <span className="ld-skip-t">Tap to skip</span>
-          </span>
-        </div>
+    <div className="ldr" aria-hidden="true">
+      <div className="ldr-sheet" />
+      <div className="ldr-tile">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <rect width="256" height="256" rx="48" fill="#0062FF" />
+          <g transform="translate(35.84 51.2) scale(1.536)">
+            <path fill="#FFFFFF" d={d} />
+            <circle className="logo-ball" fill="#00153D" cx={ball.cx} cy={ball.cy} r={ball.r} />
+          </g>
+        </svg>
       </div>
     </div>
   );

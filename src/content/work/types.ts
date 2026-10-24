@@ -9,64 +9,60 @@ export type Shot = {
   caption?: string;
 };
 
-/** A primary feature (DESIGN.md 5.3): exactly 5, in founder order. Drives FeatureFrame (>= 1024) and FeatureIndex. */
+/** A primary feature (BRIEF 5.2): exactly 5, in the club's order. */
 export type Feature = {
   /** "01".."05". */
   no: string;
   title: string;
   body: string;
-  /** The feature's own full-page capture(s): at least one (the first drives the frame and the index). */
+  /** The feature's own full-page capture(s): at least one (the first is shown). */
   shots: [Shot, ...Shot[]];
-  /** URL bar text after the domain, e.g. "/fixtures". */
-  path: string;
-  /** Top of the visible window as a fraction of the capture height, start -> end (scrubbed inside the frame). */
-  scroll: [number, number];
-  /** Mobile/RM accordion only: top of its 4:3 window (defaults to scroll[0]); used when the uncropped 4:3 window would reach a capture footer. */
-  indexAt?: number;
-  /** What the frame visibly shows (caption under the frame / in the index). */
+  /** Top of the window as a fraction of the capture height (the resting frame under reduced motion / no JS). */
+  at: number;
+  /** Where the window's bottom edge rests at the end of the pan, as a fraction of the capture height. Chosen so the
+   *  resting frame never shows an empty state or a footer. */
+  to: number;
+  /** Window aspect ratio at >= 900px when 16:10 would not fit the subject (e.g. "2 / 1"). */
+  ratio?: string;
+  /** Horizontal anchor of the 180% zoom under 900px, as a fraction of the capture width (default 0.1). */
+  zoomX?: number;
+  /** What the window visibly shows (caption under the figure). */
   caption: string;
-};
-
-/** "Also in the build" (5.3 CS3): stories + committee admin. */
-export type SupportingFeature = {
-  title: string;
-  body: string;
-  /** Thumbnail (4:3 window at the top of the capture). */
-  shot?: Shot;
-  /** Live link for the thumbnail (new tab). */
-  href?: string;
-  chips?: string[];
-  /** An action the committee can run, shown apart from the numbered areas (e.g. the PlayHQ resync). */
-  action?: string;
-  note?: string;
+  /** Label of the `mobile.shots` entry that shows the same screen; shown instead of the desktop window under 900px.
+   *  Only set when the phone capture really is the same page (the caption must stay true). */
+  phone?: string;
 };
 
 export type CaseStudy = {
   slug: string;
   client: string;
   kind: string;
-  /** Short feature tags for the /work row (founder order). */
+  /** Short feature tags for the /work entry (club order). */
   tags: string[];
-  /** Case hero sub: "A club that lives on its website." */
+  /** Case h1, "|" marks the line breaks: "A club that lives|on its website". */
   headline: string;
-  /** CS1 "The club" paragraph. */
+  /** The /work entry's one-sentence outcome. */
+  outcome: string;
+  /** Intro under the case h1 (two sentences). */
   intro: string;
   /** Launch year, shown only when confirmed. */
   year?: string;
   live: { href: string; label: string };
+  /** Kept in the content model; not rendered (BRIEF 5.2). */
   stack: string[];
+  /** "What the club got", plain English, for the meta cells. */
+  got: string[];
   /** Meta description / summary line. */
   summary: string;
-  /** Case hero frame + compare "now" side (viewport home capture). */
+  /** Viewport home capture: home + /work duo, case hero, "Now" side of the pair. */
   hero: Shot;
-  /** Viewport home shot, for OG images. */
-  og: Shot;
+  /** Aspect ratio of the window onto `hero` (>= 600px) when the full capture ends on something unfinished. */
+  heroRatio?: string;
   before: { heading: string; old: { label: string; body: string; shot: Shot }; now: { label: string; body: string; shot: Shot } };
-  vision: { label: string; heading: string; paragraphs: string[] };
-  built: { heading: string; note: string; primary: Feature[]; supporting: SupportingFeature[] };
-  /** CS4: exactly two counters. */
-  numbers: { value: string; label: string }[];
-  excerpt: { quote: string; href: string; caption: string };
-  /** `shots`: the case-study phone strip (`play`: the full-page capture that scrolls itself). Case study only; Home never renders client captures. */
-  mobile: { heading: string; shots: { shot: Shot; label: string; play?: boolean }[] };
+  vision: { heading: string; paragraphs: string[] };
+  built: { heading: string; note: string; primary: Feature[] };
+  /** Closing act: what the committee now does themselves, and the one-line outcome. */
+  close: { heading: string; note: string; body: string; outcome: string };
+  /** Phone captures, by label (shown under 900px in place of the desktop capture of the same screen). */
+  mobile: { shots: { shot: Shot; label: string }[] };
 };

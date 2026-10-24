@@ -1,64 +1,59 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { sans, sansItalic, mono } from "./fonts";
+import { mona, mono } from "./fonts";
 import { SITE, og } from "@/lib/site";
-import { InlineScript } from "@/components/InlineScript";
 import { GATE } from "@/lib/gate";
-import { MotionProvider } from "@/motion/MotionProvider";
-import { Loader } from "@/components/Loader";
+import { InlineScript } from "@/components/InlineScript";
 import { Header, SkipLink } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Cursor } from "@/components/Cursor";
+import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
+import { Smooth } from "@/components/motion/Smooth";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s — ${SITE.name}`,
+    default: `${SITE.name}: ${SITE.tagline}`,
+    template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
-  // No `url` here: each page restates the block with its own path via og().
   openGraph: { ...og("/"), url: undefined },
   twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#060D1F",
   colorScheme: "light",
 };
 
-/** §7.4: Organization without address or founding date. */
+/** Organization, without address or founding date (gated). */
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: SITE.name,
   url: SITE.url,
   email: SITE.email,
-  logo: `${SITE.url}/icon.svg`,
+  logo: `${SITE.url}/brand/logo.svg`,
 };
 
 /**
- * Root layout (DESIGN.md v4 §3, §4.3). Order matters:
- * head script (js / no-intro / skip) -> skip link -> Loader (pure CSS, outside React state) -> Header -> page -> Footer.
- * The layout never remounts, so the finished loader never replays.
+ * Root layout (DESIGN.md §4-6). Head script (js / reduce / fine / once-per-session loader gate) -> skip link ->
+ * floating header -> <main id="main"> -> footer (night ground, every page) -> Lenis.
  */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${sans.variable} ${sansItalic.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en-AU" className={`${mona.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <InlineScript html={GATE} />
       </head>
       <body>
         <SkipLink />
-        <Loader />
-        <MotionProvider>
-          <Header email={SITE.email} />
+        <Header />
+        <main id="main" tabIndex={-1}>
           {children}
-          <Footer />
-          <Cursor />
-        </MotionProvider>
-        <div className="vt-edge" aria-hidden="true" />
+        </main>
+        <SiteFooter full={<Footer />} plain={<Footer cta={false} />} />
+        <Smooth />
         <JsonLd data={organization} />
       </body>
     </html>

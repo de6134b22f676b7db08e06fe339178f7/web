@@ -1,0 +1,678 @@
+/* Home (BRIEF §4). Hero scene, the five screens (pinned), the scoreboard, the steps. */
+
+/* ---------- HERO (§4.2) ---------- */
+.hero {
+  --bleed: clamp(120px, 22vw, 320px);
+  position: relative;
+  background:
+    radial-gradient(60% 50% at 50% 0%, var(--glow), transparent 70%),
+    linear-gradient(to bottom, var(--night) calc(100% - var(--bleed)), var(--cream) calc(100% - var(--bleed)));
+}
+.hero::before {
+  /* Floodlit ground: a fine dot grid that fades out toward the stage. */
+  content: "";
+  position: absolute;
+  inset: 0 0 var(--bleed);
+  background-image: radial-gradient(rgba(239, 235, 226, 0.14) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+  pointer-events: none;
+}
+.hero-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 4vh, 40px) var(--gap);
+  padding-top: calc(var(--head) + clamp(32px, 6vh, 72px));
+  padding-bottom: clamp(28px, 4vh, 48px);
+}
+.hero-kicker {
+  color: var(--on-night-2);
+}
+.hero-h {
+  color: var(--on-night);
+  font-stretch: 88%;
+}
+.hero-side {
+  justify-items: start;
+}
+.hero-side .lede {
+  max-width: 38ch;
+}
+.hero-side .arrow {
+  color: var(--on-night);
+}
+@media (min-width: 900px) {
+  .hero-wrap {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-areas:
+      "k k k k k k k k k k k k"
+      "h h h h h h h h h h h h"
+      "s s s s s s s s s s s s";
+  }
+  .hero-kicker {
+    grid-area: k;
+  }
+  .hero-h {
+    grid-area: h;
+    max-width: none;
+  }
+  .hero-side {
+    grid-area: s;
+  }
+}
+@media (min-width: 1200px) {
+  .hero-wrap {
+    grid-template-areas:
+      "k k k k k k k k k k k k"
+      "h h h h h h h h h s s s";
+    align-items: end;
+  }
+  .hero-side {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding-bottom: 0.35em;
+  }
+}
+.hero-stage {
+  position: relative;
+  padding-bottom: 16px;
+  perspective: 1600px;
+}
+.hero-scene {
+  position: relative;
+  transform-style: preserve-3d;
+}
+.hero-desk {
+  width: 100%;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+.hero-phone {
+  position: absolute;
+  right: -1.5%;
+  bottom: -6%;
+  width: 22%;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .hero-phone {
+    width: 24%;
+    bottom: -12%;
+  }
+  .hero-stage {
+    padding-bottom: 40px;
+  }
+}
+/* Phone-first under 600px: the match centre is the mobile hero; no desk, no 3D. */
+@media (max-width: 599px) {
+  .hero-desk {
+    display: none;
+  }
+  .hero-phone {
+    position: static;
+    width: 72%;
+    margin-inline: auto;
+  }
+  .hero-stage {
+    perspective: none;
+    padding-bottom: 8px;
+  }
+}
+/* Under the phone (600px and up it covers the desk's right 22-24% at every scroll position, only its y scrubs): no
+   half-words on the first screen. The events card, the fourth post and the live card's second fact sit under it, so
+   they are hidden and the top-scorers fact takes the full row. */
+@media (min-width: 600px) {
+  .hero-desk .club-grid > .club-ev,
+  .hero-desk .club-strip > .club-post:last-child {
+    visibility: hidden;
+  }
+  .hero-desk .match-line {
+    grid-template-columns: 1fr;
+  }
+  .hero-desk .match-line > span:last-child {
+    display: none;
+  }
+}
+/* Start states for the scrubbed stand-up (GSAP owns them after hydration), 600px and up only. */
+@media (min-width: 600px) {
+  html.js:not(.reduce) .hero-desk {
+    transform: rotateX(12deg);
+  }
+  html.js:not(.reduce) .hero-phone {
+    transform: translateY(48px);
+  }
+}
+.hero-cap {
+  margin: 20px 0 0;
+  color: var(--ink-3);
+  text-align: center;
+}
+.hero.on-night .hero-cap b {
+  color: var(--ink);
+}
+/* 600-899: the phone overlaps more of the desk; one sticker (the desk's) is enough. */
+@media (max-width: 899px) {
+  .hero-phone .device-tag {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .hero-phone .device-tag {
+    display: inline-flex;
+  }
+}
+@media (min-width: 600px) {
+  .hero-cap {
+    text-align: left;
+  }
+}
+
+/* ---------- 01 SCENES (§4.3) ---------- */
+.scenes {
+  position: relative;
+  background: var(--cream);
+  padding-block: var(--sec) 0;
+}
+.scenes-h {
+  margin: clamp(24px, 3vw, 40px) 0 clamp(28px, 4vw, 48px);
+}
+.scenes-in {
+  display: grid;
+  padding-bottom: var(--sec-s);
+}
+.scene-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+.scene-item {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding-block: var(--sec-s);
+  border-top: 1px solid var(--line);
+}
+.scene-item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.scene-row {
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+.scene-i {
+  color: var(--ink-3);
+}
+.scene-t {
+  max-width: 18ch;
+  color: var(--ink);
+  transition: color 300ms var(--ease-out);
+}
+.scene-bw {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.scene-bi {
+  min-height: 0;
+  overflow: hidden;
+}
+.scene-b {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 40ch;
+}
+.scene-own {
+  margin-top: 16px;
+}
+.scene-phone .device-wrap {
+  width: min(300px, 76%);
+  margin-inline: auto;
+}
+.scene-stage {
+  display: none;
+}
+@media (min-width: 900px) {
+  .scene-row {
+    grid-template-columns: 4ch minmax(0, 1fr);
+  }
+  .scene-bw {
+    margin-left: calc(4ch + 16px);
+  }
+}
+/* The pinned frame: wide and tall enough only (the pin guard; Scenes.tsx uses the same query). */
+@media (min-width: 900px) and (min-height: 720px) {
+  html.js:not(.reduce) .scenes {
+    height: 100vh;
+    padding-top: calc(var(--head) + 24px);
+    overflow: hidden;
+  }
+  html.js:not(.reduce) .scenes-h {
+    margin: 10px 0 24px;
+    white-space: nowrap;
+  }
+  html.js:not(.reduce) .scenes-in {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+    align-items: start;
+    height: calc(100vh - 250px);
+    padding-bottom: 0;
+  }
+  html.js:not(.reduce) .scene-list {
+    grid-column: 1 / 6;
+    border-top: 1px solid var(--line);
+  }
+  html.js:not(.reduce) .scene-item {
+    gap: 0;
+    padding: 14px 0;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  html.js:not(.reduce) .scene-item:first-child {
+    padding-top: 14px;
+  }
+  html.js:not(.reduce) .scene-t {
+    color: var(--ink-3);
+  }
+  html.js:not(.reduce) .scene-item[data-on="1"] .scene-t {
+    color: var(--ink);
+  }
+  html.js:not(.reduce) .scene-bw {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 400ms var(--ease-out);
+  }
+  html.js:not(.reduce) .scene-item[data-on="1"] .scene-bw {
+    grid-template-rows: 1fr;
+  }
+  html.js:not(.reduce) .scene-b {
+    padding-top: 10px;
+  }
+  html.js:not(.reduce) .scene-own {
+    display: none;
+  }
+  html.js:not(.reduce) .scene-stage {
+    display: block;
+    position: relative;
+    grid-column: 6 / 13;
+    height: calc(100vh - 250px);
+  }
+  html.js:not(.reduce) .scene-shot {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 450ms var(--ease-out),
+      transform 650ms var(--ease-expo);
+    pointer-events: none;
+  }
+  html.js:not(.reduce) .scene-shot[data-on="1"] {
+    opacity: 1;
+    transform: none;
+  }
+  html.js:not(.reduce) .scene-shot.scene-desk .device-wrap {
+    width: min(100%, calc((100vh - 250px) * 1.6));
+  }
+  html.js:not(.reduce) .scene-shot.scene-phone .device-wrap {
+    width: min(calc((100vh - 250px) * 390 / 844), 258px);
+    margin: 0;
+  }
+}
+
+/* ---------- 02 SCOREBOARD (§4.4) ---------- */
+.phq .panel {
+  border: 1px solid var(--line-night);
+  border-radius: var(--r-card);
+  background: var(--night-2);
+  padding: clamp(20px, 3vw, 36px);
+}
+.panel-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-night-strong);
+}
+.panel-round {
+  margin: 0;
+  font-size: clamp(22px, 2.4vw, 34px);
+  font-weight: 800;
+  font-stretch: 90%;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.panel-cols {
+  display: grid;
+  gap: var(--gap);
+}
+.panel-col {
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .panel-cols {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .panel-col:first-child {
+    grid-column: 1 / 8;
+  }
+  .panel-col:last-child {
+    grid-column: 8 / 13;
+  }
+}
+.panel-h {
+  margin: clamp(20px, 2.6vw, 30px) 0 6px;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-night-2);
+}
+.fx {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fx-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 20px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line-night);
+}
+.fx-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.fx-grade {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-night-2);
+}
+.fx-teams {
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.fx-v {
+  color: var(--on-night-2);
+  font-weight: 400;
+  padding-inline: 0.2em;
+}
+.fx-when {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  color: var(--on-night-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-rail);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+.fx-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+.fx-score {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: clamp(22px, 2vw, 30px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--live);
+}
+.live-words {
+  position: relative;
+  display: inline-grid;
+}
+.live-words > span {
+  grid-area: 1 / 1;
+  transition: opacity 200ms;
+}
+.final-word {
+  opacity: 0;
+  color: var(--on-night-2);
+}
+/* Final: the dot becomes a 1px cream ring, no fill, no pulse; the word is FT. */
+.fx-row[data-state="final"] .live-dot {
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--on-night) inset;
+  animation: none;
+}
+.fx-row[data-state="final"] .live-word {
+  opacity: 0;
+}
+.fx-row[data-state="final"] .final-word {
+  opacity: 1;
+}
+.ladder {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(15px, 1.2vw, 17px);
+}
+.ladder th,
+.ladder td {
+  padding: 14px 0;
+  text-align: right;
+  border-top: 1px solid var(--line-night);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ladder thead th {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-night-2);
+  border-top: 0;
+  padding-top: 0;
+}
+.ladder abbr {
+  text-decoration: none;
+}
+.ladder .l-pos {
+  text-align: left;
+  width: 3ch;
+  color: var(--on-night-2);
+  font-family: var(--font-mono);
+}
+.ladder .l-club {
+  text-align: left;
+  font-weight: 600;
+  min-width: 12ch;
+  padding-right: 12px;
+}
+.ladder td:not(.l-pos),
+.ladder th:not(.l-club):not(.l-pos) {
+  width: 3.5ch;
+  padding-left: 12px;
+  font-family: var(--font-mono);
+}
+.ladder .l-short {
+  display: none;
+}
+@media (max-width: 599px) {
+  .ladder .l-long {
+    display: none;
+  }
+  .ladder .l-short {
+    display: inline;
+  }
+}
+.ladder tbody tr.ours {
+  color: var(--blue-light);
+}
+.ladder tbody tr.ours .l-pos {
+  color: var(--blue-light);
+}
+.ladder tbody tr {
+  position: relative;
+  background: var(--night-2);
+}
+.ladder tbody tr.l-move {
+  will-change: transform;
+}
+/* Start states for the scrubbed arrival (GSAP owns them after hydration; failsafe shows them at 3s). */
+html.js:not(.reduce) .fx-row,
+html.js:not(.reduce) .ladder tbody tr {
+  opacity: 0;
+  transform: translateX(-32px);
+  animation: show-anyway 400ms var(--ease-out) 3s forwards;
+}
+html.js.hydrated .fx-row,
+html.js.hydrated .ladder tbody tr {
+  animation: none;
+}
+@media (max-width: 419px) {
+  .fx-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fx-when {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0;
+    text-align: left;
+    white-space: normal;
+  }
+  .fx-when > span + span::before {
+    content: " · ";
+    white-space: pre;
+  }
+}
+
+/* ---------- 03 STEPS (§4.5) ---------- */
+.step {
+  gap: 12px;
+}
+.step-i {
+  margin-top: 8px;
+}
+.step-t {
+  max-width: 16ch;
+}
+.step-b {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 34ch;
+}
+/* Artefacts: a 72px object in Websport tokens, abstract, not data. */
+.art {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  margin-bottom: 8px;
+}
+.art-chips {
+  display: flex;
+  gap: 8px;
+}
+.art-chips span {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  box-shadow: 0 0 0 1px var(--line-strong) inset;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.art-crest {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 6px;
+}
+.art-disc {
+  grid-row: 1 / 3;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: conic-gradient(#ffb020 0 50%, #fff 50% 100%);
+  box-shadow:
+    0 0 0 6px #0f3d2e,
+    0 0 0 7px var(--line-strong);
+  margin-left: 7px;
+}
+.art-sw {
+  display: flex;
+  gap: 6px;
+}
+.art-sw i {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px var(--line-strong) inset;
+}
+.art-hex {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.art-launch {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.art-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.art-pill i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue-light);
+}
+.art-dom {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}

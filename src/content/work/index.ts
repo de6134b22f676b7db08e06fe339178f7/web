@@ -1,7 +1,7 @@
 import { langLang } from "./lang-lang";
 import type { CaseStudy } from "./types";
 
-export type { CaseStudy, Feature, SupportingFeature, Shot } from "./types";
+export type { CaseStudy, Feature, Shot } from "./types";
 export { captures } from "./captures.generated";
 
 /** Ordered portfolio. Add new case studies here and they appear everywhere. */

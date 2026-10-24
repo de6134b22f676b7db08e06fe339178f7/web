@@ -1,198 +1,109 @@
 import type { Metadata } from "next";
+import { og, CODES } from "@/lib/site";
 import { JsonLd, breadcrumbs } from "@/components/JsonLd";
-import { og } from "@/lib/site";
-import { ContactBand } from "@/components/ContactBand";
-import { SecHead } from "@/components/SecHead";
-import { Button, TextLink } from "@/components/Button";
-import { StudioFig } from "@/components/studio/StudioFig";
-import { ProcessRail } from "@/components/studio/ProcessRail";
-import { Standards } from "@/components/studio/Standards";
-import "@/components/studio/studio.css";
+import { PageHead } from "@/components/PageHead";
+import { Rail } from "@/components/Rail";
+import { ScrubWords } from "@/components/motion/ScrubWords";
+import { Rise } from "@/components/motion/Rise";
+import "./studio.css";
 
 export const metadata: Metadata = {
   title: "Studio",
   description:
-    "Websport is a design and development studio: specialists in community sports club websites and apps on PlayHQ, and designers for any brand.",
+    "Websport designs and builds websites, platforms and apps for community sports clubs, and designs for people outside sport too.",
   alternates: { canonical: "/studio" },
-  openGraph: og("/studio", "/og/studio.png", "Websport studio: Club sport is our speciality. Club-sized ambition."),
+  openGraph: og("/studio", "/og/studio.png", "Websport studio: a small studio for club sport."),
 };
 
-const CLUBS = [
-  ["Club websites & apps", "Fixtures, results and ladders from PlayHQ, for any code."],
-  ["The right logo on every team", "Every side and every opponent, matched from PlayHQ data."],
-  ["Events, RSVP & payments", "Event pages with a live headcount, RSVPs in a tap and a payment link."],
-  ["Announcements", "Notices that post once and show everywhere they should."],
-  ["Player profiles, present and past", "Seasons, teams and career stats for everyone who has worn the colours."],
-  ["Stories & committee admin", "Member stories the committee reviews, and an admin volunteers can run."],
+/** The seven codes plus the open door. No codes are added here (DESIGN.md truthfulness rules). */
+const CODE_LIST = [...CODES, "Any code"];
+
+/** "Care after launch" is gated until the founder confirms terms, so it is not listed. */
+const GET = [
+  ["Design", "Your crest, your colours, your people, laid out around the season, not a template."],
+  ["Build", "The site, the match and player pages, the events and the admin, built as one system."],
+  ["Hosting", "Live on the club’s own domain, fast on a phone at the ground."],
+  ["A CMS the committee can use", "Notices, events, players and pages, updated by the club without calling us."],
+  ["PlayHQ integration", "Fixtures, results and ladders from the PlayHQ API, matched to every team and opponent."],
 ] as const;
 
-const BEYOND = [
-  ["Brand identity", "Marks, type and colour systems that hold up from a favicon to a billboard."],
-  ["Marketing & product sites", "Sites that explain one thing well and load fast on any phone."],
-  ["Interface & motion design", "Prototyped in the browser with real content, so motion has a reason."],
-  ["Design systems & front-end", "Tokens, components and documentation your team can keep building with."],
-  ["Web apps on Next.js", "Accounts, payments and admin, on the same stack as our club platform."],
-] as const;
-
-const STEPS = [
-  { title: "Listen", text: "We sit down with the committee or your team and learn how things actually run: who posts what, where members look, what the old site gets wrong." },
-  { title: "Design in the browser", text: "Type, colour and components designed as working pages, so you react to the real thing rather than a picture of it." },
-  { title: "Build & connect", text: "We build it, connect PlayHQ and your payment links, and set up the admin around how your people work." },
-  { title: "Hand over the keys", text: "Whoever is taking it on learns the admin with us. After that, it’s your site to run." },
-] as const;
-
-const STANDARDS = [
-  { title: "Accessible by default", text: "WCAG 2.2 AA: keyboard paths, visible focus, real contrast, and a calm version for anyone who prefers reduced motion." },
-  { title: "Fast on real phones", text: "Performance budgets set before design starts, checked on mid-range Android, not just a laptop." },
-  { title: "Motion with a reason", text: "Every animation explains something or answers you. If it doesn’t, it goes." },
-  { title: "Run by you", text: "Content your people can update themselves, from an admin built around how they actually work." },
-] as const;
-
-const STACK = ["Next.js", "React", "TypeScript", "Postgres + Drizzle", "Vercel", "PlayHQ API", "GSAP"] as const;
-
-function BuildList({ id, label, items }: { id: string; label: string; items: readonly (readonly [string, string])[] }) {
-  return (
-    <div className="bl">
-      <h3 id={id} className="bl-hd mono">
-        <span className="pen" aria-hidden="true" />
-        <span>{label}</span>
-        <span className="bl-c" aria-hidden="true">
-          {String(items.length).padStart(2, "0")}
-        </span>
-      </h3>
-      <ol className="bl-list" aria-labelledby={id}>
-        {items.map(([t, x], i) => (
-          <li key={t} className="bl-row">
-            <span className="bl-n mono" aria-hidden="true">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="bl-t wglide">{t}</span>
-            <span className="bl-x">{x}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-/** Studio (§6.4): owns Process and the full "beyond sport" story. */
-export default function Studio() {
+/**
+ * Studio: a wide head (lede left, the codes list right), 01 how we work (h2 beside a statement that resolves word by
+ * word), 02 what you get (ledger on the night ground), then the footer. No team size, photos, location, years, awards
+ * or testimonials (gated). "Not a club?" lives in the head lede; it is not a section.
+ */
+export default function StudioPage() {
   return (
     <>
-      <header className="wrap pg-hd st-hd">
-        <p className="pg-eyebrow mono h-fade" style={{ "--i": 0 } as React.CSSProperties}>
-          <span>Studio</span>
-        </p>
-        <h1 className="pg-h t-display st-h">
-          <span className="h-line" style={{ "--i": 0 } as React.CSSProperties}>
-            Small studio.
-          </span>
-          <span className="h-line" style={{ "--i": 1 } as React.CSSProperties}>
-            <em>Club-sized ambition.</em>
-          </span>
-        </h1>
-        <div className="st-hd-row">
-          <p className="st-lede t-lead h-fade" style={{ "--i": 1 } as React.CSSProperties}>
-            Independent design and development. We make thoughtful digital homes for community clubs and ambitious brands.
-          </p>
-          <div className="st-fig h-fade" style={{ "--i": 2 } as React.CSSProperties}>
-            <StudioFig />
-          </div>
-        </div>
-      </header>
-
-      <section className="sec" aria-labelledby="st-build">
+      <section className="page-head studio-head" aria-labelledby="studio-h">
         <div className="wrap">
-          <SecHead n="01" name="What we build" id="st-build" title={<>Two lists, <em>one standard.</em></>} />
-          <div className="sec-body bl-grid">
-            <BuildList id="st-clubs" label="For clubs" items={CLUBS} />
-            <BuildList id="st-beyond" label="Beyond sport" items={BEYOND} />
-          </div>
-          <aside className="note" aria-labelledby="st-note">
-            <h3 id="st-note" className="note-k mono">
-              <span className="pen" aria-hidden="true" />A note on our portfolio
-            </h3>
-            <p className="note-x">
-              Our first customer is a sports club, and we don&rsquo;t have work outside sport to show yet. So judge us on this
-              site: every interaction, every contrast ratio and every millisecond here is the standard we&rsquo;d bring to
-              yours.
-            </p>
-            <div className="note-links">
-              <TextLink href="/#any" arrow="→">
-                Try the any-domain demo
-              </TextLink>
-              <TextLink href="/work/lang-lang" arrow="→">
-                Read the Lang Lang case study
-              </TextLink>
-            </div>
-          </aside>
+          <PageHead
+            id="studio-h"
+            kicker="Studio"
+            note="Websites, platforms and apps"
+            title="A small studio|for club sport"
+            wide
+            lede="Websport designs and builds websites, platforms and apps for community sports clubs: fixtures from PlayHQ, events, player pages and an admin the committee runs. We also design for people outside sport."
+            aside={
+              <div className="codes">
+                <p className="kicker">Codes we build for</p>
+                <ul className="codes-list" aria-label="Codes we build for">
+                  {CODE_LIST.map((c, i) => (
+                    <li key={c}>
+                      <span className="codes-i" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
+          />
         </div>
       </section>
 
-      <section id="process" className="sec" aria-labelledby="st-process">
+      <section className="sec how" aria-labelledby="how-h">
         <div className="wrap">
-          <SecHead n="02" name="How we work" id="st-process" title={<>From first chat <em>to first fixture.</em></>} />
-          <div className="sec-body">
-            <ProcessRail steps={STEPS} />
+          <Rail index="01" name="How we work" note="Design, build, host" />
+          <div className="grid studio-split">
+            <h2 id="how-h" className="h2 col-head">
+              Designed and built by the same hands<span className="accent">.</span>
+            </h2>
+            <ScrubWords
+              className="col-body stack"
+              size="statement"
+              paragraphs={[
+                "One team from the first call to launch. The people who design your site build it.",
+                "Fixtures come from PlayHQ, not from someone retyping them. The committee updates everything else without calling us.",
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      <section className="sec" aria-labelledby="st-standards">
+      <section className="sec on-night get" aria-labelledby="get-h">
         <div className="wrap">
-          <SecHead n="03" name="Standards" id="st-standards" title={<>What we hold <em>every project to.</em></>} />
-          <div className="sec-body">
-            <Standards items={STANDARDS} />
-          </div>
+          <Rail index="02" name="What you get" note="Every project" />
+          <Rise className="sec-head">
+            <h2 id="get-h" className="h2 rise">
+              The whole thing, not a theme<span className="accent">.</span>
+            </h2>
+          </Rise>
+          <Rise>
+            <ol className="ledger rise">
+              {GET.map(([t, b], i) => (
+                <li key={t}>
+                  <span className="ledger-i">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="ledger-t">{t}</h3>
+                  <p className="ledger-b">{b}</p>
+                </li>
+              ))}
+            </ol>
+          </Rise>
         </div>
       </section>
-
-      <section className="sec" aria-labelledby="st-stack">
-        <div className="wrap">
-          <div className="sec-hd">
-            <p className="sec-k mono">
-              <span>04</span>
-              <span>Stack</span>
-            </p>
-            <div className="stk">
-              <h2 id="st-stack" className="sr">
-                Stack
-              </h2>
-              <ul className="stk-list">
-                {STACK.map((s, i) => (
-                  <li key={s} className="stk-i" style={{ "--k": i } as React.CSSProperties}>
-                    {s}
-                  </li>
-                ))}
-              </ul>
-              <p className="stk-cap">What we reach for. We&rsquo;ll tell you why for your project.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ContactBand
-        id="st-contact"
-        n="05"
-        title={
-          <>
-            Got a club, or a brief <br className="d" />
-            <em>that deserves better?</em>
-          </>
-        }
-        size="h2"
-        actions={
-          <Button href="/contact" magnetic arrow="→">
-            Start a project
-          </Button>
-        }
-      />
-      <JsonLd
-        data={breadcrumbs([
-          ["Home", "/"],
-          ["Studio", "/studio"],
-        ])}
-      />
+      <JsonLd data={breadcrumbs([["Home", "/"], ["Studio", "/studio"]])} />
     </>
   );
 }

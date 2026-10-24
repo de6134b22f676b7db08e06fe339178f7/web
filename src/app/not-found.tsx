@@ -1,68 +1,33 @@
 import type { Metadata } from "next";
-import Link from "@/components/IntentLink";
-import { SITE } from "@/lib/site";
-import { Roll } from "@/components/Roll";
-import { Arrow } from "@/components/Button";
-import { SwayMark } from "@/components/contact/SwayMark";
+import { ArrowLink } from "@/components/Button";
+import { PageHead } from "@/components/PageHead";
+import "./not-found.css";
 
+/** No `robots` here: Next already sends noindex for the not-found page. */
 export const metadata: Metadata = { title: "Page not found" };
 
-const ROWS = [
-  ["/", "Home"],
-  ["/work", "Work"],
-  ["/studio", "Studio"],
-  ["/contact", "Contact"],
-] as const;
-
-/** 404 (§6.6): exported as out/404.html. The mark has fallen out of bounds (M38); the rows wedge in Flag. */
+/**
+ * 404: the standard page head (no decorative numeral, no "Error 404" kicker; the <title> is the one "404"), two ways
+ * back in the aside, a rule, then the footer like every other page.
+ */
 export default function NotFound() {
   return (
-    <>
-      <header className="wrap pg-hd nf-hd">
-        <p className="pg-eyebrow mono h-fade" style={{ "--i": 0 } as React.CSSProperties}>
-          <span>404</span>
-          <span>Page not found</span>
-        </p>
-        <div className="nf-top">
-          <h1 className="pg-h t-display nf-h">
-            <span className="h-line" style={{ "--i": 0 } as React.CSSProperties}>
-              Out of
-            </span>
-            <span className="h-line" style={{ "--i": 1 } as React.CSSProperties}>
-              <em>bounds.</em>
-            </span>
-          </h1>
-          <SwayMark />
-        </div>
-        <p className="pg-lede t-lead h-fade" style={{ "--i": 1 } as React.CSSProperties}>
-          This page isn&rsquo;t on the field. These ones are:
-        </p>
-      </header>
-      <nav className="wrap nf-nav h-fade" style={{ "--i": 2 } as React.CSSProperties} aria-label="Pages">
-        <ul className="nf-list">
-          {ROWS.map(([href, label], i) => (
-            <li key={href}>
-              <Link href={href} className="nf-row">
-                <span className="nf-n mono" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="nf-l t-kit wglide">
-                  <Roll text={label} />
-                </span>
-                <span className="nf-a" aria-hidden="true">
-                  <Arrow dir="→" />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <p className="nf-mail">
-          Or email{" "}
-          <a href={`mailto:${SITE.email}`} className="nf-mail-a">
-            <Roll text={SITE.email} />
-          </a>
-        </p>
-      </nav>
-    </>
+    <section className="page-head nf" aria-labelledby="nf-h">
+      <div className="wrap">
+        <PageHead
+          id="nf-h"
+          kicker="Not found"
+          title="Out of|bounds"
+          lede="That page isn’t on the ground. Head home, or see the work."
+          aside={
+            <div className="actions">
+              <ArrowLink href="/">Back to home</ArrowLink>
+              <ArrowLink href="/work">See the work</ArrowLink>
+            </div>
+          }
+        />
+        <hr className="rule" />
+      </div>
+    </section>
   );
 }
