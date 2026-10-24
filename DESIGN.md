@@ -103,7 +103,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 
 ### 2.1 The mark (exact, never redrawn)
 ```svg
-<svg viewBox="14 13 66 66"><path d="M20 16 L72.38 68.38 A5.5 5.5 0 0 1 64.61 76.16 L43.83 55.38 L20 68 Z" fill="#0F1729"/><polygon points="20,31.56 20,68 43.83,55.38" fill="#E8442B"/></svg>
+<svg viewBox="14 13 66 66"><path d="M20 16 L72.38 68.38 A5.5 5.5 0 0 1 64.61 76.16 L43.83 55.38 L20 68 Z" fill="#0F1729"/><polygon points="20,31.56 20,68 43.83,55.38" fill="#1F5BFF"/></svg>
 ```
 - The pole/pointer path is Ink and the pennant is Flag.
 - **On the Ink stage:** the path turns white and the pennant stays Flag.
@@ -134,11 +134,11 @@ Every weakness that any of the three judges raised against editorial-white, plus
 | `--ink` | `#0F1729` | Text, Ink stage, primary buttons, focus ring | 17.87 on paper |
 | `--ink-2` | `#2A3346` | Secondary body copy on paper | 12.65 |
 | `--muted` | `#5B6475` | Captions, ledes, labels | 5.96 paper / 5.51 surface |
-| `--flag` | `#E8442B` | The mark, fills, display type ≥ 24 px (or ≥ 18.66 px bold), the red band, wedges | 3.97 on paper (large text and UI only) |
-| `--flag-text` | `#C8361F` | Red text under 24 px: section numbers, "Interact ↗", new-item times | 5.25 paper / 4.85 surface / 4.61 on flag-tint |
+| `--flag` | `#1F5BFF` | The mark, fills, display type ≥ 24 px (or ≥ 18.66 px bold), the red band, wedges | 3.97 on paper (large text and UI only) |
+| `--flag-text` | `#1747D1` | Red text under 24 px: section numbers, "Interact ↗", new-item times | 5.25 paper / 4.85 surface / 4.61 on flag-tint |
 | `--flag-tint` | `#FDEDE9` | Tag/pill fills behind `--flag-text` | Ink 15.72 |
 | `--on-ink-muted` | `#A9B0BF` | Muted text on the Ink stage | 8.21 on Ink |
-| `--on-ink-flag` | `#FF8A73` | Red text on Ink (movement down, "Interact") | 7.78 on Ink |
+| `--on-ink-flag` | `#7FA3FF` | Red text on Ink (movement down, "Interact") | 7.78 on Ink |
 | `--up` / `--up-on-ink` | `#137A4B` / `#7BE0A6` | Movement up, win, paid | 5.37 paper / 11.11 Ink |
 
 **Pairing rules**
@@ -993,7 +993,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - **Credits:** Websport (design and development).
 - **Tech:** Next.js, React, GSAP, Lenis, Tailwind CSS, Vercel.
 - **Fonts:** Host Grotesk, Martian Mono, Sora (wordmark).
-- **Colours:** #FFFFFF, #F5F6F8, #0F1729, #5B6475, #E8442B.
+- **Colours:** #FFFFFF, #F5F6F8, #0F1729, #5B6475, #1F5BFF.
 - **Assets:**
   - 1440 screenshots: the loader mid-slide, the hero, the sports stage on basketball, the plates with the ladder mid-sort, PlayHQ, any-domain on Studio, contact, the footer.
   - 390 screenshots: hero, stage strip, plates, menu.

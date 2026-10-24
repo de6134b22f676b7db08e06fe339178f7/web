@@ -68,7 +68,7 @@ export function SportsStage() {
               </g>
             ))}
             <g className="gs-flag" style={{ transform: `translate(${ground.flag[0]}px, ${ground.flag[1]}px) rotate(${ground.flag[2]}deg)` }}>
-              <svg x={-12} y={-6} width={110} height={110} viewBox="14 13 66 66" overflow="visible">
+              <svg x={-12} y={-6} width={110} height={110} viewBox="0 0 100 100" overflow="visible">
                 <path d={MARK_PATH} fill="var(--ink)" />
                 <polygon className="gs-pen" points={MARK_PENNANT} fill="var(--flag)" />
               </svg>

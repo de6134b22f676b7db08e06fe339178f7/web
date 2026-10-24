@@ -1,7 +1,7 @@
 "use client";
 /**
- * Contact mark, "Fig. 2" (M28). The mark built from its construction: guides (45° pole axis, pole line,
- * pennant triangle, the 5.5 tip radius, the 66-unit square) with mono annotations.
+ * Contact mark, "Fig. 2" (M28). The mark built from its construction: guides (cap line, baseline, W/S seam,
+ * blade, the 100-unit square) with mono annotations.
  * mode "scrub" (home): guides draw (pathLength=1 dashes), the pole fills with a 45° clip wipe, then the pennant
  * unfurls (scaleX 0 -> 1), scrubbed from "top 80%" to "center" (scrub .6); on phones/touch from "top 100%" to
  * "top 40%".
@@ -12,7 +12,7 @@
 import { useId, useRef } from "react";
 import { gsap, useGSAP } from "@/motion/gsap";
 import { MQ } from "@/motion/tokens";
-import { MARK_PATH, MARK_PENNANT } from "./Mark";
+import { MARK_GUIDES, MARK_PATH, MARK_PENNANT } from "./Mark";
 
 export function ContactMark({
   mode = "scrub",
@@ -119,57 +119,11 @@ export function ContactMark({
   return (
     <div ref={ref} className={`cmark ${className}`.trim()} aria-hidden="true">
       <div className="cmark-art">
-        <svg viewBox="4 3 86 86">
-          <rect
-            className="cm-guide"
-            x="14"
-            y="13"
-            width="66"
-            height="66"
-            pathLength={1}
-            strokeDasharray="1"
-          />
-          <line
-            className="cm-guide"
-            x1="10"
-            y1="6"
-            x2="86"
-            y2="82"
-            pathLength={1}
-            strokeDasharray="1"
-          />
-          <line
-            className="cm-guide"
-            x1="20"
-            y1="8"
-            x2="20"
-            y2="84"
-            pathLength={1}
-            strokeDasharray="1"
-          />
-          <line
-            className="cm-guide"
-            x1="8"
-            y1="68"
-            x2="56"
-            y2="68"
-            pathLength={1}
-            strokeDasharray="1"
-          />
-          <polygon
-            className="cm-guide"
-            points={MARK_PENNANT}
-            pathLength={1}
-            strokeDasharray="1"
-          />
-          <circle
-            className="cm-guide"
-            cx="68.5"
-            cy="72.27"
-            r="5.5"
-            pathLength={1}
-            strokeDasharray="1"
-          />
+        <svg viewBox="-6 -4 112 108">
+          {MARK_GUIDES.map((d, i) => (
+            <path key={i} className="cm-guide" d={d} pathLength={1} strokeDasharray="1" />
+          ))}
+          <polygon className="cm-guide" points={MARK_PENNANT} pathLength={1} strokeDasharray="1" />
           <mask
             id={cutId}
             maskUnits="userSpaceOnUse"
@@ -197,23 +151,20 @@ export function ContactMark({
             points={MARK_PENNANT}
             fill="var(--flag)"
           />
-          <text className="cm-note" x="52" y="40">
-            45°
+          <text className="cm-note" x="100" y="4" textAnchor="end">
+            Cap
           </text>
-          <text className="cm-note" x="22" y="10.5">
-            Pole
+          <text className="cm-note" x="100" y="99" textAnchor="end">
+            Base
           </text>
-          <text className="cm-note" x="21" y="74.8">
-            Pennant
-          </text>
-          <text className="cm-note" x="68.5" y="84" textAnchor="middle">
-            R 5.5
+          <text className="cm-note" x="-4" y="50">
+            Blade
           </text>
         </svg>
       </div>
       <p className="cm-cap">
         <span className="mono fig-k">Fig. 2 · Built from its construction</span>
-        One square, one 45° axis, one radius.
+        One square, two letters, one blade.
       </p>
     </div>
   );
