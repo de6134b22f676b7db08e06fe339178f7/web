@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { gsap, useGSAP } from "@/motion/gsap";
 import { MQ } from "@/motion/tokens";
 import { SYNC_NODES, SYNC_STATIONS } from "./data";
+import { PlayHQLogo } from "@/components/PlayHQLogo";
 
 /** Progress map (mirrors home.css): upper run 0–.32, drop .32–.42, lower run .42–1. */
 const NODE_AT = [0.01, 0.42, 0.995];
@@ -80,6 +81,7 @@ export function SyncLine() {
       {SYNC_NODES.map((n, i) => (
         <div key={n.t} className={`sl-node sl-node-${i} is-lit`}>
           <p className="mono sl-k">{n.k}</p>
+          {n.t === "PlayHQ" ? <PlayHQLogo /> : null}
           <h3 className="sl-t t-h3">{n.t}</h3>
           <p className="sl-p">{n.d}</p>
         </div>
