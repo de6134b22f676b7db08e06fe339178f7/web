@@ -1,7 +1,7 @@
 "use client";
 /**
  * Contact form. Label above, hairline fields, plain-voice errors under the field (aria-describedby + aria-invalid),
- * focus to the first invalid field on submit. Posts JSON to /api/contact (Postmark, see api/contact.ts).
+ * focus to the first invalid field on submit. Posts JSON to /api/contact (Postmark, see api/contact.mjs).
  * If the request fails the form says so and points at the email address; nothing is lost (the fields stay filled).
  * Hidden honeypot field `website` and `startedAt` (time on form) are bot checks the endpoint enforces.
  */

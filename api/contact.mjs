@@ -7,37 +7,26 @@
  * CONTACT_FROM must be a confirmed Postmark sender signature (nilesh@sherlabs.com is).
  */
 
-const PROJECT_TYPES = ["Club website", "Club app", "Design or brand", "Something else"] as const;
+const PROJECT_TYPES = ["Club website", "Club app", "Design or brand", "Something else"];
 const MIN_FILL_MS = 2500;
 const LIMITS = { name: 120, email: 254, message: 5000 };
 const DEFAULT_TO = "Sales@websport.com.au,nilesh@sherlabs.com";
 
-type Payload = {
-  name?: unknown;
-  email?: unknown;
-  type?: unknown;
-  message?: unknown;
-  website?: unknown; // honeypot
-  startedAt?: unknown;
-};
-
-type PostmarkResult = { ErrorCode?: number; Message?: string; To?: string };
-
-const json = (status: number, body: Record<string, unknown>) =>
+const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
-const clean = (value: unknown, max: number) => (typeof value === "string" ? value.trim().slice(0, max) : "");
+const clean = (value, max) => (typeof value === "string" ? value.trim().slice(0, max) : "");
 
-const escapeHtml = (value: string) =>
-  value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+const escapeHtml = (value) =>
+  value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-export async function POST(request: Request): Promise<Response> {
+export async function POST(request) {
   const token = process.env.POSTMARK_SERVER_TOKEN;
   if (!token) return json(500, { error: "Email is not configured." });
 
-  let data: Payload;
+  let data;
   try {
-    data = (await request.json()) as Payload;
+    data = await request.json();
   } catch {
     return json(400, { error: "Invalid request." });
   }
@@ -53,7 +42,7 @@ export async function POST(request: Request): Promise<Response> {
   const message = clean(data.message, LIMITS.message);
   const type = PROJECT_TYPES.find((t) => t === data.type) ?? "Not specified";
 
-  const errors: Record<string, string> = {};
+  const errors = {};
   if (!name) errors.name = "Add your name.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Enter a valid email address.";
   if (message.length < 10) errors.message = "Tell us a little more about what you need.";
@@ -93,7 +82,7 @@ export async function POST(request: Request): Promise<Response> {
     ),
   });
 
-  const results = (await res.json().catch(() => null)) as PostmarkResult[] | null;
+  const results = await res.json().catch(() => null);
   const sent = Array.isArray(results) ? results.filter((r) => r.ErrorCode === 0).length : 0;
   if (!res.ok || sent === 0) {
     console.error("[contact] Postmark error", res.status, results);
