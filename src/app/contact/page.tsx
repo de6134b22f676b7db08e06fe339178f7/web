@@ -5,6 +5,7 @@ import { Button, TextLink } from "@/components/Button";
 import { CopyEmail } from "@/components/CopyEmail";
 import { ContactMark } from "@/components/ContactMark";
 import { FirstEmail } from "@/components/contact/FirstEmail";
+import { ContactForm } from "@/components/contact/ContactForm";
 import "@/components/contact/contact.css";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ const OUTLINE = [
 ].join("\n\n");
 const OUTLINE_HREF = `mailto:${SITE.email}?subject=${encodeURIComponent("New project")}&body=${encodeURIComponent(`${OUTLINE}\n`)}`;
 
-/** Contact (§6.5). No forms, no phone, address, reply time or socials. */
+/** Contact (§6.5). One short form (Postmark via /api/contact) beside the email address; no phone, address, reply time or socials. */
 export default function Contact() {
   return (
     <>
@@ -58,6 +59,14 @@ export default function Contact() {
             </Button>
           </div>
 
+          <div className="ct-form h-fade" style={{ "--i": 2 } as React.CSSProperties}>
+            <h2 id="ct-form-h" className="ct-k mono">
+              <span className="pen" aria-hidden="true" />
+              Or send a message
+            </h2>
+            <ContactForm email={SITE.email} />
+          </div>
+
           <div className="ct-helps h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 id="ct-helps-h" className="ct-k mono">
               <span className="pen" aria-hidden="true" />
@@ -73,7 +82,7 @@ export default function Contact() {
 
           <p className="ct-note">
             <span className="mono ct-note-k">Note</span>
-            No forms. Your email comes straight to us.
+            Messages and emails come straight to us.
           </p>
         </div>
 

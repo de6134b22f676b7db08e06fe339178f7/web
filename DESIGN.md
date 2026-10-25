@@ -846,7 +846,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   2. "The codes you play on PlayHQ, or what you make."
   3. "What isn't working today."
   4. "Anything with a date on it: a season launch, an AGM, a presentation night, a product launch."
-- Note: "No forms. Your email comes straight to us."
+- Note: "Messages and emails come straight to us." One short form (name, email, what is it, message) posts to /api/contact (Postmark).
 - No phone, address, reply time or socials.
 
 ### 6.6 404 (`not-found.tsx`, exported as `out/404.html`)
