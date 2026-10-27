@@ -11,7 +11,7 @@ import { PlayHQ } from "@/components/home/PlayHQ";
 import "@/components/home/home.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "Websport — Websites & apps for community sports clubs" },
+  title: { absolute: "Websport - Websites & apps for community sports clubs" },
   description: SITE.description,
   alternates: { canonical: "/" },
   openGraph: og("/", "/og/home.png"),

@@ -64,7 +64,7 @@ export const PLAYHQ_NOTE = "PlayHQ is a trademark of its owner. Websport is an i
  * The site-wide Open Graph block for one page. Next merges `openGraph` shallowly per segment, so a page must
  * restate the whole block to set its own `url`. `alt` describes that route's card (scripts/og.mjs). `image` defaults to /og.png until per-route OG images exist (6.4).
  */
-export function og(path: string, image = "/og.png", alt = "Websport — websites & apps for community sports clubs") {
+export function og(path: string, image = "/og.png", alt = "Websport - websites & apps for community sports clubs") {
   return {
     type: "website" as const,
     locale: "en_AU",

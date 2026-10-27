@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
       locale: "en_AU",
       siteName: SITE.name,
       url: `/work/${w.slug}`,
-      title: `${w.client} — ${w.headline}`,
+      title: `${w.client} - ${w.headline}`,
       description: w.summary,
       images: [{ url: ogImage(w.slug), width: 1200, height: 630, alt: `${w.client} case study by Websport` }],
     },
@@ -335,7 +335,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         data={{
           "@context": "https://schema.org",
           "@type": "CreativeWork",
-          name: `${w.client} — website & club platform`,
+          name: `${w.client} - website & club platform`,
           description: w.summary,
           about: { "@type": "SportsOrganization", name: w.client, url: w.live.href },
           creator: { "@type": "Organization", name: SITE.name, url: SITE.url },

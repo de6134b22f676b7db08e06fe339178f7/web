@@ -98,7 +98,7 @@ export function FixturesPlate() {
                 <span className="fx-mid fx-score num">
                   <span>{h}</span>
                   <span className="fx-dash" aria-hidden="true">
-                    –
+                    -
                   </span>
                   <span className="sr"> to </span>
                   <span>{a}</span>

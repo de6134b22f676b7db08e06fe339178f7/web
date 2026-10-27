@@ -12,7 +12,7 @@ export function Hero() {
           Your club. Beautifully connected. Websites and apps that bring everyone together.
         </p>
         <div className="hero-ctas h-fade" style={{ "--i": 2 } as React.CSSProperties}>
-          <Button href="/contact" magnetic arrow="↗">Let’s talk</Button>
+          <Button href="/contact" magnetic arrow="↗">Start a project</Button>
           <TextLink href="#build" arrow="↓">Explore the kit</TextLink>
         </div>
       </div>

@@ -575,11 +575,11 @@ a:focus-visible .roll-ch, button:focus-visible .roll-ch, .roll-host:focus-visibl
 .sec-hd { padding-top: 0; }
 .sec-k { display: flex; gap: 10px; color: var(--muted); font-family: var(--font-sans), sans-serif; font-size: 14px; text-transform: none; letter-spacing: 0; }
 .sec-k > span:first-child:not(:last-child) { display: none; }
-.sec-hd-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px 64px; align-items: end; margin-top: 20px; }
+.sec-hd-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
 .sec-h { max-width: 19ch; }
-.sec-lede { color: var(--muted); max-width: 38ch; font-size: 17px; line-height: 1.6; justify-self: end; }
+.sec-lede { color: var(--muted); max-width: 56ch; font-size: 17px; line-height: 1.6; justify-self: start; }
 .sec-body { margin-top: clamp(32px, 4vw, 56px); }
-@media (max-width: 760px) { .sec-hd-row { grid-template-columns: 1fr; gap: 16px; } .sec-lede { justify-self: start; } }
+
 
 /* Split-line reveal (M12). Hidden only after hydration and only with motion allowed (§4.3, §4.6). */
 .split .ln { display: block; }

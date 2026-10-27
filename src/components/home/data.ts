@@ -194,7 +194,7 @@ export const PLAYERS = {
   past: {
     n: 14,
     name: "Jo Whitfield",
-    era: "1998–2009 · Past player",
+    era: "1998-2009 · Past player",
     g: 212,
     s: 12,
     a: 9,
