@@ -8,7 +8,6 @@ import { MotionProvider } from "@/motion/MotionProvider";
 import { Loader } from "@/components/Loader";
 import { Header, SkipLink } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Cursor } from "@/components/Cursor";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
@@ -56,7 +55,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header email={SITE.email} />
           {children}
           <Footer />
-          <Cursor />
         </MotionProvider>
         <div className="vt-edge" aria-hidden="true" />
         <JsonLd data={organization} />

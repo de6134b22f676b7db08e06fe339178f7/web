@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description: "Email Websport about a club website, a club app or a design project: hello@websport.com.au.",
   alternates: { canonical: "/contact" },
-  openGraph: og("/contact", "/og/contact.png", "Contact Websport: Plant your flag."),
+  openGraph: og("/contact", "/og/contact.png", "Contact Websport: Tell us about your club."),
 };
 
 const HELPS = [
@@ -61,7 +61,6 @@ export default function Contact() {
 
           <div className="ct-form h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 id="ct-form-h" className="ct-k mono">
-              <span className="pen" aria-hidden="true" />
               Or send a message
             </h2>
             <ContactForm email={SITE.email} />
@@ -69,7 +68,6 @@ export default function Contact() {
 
           <div className="ct-helps h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 id="ct-helps-h" className="ct-k mono">
-              <span className="pen" aria-hidden="true" />
               What helps in a first email
             </h2>
             <FirstEmail items={HELPS} labelledBy="ct-helps-h" />
@@ -89,8 +87,7 @@ export default function Contact() {
         <div className="ct-side h-fade" style={{ "--i": 2 } as React.CSSProperties}>
           <ContactMark mode="static" />
           <p className="mono ct-cap">
-            <span className="pen" aria-hidden="true" />
-            <span>Plant your flag.</span>
+            <span>Tell us about your club.</span>
           </p>
         </div>
       </section>

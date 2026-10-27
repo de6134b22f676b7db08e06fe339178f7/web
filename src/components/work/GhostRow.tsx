@@ -24,7 +24,6 @@ export function GhostRow({
         {no ? <span className="wk-ghost__no mono">{no}</span> : null}
         <span className="wk-ghost__main">
           <span className="wk-ghost__name t-h2">
-            <span className="wk-row__pen" aria-hidden="true" />
             <span className="wk-row__nt">{name}</span>
           </span>
           {sub ? <span className="wk-ghost__sub">{sub}</span> : null}

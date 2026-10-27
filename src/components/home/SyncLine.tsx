@@ -69,7 +69,7 @@ export function SyncLine() {
     { scope: ref },
   );
   return (
-    <div ref={ref} className="sl" data-cursor="Sync">
+    <div ref={ref} className="sl">
       <div className="sl-line" aria-hidden="true">
         <i className="sl-a" />
         <svg className="sl-d" viewBox="0 0 48 48" focusable="false">

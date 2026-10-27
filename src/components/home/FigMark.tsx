@@ -30,7 +30,7 @@ export function FigMark() {
     return () => io.disconnect();
   }, []);
   return (
-    <figure ref={ref} className={`fig${tapped ? " is-tapped" : ""}`} data-cursor="Look" onClick={() => setTapped((t) => !t)}>
+    <figure ref={ref} className={`fig${tapped ? " is-tapped" : ""}`} onClick={() => setTapped((t) => !t)}>
       <svg className="fig-svg" viewBox={FIG_VIEWBOX} aria-hidden="true" focusable="false">
         {MARK_GUIDES.map((d, i) => (
           <path key={i} className="fig-g" d={d} pathLength={1} style={{ "--k": i } as React.CSSProperties} />

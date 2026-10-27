@@ -23,7 +23,7 @@ export const SITE: SiteConfig = {
   name: "Websport",
   url: "https://websport.com.au",
   email: "hello@websport.com.au",
-  line: "Every club plants its flag online.",
+  line: "Your club, beautifully connected.",
   tagline: "Websites & apps for community sports clubs",
   description:
     "Websport designs and builds websites and apps for community sports clubs on PlayHQ, across every code, and brings the same craft to any brand.",

@@ -35,7 +35,7 @@ export function StudioFig({ className = "" }: { className?: string }) {
     { scope: ref },
   );
   return (
-    <figure ref={ref} className={`sfig ${className}`.trim()} data-cursor="Look">
+    <figure ref={ref} className={`sfig ${className}`.trim()}>
       <svg viewBox={FIG_VIEWBOX} aria-hidden="true" focusable="false">
         {MARK_GUIDES.map((d, i) => (
           <path key={i} className="sf-g" style={{ "--k": i } as React.CSSProperties} d={d} pathLength={1} />

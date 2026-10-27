@@ -27,7 +27,7 @@ export function NextUpCard() {
     setSwaps(swaps + 1);
   }
   return (
-    <a href="#build" className="nu notch" onClick={() => setSport(shown)} data-cursor="Open">
+    <a href="#build" className="nu notch" onClick={() => setSport(shown)}>
       <span className="sr">Open the kit in {sportName(shown)}: </span>
       <span className="nu-hd">
         <span className="mono">Last meeting</span>

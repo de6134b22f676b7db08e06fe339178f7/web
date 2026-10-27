@@ -23,7 +23,7 @@ White mode. An editorial specimen book for club software, set on a pure white Sw
 
 - **Status:** this replaces v3 "Under Lights", which the founder rejected (dark, floodlights, grain, Instrument Serif/Geist). Nothing in v3's look carries over.
 - **Visual reference:** the winning prototype, `scratchpad/proto4-editorial-white/` (index.html, css/site.css, js/site.js). When this spec is silent, match the prototype. When the two disagree, this spec wins.
-- **Grafts from the other prototypes:** `proto4-pitch-lines/` (ground linework, a scrubbed moment, the flag cursor tag) and `proto4-live-components/` (sport switcher, tactile demos, outlined wordmark, loader mask geometry).
+- **Grafts from the other prototypes:** `proto4-pitch-lines/` (ground linework, a scrubbed moment) and `proto4-live-components/` (sport switcher, tactile demos, outlined wordmark, loader mask geometry).
 - **Inputs:** BRIEF.md, v4-research.md, the three judge verdicts and the founder's direction for this round.
 
 **Hard rules (founder)**
@@ -52,14 +52,14 @@ Every weakness that any of the three judges raised against editorial-white, plus
 | W2 | No imagery, risks reading as austere (all 3) | Three in-code illustration systems, all drawn from the mark's geometry: the **ground linework** (7 grounds plus a design grid), the **generated crest family** (12 geometric sample crests), and **Fig. 1 construction drawings**. There are now four Ink masses per page: the Ladder stage, the PlayHQ log, the contact mark and the footer wordmark. No stock photos | 2.9, 5.4, 6.1 |
 | W3 | Plate pairs (Logos/RSVP, Announcements/Player) leave dead space under the shorter plate (judges 1 and 2) | Each pair shares a fixed desktop body height. Plates are laid out as top content, a purposeful filler, then the action bar pinned to the bottom. Fillers: the Logos plate gets a "Next match" strip using two matched crests; the Player plate's season timeline grows to fill the space | 5.3 (P1–P6) |
 | W4 | Loader frame at 750 ms showed "rt.com.au" / a detached ".au": `.com.au` faded in before "websport" was out of its mask (judges 1 and 2) | `.com.au` is now a **sibling outside the mask**. It starts at **1100 ms**, when "websport" is about 99% revealed (hand curve at 540/600), and wipes on with a clip-path from its left edge, so it can never appear detached. The mask's left edge stays pinned to the flag's right edge (live-components geometry) | 3.2, 3.3 |
-| W5 | The 72 px cursor disc sat on top of the hovered sport name and hid letters (judge 2). Cursor labels garbled "Play next round" (all prototypes) | The cursor becomes an **8 px dot plus a flag-shaped tag offset to the bottom right** of the pointer (+16, +18 px). The tag never shows over elements that have their own text label (links, buttons, tabs, inputs); there the dot becomes a 28 px ring. It never covers type | 4.5 |
+| W5 | (Superseded) The cursor disc covered text | The custom cursor was removed entirely; the native cursor is used | 4.5 |
 | W6 | Large empty bands under the hero, between sections, and above "Same craft. Any brand." (judges 2 and 3) | The hero foot gains the **Next up live card** (fixed size). Section padding drops from `clamp(96,13vw,200)` to `clamp(88px,10vw,160px)`. Every section head now sits on an Ink rule with content starting ≤ 72 px below it. The Any-domain bar is merged into its section head | 5.2, 6.1 |
 | W7 | Flag curtain floods a big diagonal of the screen at 1.8–1.9 s, which reads less white (judges 2 and 3; same issue in live-components) | **No curtain.** A fixed-thickness Flag band `clamp(10px,1.4vw,20px)` rides the slanted bottom edge of the white sheet. It is part of the same element, with no lag, so it can never widen into a flood. At most about 1.5% of the viewport is Flag blue at any frame | 3.2 |
 | W8 | Shield grid shows "?" placeholders until it is triggered (judge 3) | The server-rendered initial state is **neutral monogram shields** (Ink 9% fill, initials in Martian Mono, dashed `--ui-line` outline) labelled "Unmatched". Matching runs automatically once at 50% visibility, and the button then becomes "Run again" | 5.3 P3 |
 | W9 | Giant footer "websport" bleeds off the right edge at 390 (judge 3) | The wordmark is outlined SVG paths in a `viewBox` sized to the glyphs, set to `width:100%` of the content box, so it can never overflow at any width | 5.1 C9 |
 | W10 | No visual proof above the fold; the hero is all type (judge 3) | **Next up card** in the hero foot: a live sample fixture that follows the sport roller, showing each sport's real score format, with crests. Tapping it opens the kit in that sport. It has fixed dimensions, so LCP stays the headline and there is no shift | 5.2 C11, 6.1 H0 |
 | W11 | Process and Any-domain sections are generic (judges 1 and 2) | Process moves **off the home page** (Studio owns it, as a scrubbed rail). Any-domain becomes "One system, three brands": the live theme switch adds a visible **token readout** (font, radius, accent, weight) that rolls as you switch, so the decision is legible, not just the result | 6.1 H6, 6.4 |
-| W12 | Creativity: "Swiss specimen" is a well-worn award look; "Plates" is craft rather than a big idea (all 3) | The concept is sharpened to "**Every club plants its flag online**", made literal. The flag's 45° line and pennant are the system: the loader, the sheet edge, the page-transition wipe, plate corner tabs, the cursor tag, the corner flag planted on every ground, and the contact mark built from its construction. The sports stage plus the global sport switcher make one idea that runs through the whole page: pick your sport and the entire kit becomes yours | 1, 4.6 |
+| W12 | Creativity: "Swiss specimen" is a well-worn award look; "Plates" is craft rather than a big idea (all 3) | The concept is sharpened to "**Your club, beautifully connected**". The 45° slant is the system: the loader, the sheet edge, the page-transition wipe, plate corner tabs, the corner flag planted on every ground, and the contact mark built from its construction. The sports stage plus the global sport switcher make one idea that runs through the whole page: pick your sport and the entire kit becomes yours | 1, 4.6 |
 | W13 | Simulated mobile LCP was about 2.6–2.9 s because of the font chain (prototype self-report) | `next/font` self-hosting, latin subset, preload for the roman face only, `adjustFontFallback`, a single CSS file, outlined wordmark paths (no wordmark font), and no render-blocking JS (`defer-hydration.mjs`). The headline is painted under the loader at full opacity | 2.3, 3.6, 7.3 |
 | W14 | Live-components: the floating dock covered content. Live-components and pitch-lines: linework ran through text, with translucent white patches | No floating chrome other than the header (which hides on scroll down). Ground linework appears only on the Sports stage, in its own column. **It never runs behind text**, and there are no white patches anywhere | 6.1 H2 |
 | W15 | Live-components: a mirror image halfway through the crest flip, and text blur on the tilted card | Crests resolve by **scale and rotate in 2D** (no rotateY). The player card's Present/Past switch is a 2D crossfade plus a stat roll, with no 3D tilt, so text stays sharp | 5.3 P3, P6 |
@@ -72,7 +72,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 
 ### 1.1 Name and line
 - **Concept:** "Plates". Every capability is a numbered plate in a specimen book, built in code, labelled Sample data, and something you can touch.
-- **Brand line:** "Every club plants its flag online."
+- **Brand line:** "Your club, beautifully connected."
 - **Tagline:** "Websites & apps for community sports clubs."
 
 ### 1.2 Positioning (both halves always present)
@@ -81,7 +81,7 @@ Every weakness that any of the three judges raised against editorial-white, plus
 
 ### 1.3 Principles
 1. **White, structured by Ink.** Pure white ground, hairline construction, and one heavy Ink mass per screen (the ladder stage, the sync log, the contact mark, the footer wordmark). Flag blue is a signal, never a wash.
-2. **The flag is the grid.** Its 45° line and pennant triangle recur as structure: the sheet edges, the wedge sweeps, corner tabs, tag bullets, the cursor tag, focus-corner details and the page wipe.
+2. **The flag is the grid.** Its 45° line and pennant triangle recur as structure: the sheet edges, the wedge sweeps, corner tabs, focus-corner details and the page wipe.
 3. **Show, don't claim.** Every capability is a working component on sample data. No adjectives where a demo can do the job.
 4. **Two eases, one rhythm.** Arrivals use expo-out. Hand-offs use one of two in-outs (4.2). Nothing bounces except the magnetic release.
 5. **Win where winners lose.** Accessibility 100, keyboard parity for every demo, live-region announcements, reduced-motion parity, touch alternatives, and Lighthouse mobile 95+.
@@ -185,7 +185,7 @@ export const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable:
 |---|---|---|---|
 | `--t-hero` | `clamp(48px, 11.8vw, 184px)` (≤ 760: `clamp(44px, 14.6vw, 80px)`) | 600 / −0.05em / .9 | H1 home |
 | `--t-display` | `clamp(48px, 9vw, 152px)` | 600 / −0.05em / .9 | H1 other pages |
-| `--t-cta` | `clamp(64px, 13vw, 220px)` | 600 / −0.055em / .88 | "Plant your flag." |
+| `--t-cta` | `clamp(64px, 13vw, 220px)` | 600 / −0.055em / .88 | "Your club, beautifully connected." |
 | `--t-h2` | `clamp(40px, 6.4vw, 104px)` | 600 / −0.045em / .94 | Section heads |
 | `--t-row` | `clamp(40px, 6vw, 104px)` (≤ 760: `clamp(36px, 11vw, 60px)`) | 600 / −0.05em / 1 | Sports rows |
 | `--t-h3` | `clamp(24px, 2.4vw, 36px)` | 600 / −0.035em / 1.05 | Step, feature, node titles |
@@ -426,17 +426,8 @@ elastic.out(1,.45)                                magnetic release only
 - If view transitions are unsupported, navigation is instant.
 - Keep `IntentLink` (prefetch on intent).
 
-### 4.5 Cursor system (`Cursor.tsx`, rewritten)
-Applies only on `(hover:hover) and (pointer:fine)` without reduced motion. The cursor is `aria-hidden`, and the system cursor stays visible over form fields.
-
-- **Dot:** 8 px Ink, following through `gsap.quickTo` (x/y, .18 s, power3.out). It turns white over `.is-ink`.
-- **Tag:** a flag-shaped label (a rectangle whose right end is cut at the flag angle; `clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%)`).
-  - Style: Flag fill, Ink mono 10 px label (4.51:1), height 22 px, 0 8 px padding.
-  - Position: offset **+16 px, +18 px** from the pointer, following at .35 s power3.out.
-  - It appears over `[data-cursor="Label"]` regions: scale .6 → 1 and rotate −8° → 0 over .45 s expo. It leaves with scale → .6 and opacity 0 over .2 s.
-- **Over links, buttons, `[role=tab|radio|switch]`, inputs and `.btn`:** the tag hides, and the dot grows into a 28 px ring (1.5 px Ink border, transparent fill) over .45 s expo. On press the ring scales to .85 for .12 s.
-- **Over giant type (`.sport-name`, `.kit-t`, `.cta-h`):** the dot hides. The tag shows only if the row carries `data-cursor`, at the offset position, so it never covers letters (W5).
-- **Labels:** Look (Fig.), Pick (sport rows), Play (fixtures plate background), Sort (ladder), Match (logos), RSVP, Post, Flip (player), Read (kit/editorial), Sync (PlayHQ), Switch (any-domain stage), Copy (copy button region), Drag (compare, case study), View (case thumbnails).
+### 4.5 Cursor
+The custom cursor is removed (taste pass 2): no `Cursor.tsx`, no `data-cursor` attributes, no cursor CSS. The native cursor shows everywhere. Pointer tracking stays only for the features that need it (magnetic buttons, ContactMark flutter, tilts, Ink button fill origin).
 
 ### 4.6 Microinteraction catalogue
 All entries obey 4.2. "RM" is the reduced-motion behaviour; "Touch" is the coarse-pointer behaviour. Each entry is built in the component named.
@@ -452,7 +443,7 @@ All entries obey 4.2. "RM" is the reduced-motion behaviour; "Touch" is the coars
 | M7 | Magnetic CTAs (`Magnetic`) | Pointer within the button box + 24 px | The button follows at 0.28×/0.4× and its label at 0.1×/0.14× (quickTo .6 s expo). Release: elastic.out(1,.45) .9 s | — | Off | Off |
 | M8 | Ink button fill (`Button`) | Hover or focus | A Flag circle grows from the cursor point (`--mx/--my`; centre on focus). The label turns Ink | 600 ms expo | Instant colour | Press state only |
 | M9 | Button press | `:active` | scale .97 | 120 ms | Same | Same |
-| M10 | Header (`Header`) | Scroll | Hides on scroll down after 120 px (`translateY(-100%)`, 600 ms lift), returns on scroll up. A Flag progress hairline scales on X. Home only: the section counter "0X/07 Name" swaps (characters lift in, 550 ms expo) | — | Never hides; progress still updates | Same |
+| M10 | Header (`Header`) | Scroll | Hides on scroll down after 120 px (`translateY(-100%)`, 600 ms lift), returns on scroll up. A Flag progress hairline scales on X. Home only: the current section name (no numbers) swaps (lifts in, 550 ms expo) | — | Never hides; progress still updates | Same |
 | M11 | Menu (`MenuOverlay`) | Menu button | Full-screen white sheet wipes down with a slanted bottom edge (clip-path, 700 ms lift). Links rise from masks (800 ms expo, 50 ms stagger). The icon morphs to an X (500 ms expo). Link hover: weight glide 600 → 780 plus Flag number | — | Instant show, no rise | Same, no weight glide |
 | M12 | Split-line headings (`SplitHeading`) | 15% in view (once) | Lines rise from 108% inside masks | 1050 ms expo, 80 ms per line | Static | Same |
 | M13 | Fig. 1 construction (`FigMark`) | 30% in view (once) | Guides draw (dashoffset 1 → 0, 1.6 s hand, 100 ms stagger), then annotations fade (800 ms linear, +1 s). Hover: the pennant skews (−6°) and scales on X 1.08 (900 ms expo) | — | Static drawn | Tap toggles the skew |
@@ -506,7 +497,7 @@ All entries obey 4.2. "RM" is the reduced-motion behaviour; "Touch" is the coars
   - States: rest, hover (M8/M7), focus (ring), active (M9), disabled (opacity .4, `aria-disabled`, no magnet).
   - It renders `<a>` or `<button>` and is never a div.
 - **C5 `Roll`:** char-roll text with a visually-hidden copy of the label.
-- **C6 `Tag`:** mono 10 px, `--ui-line` border, a Flag pennant bullet, and the text "Sample data" (or "Sample run" / "Sample brands"). It is a real word, never an icon only.
+- **C6 `Tag`:** mono 10 px, `--ui-line` border, no decorative bullet, and the text "Sample data" (or "Sample run" / "Sample brands"). It is a real word, never an icon only.
 - **C7 `Segmented` (C):** `role="tablist"` (view switches) or `role="radiogroup"` (choices).
   - Track `--surface` (white with an inset line inside plates), sliding indicator, arrow keys, roving tabindex.
   - States: selected (Ink indicator inside plates with white label, white indicator elsewhere with Ink label), hover (label Ink), focus ring.
@@ -517,7 +508,7 @@ All entries obey 4.2. "RM" is the reduced-motion behaviour; "Touch" is the coars
   - The legal line "Websport · websport.com.au" and the PlayHQ trademark note.
   - Then the **giant wordmark** (M27): Wordmark paths with `glyphs`, `width: 100%` of `.wrap`, `aria-hidden`.
   - The footer is the only place the "Work" link appears apart from the nav and menu.
-- **C10 `Cursor` (C):** see 4.5.
+- **C10 `Cursor`:** removed, see 4.5.
 - **C11 `NextUpCard` (C):**
   - Size: fixed 340 × 152 px (under 760: 100% × 136 px). `--surface` background, radius 4.
   - Header: "Next up" mono plus the Sample data tag.
@@ -719,7 +710,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - Footer link: "More about the studio →" (`/studio`).
 
 **H7 `07 — Contact`** (`id="contact"`)
-- Columns 1–7: H2 (`--t-cta`, split) "Plant your flag."
+- Columns 1–7: H2 (`--t-cta`, split) "Let’s build your club’s next chapter."
 - Columns 8–12: `ContactMark` (M28).
 - Then the email row: the link "hello@websport.com.au" (mailto, roll) plus the Flag button "Copy email".
 - Sub: "Tell us about your club or your brand. A paragraph is plenty."
@@ -740,7 +731,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - **Band** (hairline top, two columns):
   - Left: "Every code on PlayHQ" plus the mono sports line "AFL · Soccer · Basketball · Baseball · Netball · Cricket · Hockey · And the rest".
   - Right: "Not a club? The craft is the same." plus "See the studio →".
-- **Contact band:** "Plant your flag." (smaller, `--t-h2`) plus the email row.
+- **Contact band:** "Tell us about your club." (smaller, `--t-h2`) plus the email row.
 
 ### 6.3 Case study `/work/lang-lang` (re-themed light; content from `src/content/work/lang-lang.ts`, which is unchanged except where noted)
 - **Title:** "Lang Lang Cricket Club — Websport"
@@ -870,13 +861,13 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   - The sync line is vertical with labels in flow.
   - Any-domain cards stack.
   - Header CTA hidden (menu only).
-  - No cursor, magnetic effect or hover preview.
+  - No magnetic effect or hover preview.
 - **1024–1099:** the nav collapses to the menu button.
 - **≥ 1100:** everything.
 - **No horizontal overflow** at any width: `body { overflow-x: clip }`, and Playwright asserts `scrollWidth === innerWidth` at every test width.
 - The footer wordmark is SVG `width:100%`, so it cannot overflow (W9).
 - **Touch targets:** at least 44 × 44 for primary controls and at least 24 × 24 everywhere (2.5.8). Chips are 36 px high, with the hit area extended to 44 by a pseudo-element.
-- Every hover-only reveal has an always-visible or tap equivalent (sports data line, kit description, crest names, the cursor tag is decorative).
+- Every hover-only reveal has an always-visible or tap equivalent (sports data line, kit description, crest names).
 - `100svh` is used only for the desktop hero and the case hero pin.
 
 ### 7.2 Accessibility (WCAG 2.2 AA; target Lighthouse Accessibility 100 and axe 0 violations)
@@ -936,11 +927,11 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
   - Ground: white with the 12-column hairline grid at `--line`, and the WS Mark at the right (Fig. style with guides: Cap, Base, Seam, Bars, Cursor).
   - Title in Host Grotesk 600 Ink with an accent word in Flag, and "websport.com.au" as wordmark paths at the bottom left.
   - Per route:
-    - home: "Every club plants its flag online."
+    - home: "Your club, beautifully connected." (accent word "connected")
     - work: "Our first club. Built properly."
     - lang-lang: "Lang Lang Cricket Club: a club that lives on its website." It may include the `home` capture in a browser frame.
     - studio: "Club sport is our speciality. Craft is our trade."
-    - contact: "Plant your flag."
+    - contact: "Tell us about your club." (accent word "club")
   - `og.mjs` must fetch the Host Grotesk TTF instead of Instrument Serif/Geist.
 - **JSON-LD:**
   - Home/layout: `Organization` {name, url, email, logo}, with no address and no founding date.
@@ -1010,12 +1001,12 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 1. **Foundation:**
    - `fonts.ts` (2.4).
    - `globals.css` rewritten: tokens, base, type scale, `.wrap`/grid, buttons, tags, segmented controls, chips, split, odometer, loader CSS, reduced motion.
-   - `layout.tsx`: light viewport, new head script, `Loader`, Header, Footer, Cursor, JsonLd.
+   - `layout.tsx`: light viewport, new head script, `Loader`, Header, Footer, JsonLd.
    - `gsap.ts` eases (4.2), `tokens.ts`.
 2. `scripts/wordmark.mjs` → `wordmark.generated.ts`, then `Wordmark.tsx` and `Mark.tsx` (parts).
 3. **Loader.** Verify the §8.1 item 2 filmstrips before moving on.
 4. **Home static markup** with final copy and SSR sample data (`src/content/sample.ts`, `grounds.ts`). Check the no-JS screenshot.
-5. **Shell interactions:** Header (progress, hide, counter), MenuOverlay, Roll, Magnetic, Button fill, Cursor.
+5. **Shell interactions:** Header (progress, hide, counter), MenuOverlay, Roll, Magnetic, Button fill.
 6. **Home islands, in order:** Roller + NextUpCard → SplitHeading/FigMark → SportsIndex + GroundStage → SportSwitch → P1–P6 → KitIndex → SyncLine/SyncLog → AnyDomain → ContactMark → FooterWordmark → CopyEmail.
 7. **Other pages:** Work, the case study re-theme (CaseHero, Compare, Features, Counter, StoryExcerpt, PhoneStrip, GhostRow, WorkRow), Studio (process rail), Contact, 404.
 8. Page transitions (re-theme the `PageTransition` CSS and `.vt-edge`).
@@ -1048,3 +1039,12 @@ Iterate with targeted checks (a single Playwright script per feature). Run the f
 - `content/sample.ts` (clubs, sports formats, fixtures, ladder, notices, players, sync log, themes), `content/grounds.ts`.
 - `components/home/`: `Hero`, `Roller`, `NextUpCard`, `FigMark`, `SportsIndex`, `GroundStage`, `SportSwitch` (context provider for the global sport), `Plates` + `FixturesPlate`, `LadderPlate`, `LogosPlate`, `RsvpPlate`, `NoticesPlate`, `PlayerPlate`, `Crest`, `Odometer`, `KitIndex`, `SyncLine`, `SyncLog`, `AnyDomain`, `TokenReadout`.
 - `components/ContactMark.tsx`, `components/StoryExcerpt.tsx` (if not already split out), `components/SecHead.tsx`, `components/Segmented.tsx`, `components/Tag.tsx`, `lib/split.ts`, `lib/flip.ts`.
+
+
+## Taste pass 2 (current rules)
+
+- **No custom cursor.** The native cursor shows everywhere.
+- **Copy:** site line and home OG headline "Your club, beautifully connected."; contact caption and contact OG headline "Tell us about your club." The old flag/pennant idea is retired as brand copy. `--flag` and `.flag-text` remain only as names of the blue accent token.
+- **No pennant bullets.** Labels, tags, headings and list items are plain text with normal spacing. Only state markers stay (green "connected" dot, sample-data tags, PlayHQ sync nodes, scrub bars, focus rings).
+- **Header** shows the current section name only (no counter numbers); the scroll progress bar stays.
+- **Radius scale:** `--r-sm` 8px (inputs, chips, small tiles), `--r-md` 16px (cards, plates, panels, big visual containers, hero visual, CTA band), `--r-pill` 999px (buttons, segmented controls, toggles). 0, 50%, 1-2px hairlines and logo/device shapes are exempt. The Tailwind `--radius-sm/md/pill/plate/card` tokens follow the same scale.

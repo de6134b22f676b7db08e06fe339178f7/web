@@ -10,7 +10,7 @@ import { PlayerPlate } from "./PlayerPlate";
 /** H3 "03 — What we build" (id="build", §6.1): sticky sport control + the six plates in founder order. */
 export function Build() {
   return (
-    <section id="build" className="sec build" data-sec="03" data-sec-name="What we build" aria-labelledby="build-h" tabIndex={-1}>
+    <section id="build" className="sec build" data-sec-name="What we build" aria-labelledby="build-h" tabIndex={-1}>
       <div className="wrap">
         <SecHead
           n="03"

@@ -55,7 +55,7 @@ export function RsvpPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-rsvp">
-      <Plate n={4} id="p-rsvp" title="Events & RSVP" cursor="RSVP" decision="Easy RSVPs. A live headcount for your committee.">
+      <Plate n={4} id="p-rsvp" title="Events & RSVP" decision="Easy RSVPs. A live headcount for your committee.">
         <div className="ev card">
           <div className="ev-date">
             <span className="sr">Saturday 18 April</span>

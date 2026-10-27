@@ -4,7 +4,7 @@ import { SportsStage } from "./SportsStage";
 /** H2 "02 — The sports" (§6.1): the scroll set piece. */
 export function Sports() {
   return (
-    <section className="sec" data-sec="02" data-sec-name="The sports" aria-labelledby="sports-h">
+    <section className="sec" data-sec-name="The sports" aria-labelledby="sports-h">
       <div className="wrap">
         <SecHead
           n="02"

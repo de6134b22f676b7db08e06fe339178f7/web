@@ -30,7 +30,7 @@ export default function Home() {
       <Build />
       <Kit />
       <PlayHQ />
-      <ContactBand title="Let’s build your club’s next chapter." n="06" mark="scrub" sub="A good project starts with a conversation." sec={{ n: "06", name: "Contact" }} />
+      <ContactBand title="Let’s build your club’s next chapter." n="06" mark="scrub" sub="A good project starts with a conversation." sec={{ name: "Contact" }} />
     </SportProvider>
   );
 }

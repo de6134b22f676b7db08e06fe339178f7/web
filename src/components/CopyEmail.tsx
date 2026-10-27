@@ -74,7 +74,7 @@ export function CopyEmail({ email, size = "ui", query = "?subject=New%20project"
 
   return (
     <div className={`copy ${className}`}>
-      <a ref={addr} href={`mailto:${email}${query}`} className={`copy-addr ${size === "mail" ? "t-mail" : "is-ui"}`} data-cursor="Copy">
+      <a ref={addr} href={`mailto:${email}${query}`} className={`copy-addr ${size === "mail" ? "t-mail" : "is-ui"}`}>
         <Roll text={`${user}@${domain}`} />
       </a>
       <button type="button" className="btn btn-flag copy-btn" data-state={state} onClick={copy} aria-label={`${label}: ${email}`}>

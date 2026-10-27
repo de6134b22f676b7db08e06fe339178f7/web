@@ -113,7 +113,7 @@ export function LadderPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-lad">
-      <Plate n={2} id="p-lad" title="Ladder" ink cursor="Sort" decision="A live ladder that moves with the season.">
+      <Plate n={2} id="p-lad" title="Ladder" ink decision="A live ladder that moves with the season.">
         <div className="lad-wrap" tabIndex={0} role="region" aria-label="Club ladder; scroll horizontally if needed">
           <table className="lad">
             <caption className="sr">Sample ladder after round {st.round}</caption>
@@ -144,7 +144,7 @@ export function LadderPlate() {
                       <Crest club={c} size={22} keyline />
                       <span className="nm-long">{c.name}</span>
                       <span className="nm-short">{c.short}</span>
-                      {t.c === "nc" ? <span className="pen lad-pen" aria-label="our club" role="img" /> : null}
+                      {t.c === "nc" ? <span className="lad-pen" aria-label="our club" role="img" /> : null}
                     </th>
                     {fmt.cols.map((k) => (
                       <td key={k} className={`lad-num num${k === "%" || k === "PCT" ? " lad-w" : ""}${k === "Pts" || (k === "PCT" && fmt.ptsWin === null) ? " lad-pts" : ""}`}>

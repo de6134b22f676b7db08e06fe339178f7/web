@@ -4,7 +4,7 @@ import { FigMark } from "./FigMark";
 /** H1 "01 — Positioning" (§6.1): split H2, Fig. 1 (columns 9–12), two columns (Club sport | Any domain). */
 export function Positioning() {
   return (
-    <section className="sec pos" data-sec="01" data-sec-name="Positioning" aria-labelledby="pos-h">
+    <section className="sec pos" data-sec-name="Positioning" aria-labelledby="pos-h">
       <div className="wrap">
         <div className="sec-hd">
           <p className="sec-k mono">
@@ -20,7 +20,6 @@ export function Positioning() {
             <div className="pos-cols">
               <div className="pos-col">
                 <p className="pos-k mono">
-                  <span className="pen" aria-hidden="true" />
                   Club sport
                 </p>
                 <p>
@@ -29,7 +28,6 @@ export function Positioning() {
               </div>
               <div className="pos-col">
                 <p className="pos-k mono">
-                  <span className="pen" aria-hidden="true" />
                   Any domain
                 </p>
                 <p>

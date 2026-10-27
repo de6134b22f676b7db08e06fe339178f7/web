@@ -54,7 +54,6 @@ function BuildList({ id, label, items }: { id: string; label: string; items: rea
   return (
     <div className="bl">
       <h3 id={id} className="bl-hd mono">
-        <span className="pen" aria-hidden="true" />
         <span>{label}</span>
         <span className="bl-c" aria-hidden="true">
           {String(items.length).padStart(2, "0")}
@@ -110,7 +109,7 @@ export default function Studio() {
           </div>
           <aside className="note" aria-labelledby="st-note">
             <h3 id="st-note" className="note-k mono">
-              <span className="pen" aria-hidden="true" />A note on our portfolio
+              A note on our portfolio
             </h3>
             <p className="note-x">
               Our first customer is a sports club, and we don&rsquo;t have work outside sport to show yet. So judge us on this

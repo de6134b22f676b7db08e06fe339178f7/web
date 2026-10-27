@@ -4,7 +4,7 @@
  * - Lenis (duration 1.1, expo-out) on the GSAP ticker, lagSmoothing(0); off under reduced motion and coarse pointers
  * - ScrollTrigger.refresh() after route changes and after document.fonts.ready
  * - in-page anchor scrolling (96px = html scroll-padding-top), with focus
- * - html flags: `hydrated` (gates the split-heading hidden state), `has-cursor` (fine pointer + motion),
+ * - html flags: `hydrated` (gates the split-heading hidden state),
  *   `is-scrolled` / `hdr-hidden` (scroll down past 120px; never under reduced motion or while the menu is open),
  *   `navigated` (first client-side pathname change; never removed; --intro .38s + loader display:none, §3.5),
  *   `data-vt` (during a forward route change: the page-wipe Flag band)
@@ -68,8 +68,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const d = document.documentElement;
     d.classList.add("hydrated");
-    d.classList.toggle("has-cursor", fine && !reduced);
-  }, [reduced, fine]);
+  }, []);
 
   // Scroll flags: is-scrolled, hdr-hidden (down past 120px hides; any upward scroll shows).
   useEffect(() => {

@@ -92,7 +92,7 @@
 .note {
   position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px;
   margin: clamp(56px, 7vw, 104px) 0 0; width: min(100%, calc((100% + var(--gut)) * 8 / 12 - var(--gut)));
-  background: var(--surface); border-radius: 4px; padding: clamp(24px, 3.4vw, 48px);
+  background: var(--surface); border-radius: var(--r-md); padding: clamp(24px, 3.4vw, 48px);
 }
 .note::after { content: ""; position: absolute; right: 0; top: 0; width: 18px; height: 18px; background: var(--flag); border-top-right-radius: 4px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
 .note-k { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 500; }
@@ -111,20 +111,12 @@
   box-shadow: inset 0 0 0 2px var(--flag); border-radius: 50%;
   transition: background-color 0.45s var(--expo), transform 0.6s var(--expo), box-shadow 0.45s var(--expo);
 }
-.pr-node::after {
-  content: ""; position: absolute; left: 8px; top: -30px; width: 22px; height: 17px; background: var(--flag);
-  clip-path: polygon(0 0, 0 100%, 100% 66%); transform-origin: 0 100%;
-  transform: scaleX(1); transition: transform 0.6s var(--expo);
-}
-.pr-node::before { content: ""; position: absolute; left: 6px; top: -30px; width: 2px; height: 32px; background: var(--ink); }
 .pr-n { display: block; color: var(--flag-text); transition: color 0.45s var(--expo); }
 .pr-t { margin-top: 14px; transition: color 0.45s var(--expo), transform 0.7s var(--expo); }
 .pr-x { margin-top: 12px; color: var(--muted); font-size: 16.5px; line-height: 1.55; max-width: 34ch; }
 .pr-step .pr-node { background: var(--flag); }
 /* Unlit state exists only while the scrub runs (motion allowed + hydrated). */
 .pr.is-live .pr-step:not(.is-on) .pr-node { background: var(--paper); box-shadow: inset 0 0 0 2px var(--line-2); transform: scale(0.75); }
-.pr.is-live .pr-step:not(.is-on) .pr-node::after { transform: scaleX(0); }
-.pr.is-live .pr-step:not(.is-on) .pr-node::before { background: var(--line-2); }
 .pr.is-live .pr-step:not(.is-on) .pr-n { color: var(--muted); }
 .pr.is-live .pr-step:not(.is-on) .pr-t { color: var(--muted); }
 @media (max-width: 1023px) {
@@ -136,24 +128,22 @@
   .pr-track { display: block; left: 7px; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; }
   .pr-fill { transform-origin: 50% 0; transform: scaleY(var(--p)); }
   .pr-step { padding-top: 0; padding-left: 44px; padding-right: 0; }
-  .pr-node::before, .pr-node::after { display: none; }
   .pr-t { margin-top: 8px; }
 }
 @media (min-width: 761px) and (max-width: 1023px) {
-  .pr-node::before, .pr-node::after { display: none; }
   .pr-step { padding-top: 32px; }
 }
 
 /* ---------- ST3 standards ---------- */
 .sd { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gut); }
-.sd-cell { position: relative; background: var(--surface); border-radius: 4px; padding: clamp(14px, 1.4vw, 20px) clamp(14px, 1.4vw, 20px) clamp(22px, 2.6vw, 32px); display: flex; flex-direction: column; }
+.sd-cell { position: relative; background: var(--surface); border-radius: var(--r-md); padding: clamp(14px, 1.4vw, 20px) clamp(14px, 1.4vw, 20px) clamp(22px, 2.6vw, 32px); display: flex; flex-direction: column; }
 .sd-cell::after {
   content: ""; position: absolute; right: 0; top: 0; width: 18px; height: 18px; background: var(--flag); border-top-right-radius: 4px;
   clip-path: polygon(100% 0, 100% 0, 100% 0); transition: clip-path 0.6s var(--expo); pointer-events: none;
 }
 @media (hover: hover) and (pointer: fine) { .sd-cell:hover::after { clip-path: polygon(0 0, 100% 0, 100% 100%); } }
 /* The specimen stage: the top of the cell, where the standard is acted out at size. */
-.sd-stage { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 7; background: #fff; border-radius: 3px; box-shadow: 0 0 0 1px var(--line); }
+.sd-stage { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 7; background: #fff; border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--line); }
 .sd-n { position: absolute; left: 14px; top: 12px; color: var(--flag-text); }
 .sd-figwrap { display: block; width: min(52%, 240px); }
 .sd-fig { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; overflow: visible; }
@@ -205,7 +195,7 @@
 .stk { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); row-gap: 20px; align-items: end; margin-top: clamp(32px, 4.5vw, 64px); }
 .stk-list { grid-column: 1 / span 9; display: flex; flex-wrap: wrap; gap: 10px; }
 .stk-i {
-  display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 999px;
+  display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: var(--r-pill);
   font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em; color: var(--ink);
   box-shadow: inset 0 0 0 1px var(--line-2);
 }

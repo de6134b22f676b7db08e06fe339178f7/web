@@ -128,7 +128,7 @@ export function Compare({ before, now, labels }: { before: ReactNode; now: React
   const beforeOn = pos > 50;
   return (
     <div ref={root} className="cs-cmp">
-      <div className="cs-cmp__frame" data-cursor="Drag" style={{ "--pos": `${pos}%`, "--pn": pos } as React.CSSProperties}>
+      <div className="cs-cmp__frame" style={{ "--pos": `${pos}%`, "--pn": pos } as React.CSSProperties}>
         {before}
         <div className="cs-cmp__now">{now}</div>
         {/* One set of labels: short chips on the frame (the side in view is Ink); the full labels are the captions below. */}
@@ -152,7 +152,7 @@ export function Compare({ before, now, labels }: { before: ReactNode; now: React
           max={100}
           step={1}
           value={pos}
-          data-cursor="Drag"
+         
           aria-label="Compare the 2019 site with the new site"
           aria-valuetext={`${100 - pos}% new site`}
           onChange={(e) => {

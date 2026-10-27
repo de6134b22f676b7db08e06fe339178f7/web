@@ -77,7 +77,6 @@ export function WorkRow({ no, href, name, kind, meta, slug, shot, domain, eager 
         <span className="wk-row__no mono">{no}</span>
         <span className="wk-row__main">
           <span className="wk-row__name t-h2">
-            <span className="wk-row__pen" aria-hidden="true" />
             <span className="wk-row__nt">{name}</span>
           </span>
           <span className="wk-row__kind mono">{kind}</span>

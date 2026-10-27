@@ -6,7 +6,7 @@ import { SyncLog } from "./SyncLog";
 /** H5 "05 — PlayHQ integration" (id="playhq", §6.1): SyncLine (columns 1–8) + SyncLog on the Ink stage (9–12). */
 export function PlayHQ() {
   return (
-    <section id="playhq" className="sec" data-sec="05" data-sec-name="PlayHQ" aria-labelledby="playhq-h" tabIndex={-1}>
+    <section id="playhq" className="sec" data-sec-name="PlayHQ" aria-labelledby="playhq-h" tabIndex={-1}>
       <div className="wrap">
         <SecHead
           n="05"

@@ -20,8 +20,6 @@ type Common = {
   magnetic?: boolean;
   className?: string;
   "aria-label"?: string;
-  /** Cursor tag label (data-cursor); buttons normally show the ring instead. */
-  cursor?: string;
   /** Extra content after the label (e.g. an Odometer). */
   after?: ReactNode;
 };
@@ -45,7 +43,7 @@ export function Arrow({ dir = "→" }: { dir?: NonNullable<Common["arrow"]> }) {
 }
 
 export function Button(props: ButtonProps) {
-  const { children, variant = "ink", size = "md", arrow, magnetic = false, className = "", cursor, after } = props;
+  const { children, variant = "ink", size = "md", arrow, magnetic = false, className = "", after } = props;
   const cls = `btn btn-${variant}${size === "sm" ? " btn-sm" : ""} ${className}`.trim();
   const inner = (
     <span className="btn-in" data-magnetic-inner="">
@@ -57,7 +55,7 @@ export function Button(props: ButtonProps) {
   let el: ReactNode;
   if (props.href !== undefined) {
     const { href, external } = props;
-    const common = { className: cls, "aria-label": props["aria-label"], "data-cursor": cursor };
+    const common = { className: cls, "aria-label": props["aria-label"] };
     el =
       href.startsWith("/") || href.startsWith("#") ? (
         <Link href={href} {...common}>
@@ -78,7 +76,6 @@ export function Button(props: ButtonProps) {
         aria-label={props["aria-label"]}
         aria-pressed={props["aria-pressed"]}
         aria-busy={props["aria-busy"]}
-        data-cursor={cursor}
       >
         {inner}
       </button>

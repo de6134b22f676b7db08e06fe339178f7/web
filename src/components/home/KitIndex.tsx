@@ -42,7 +42,7 @@ function Demo({ i }: { i: number }) {
             ))}
           </ul>
           <span className="kd-btn">
-            <i className="kd-sync" aria-hidden="true" /> Resync PlayHQ
+            Resync PlayHQ
           </span>
         </div>
       );

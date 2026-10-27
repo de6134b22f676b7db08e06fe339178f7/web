@@ -227,7 +227,7 @@ export function PhoneStrip({ slug, client, phones }: { slug: string; client: str
         role="region"
         aria-label={`${client} on a phone`}
         tabIndex={edge === "none" ? undefined : 0}
-        data-cursor={edge === "none" ? undefined : "Drag"}
+       
       >
         {phones.map((p, i) => (
           <figure

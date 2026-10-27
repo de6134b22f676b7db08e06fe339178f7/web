@@ -87,7 +87,7 @@ export function SportsStage() {
             key={r.id}
             data-id={r.id}
             className={`sport${r.id === active ? " is-active" : ""}${r.id === "any" ? " sport-more" : ""}`}
-            data-cursor="Pick"
+           
             onPointerEnter={(e) => e.pointerType === "mouse" && setHeld(r.id)}
           >
             <button

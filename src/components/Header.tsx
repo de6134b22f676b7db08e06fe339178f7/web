@@ -2,7 +2,7 @@
 /**
  * Site header (C2, M10, M31). Fixed, 68px (60 under 760), white .86 + blur. Brand (Mark at the wordmark's cap
  * height, on its baseline + Wordmark) -> "/",
- * home-only section counter (>= 1100; reads `[data-sec][data-sec-name]` sections), nav (>= 1100) with M6
+ * home-only current section name (>= 1100; reads `[data-sec-name]` sections), nav (>= 1100) with M6
  * underline + aria-current, "Start a project" Ink button (> 760), Menu button (< 1100).
  * Hides on scroll down past 120px via html.hdr-hidden (MotionProvider), never while focus is inside it.
  * Flag progress hairline at the bottom edge. Owns the menu state + side effects (html.menu-open, Lenis stop,
@@ -36,19 +36,16 @@ export function Brand({ className = "" }: { className?: string }) {
   );
 }
 
-type Sec = { n: string; name: string };
-
 function SectionCounter() {
-  const [sec, setSec] = useState<Sec>({ n: "00", name: "Index" });
+  const [name, setName] = useState("Home");
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-sec]"));
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-sec-name]"));
     if (!els.length) return;
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
-          const t = e.target as HTMLElement;
-          setSec({ n: t.dataset.sec ?? "00", name: t.dataset.secName ?? "" });
+          setName((e.target as HTMLElement).dataset.secName ?? "");
         }
       },
       { rootMargin: "-45% 0px -54% 0px" },
@@ -56,15 +53,10 @@ function SectionCounter() {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
-  const total = "06";
   return (
     <p className="hdr-sec mono" aria-hidden="true">
-      <b key={`n${sec.n}`} className="swap">
-        {sec.n}
-      </b>
-      /{total}
-      <span key={`s${sec.n}`} className="hdr-sec-name swap">
-        {sec.name}
+      <span key={name} className="hdr-sec-name swap">
+        {name}
       </span>
     </p>
   );

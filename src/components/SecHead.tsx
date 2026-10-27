@@ -4,7 +4,7 @@ import { SplitHeading } from "./Reveal";
 /**
  * Section head (§2.6): 1px Ink rule, mono "0N — Name" key, then (≤ 72px below the rule) the split-reveal h2
  * (columns 1–8) and the lede (9–12). `aside` sits in the head row (e.g. a segmented control, W6).
- * Pair with <section data-sec="0N" data-sec-name="Name"> on home for the header counter.
+ * Pair with <section data-sec-name="Name"> on home for the header section name.
  */
 export function SecHead({ n, name, title, lede, id, aside, className = "" }: { n?: string; name: string; title: ReactNode; lede?: ReactNode; id?: string; aside?: ReactNode; className?: string }) {
   return (

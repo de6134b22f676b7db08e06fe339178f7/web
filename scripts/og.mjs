@@ -189,11 +189,11 @@ function ruler(y, colour, tick, up) {
 const r = (t) => ({ t });
 const a = (t) => ({ t, accent: true });
 const PAGES = [
-  { name: "home", label: "Specialists in club sport", lines: [[r("Every club plants")], [r("its "), a("flag"), r(" online.")]] },
+  { name: "home", label: "Specialists in club sport", lines: [[r("Your club,")], [r("beautifully "), a("connected"), r(".")]] },
   { name: "work", label: "Work", lines: [[r("Our first club.")], [r("Built "), a("properly.")]] },
   { name: "lang-lang", label: "Case study", lines: [[r("Lang Lang Cricket Club:")], [r("a club that "), a("lives")], [r("on its website.")]], capture: "public/work/lang-lang/home-1440.jpg", url: "langlangcricketclub.com" },
   { name: "studio", label: "Studio", lines: [[r("Club sport is")], [r("our speciality.")], [a("Craft"), r(" is our trade.")]] },
-  { name: "contact", label: "Contact", lines: [[r("Plant your")], [a("flag.")]] },
+  { name: "contact", label: "Contact", lines: [[r("Tell us about")], [r("your "), a("club"), r(".")]] },
 ];
 
 const DEFS = `<defs><filter id="elev" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="18"/></filter></defs>`;

@@ -3,7 +3,7 @@ import { SplitHeading } from "@/components/Reveal";
 /**
  * Member story excerpt (DESIGN.md v4 §5.5, §6.3 CS5). Labelled "From a member story" and linked to the story on
  * the club site. Never styled or labelled as a testimonial: no portrait, no name card, no stars. The quote is a
- * split-line reveal (static children only); the opening mark is a Flag pennant, not a quotation glyph.
+ * split-line reveal (static children only); the opening mark is a short Flag rule, not a quotation glyph.
  */
 export function StoryExcerpt({ n, quote, caption, href }: { n?: string; quote: string; caption: string; href: string }) {
   return (

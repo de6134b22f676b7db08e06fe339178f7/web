@@ -193,7 +193,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
           <div className="cs-also">
             <p className="cs-also__k mono">
-              <span className="pen" aria-hidden="true" /> Also in the build
+              Also in the build
             </p>
             <div className="cs-also__grid">
               {stories ? (
@@ -215,7 +215,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                   </div>
                   {stories.shot && stories.href ? (
                     <ClipReveal className="cs-also__side">
-                      <a href={stories.href} target="_blank" rel="noopener" className="cs-also__shot wk-frame" data-cursor="Read ↗" tabIndex={-1} aria-hidden="true">
+                      <a href={stories.href} target="_blank" rel="noopener" className="cs-also__shot wk-frame" tabIndex={-1} aria-hidden="true">
                         <span className="wk-frame__bar">
                           <span className="wk-dots">
                             <i />

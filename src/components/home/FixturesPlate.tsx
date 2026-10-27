@@ -117,7 +117,7 @@ export function FixturesPlate() {
 
   return (
     <div ref={cell} className="pl-cell pl-fix">
-      <Plate n={1} id="p-fix" title="Fixtures & results" cursor="Play" decision="Fixtures and results, straight from PlayHQ.">
+      <Plate n={1} id="p-fix" title="Fixtures & results" decision="Fixtures and results, straight from PlayHQ.">
         <div className="fx-bar">
           <Segmented options={VIEWS} value={want.view} onChange={(v) => change({ ...want, view: v })} label="Fixtures view" idBase="fx" controls="fx-panel" />
           <Chips options={GRADES} value={[want.grade]} onChange={(v) => change({ ...want, grade: v[0] ?? "all" })} label="Grade" />

@@ -5,10 +5,10 @@ import { ContactMark } from "./ContactMark";
 import { CopyEmail } from "./CopyEmail";
 
 /**
- * Shared contact band. Ink rule + mono key, split-reveal headline (size "cta" = --t-cta "Plant your flag.",
+ * Shared contact band. Ink rule + mono key, split-reveal headline (size "cta" = --t-cta the closing line,
  * "h2" = --t-h2 for Work/Studio), optional ContactMark (columns 8–12; never overlaps the headline), then the
  * action row (`actions`, e.g. a "Start a project" Button) + the email link + "Copy email", and the sub line.
- * Home: <section data-sec="06" data-sec-name="Contact"> is set via `sec`.
+ * Home: <section data-sec-name="Contact"> is set via `sec`.
  */
 export type ContactBandProps = {
   title: ReactNode;
@@ -19,12 +19,12 @@ export type ContactBandProps = {
   mark?: "scrub" | "static" | false;
   sub?: string;
   actions?: ReactNode;
-  sec?: { n: string; name: string };
+  sec?: { name: string };
 };
 
 export function ContactBand({ title, id = "contact", n, name = "Contact", size = "cta", mark = false, sub, actions, sec }: ContactBandProps) {
   return (
-    <section id={id} className={`sec cta-band${mark ? "" : " no-mark"}`} aria-labelledby={`${id}-h`} data-sec={sec?.n} data-sec-name={sec?.name}>
+    <section id={id} className={`sec cta-band${mark ? "" : " no-mark"}`} aria-labelledby={`${id}-h`} data-sec-name={sec?.name}>
       <div className="wrap">
         <div className="sec-hd">
           <p className="sec-k mono">

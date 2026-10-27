@@ -4,7 +4,7 @@ import { HeroVisual } from "./HeroVisual";
 
 export function Hero() {
   return (
-    <section className="wrap hero" data-sec="00" data-sec-name="Home" aria-labelledby="hero-h">
+    <section className="wrap hero" data-sec-name="Home" aria-labelledby="hero-h">
       <div className="hero-copy">
         <p className="hero-meta h-fade">Websites for community sport</p>
         <HeroHead />
