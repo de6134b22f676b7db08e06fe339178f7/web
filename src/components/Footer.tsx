@@ -29,9 +29,6 @@ export function Footer() {
                 {l.label}
               </Link>
             ))}
-            <a href={`mailto:${SITE.email}?subject=New%20project`} className="u-line">
-              Email
-            </a>
           </nav>
           <div className="ftr-legal mono">
             <span>Websport · websport.com.au</span>

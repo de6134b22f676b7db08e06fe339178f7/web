@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd, breadcrumbs } from "@/components/JsonLd";
 import { og, SITE } from "@/lib/site";
-import { Button, TextLink } from "@/components/Button";
-import { CopyEmail } from "@/components/CopyEmail";
 import { ContactMark } from "@/components/ContactMark";
 import { FirstEmail } from "@/components/contact/FirstEmail";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -10,7 +8,7 @@ import "@/components/contact/contact.css";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Email Websport about a club website, a club app or a design project: hello@websport.com.au.",
+  description: "Contact Websport about a club website, a club app, a local business website or a design project.",
   alternates: { canonical: "/contact" },
   openGraph: og("/contact", "/og/contact.png", "Contact Websport: Tell us about your club."),
 };
@@ -22,17 +20,7 @@ const HELPS = [
   "Anything with a date on it: a season launch, an AGM, a presentation night, a product launch.",
 ] as const;
 
-/** The same four prompts, pre-filled into a new email (mailto body). */
-const OUTLINE = [
-  "Club or company:",
-  "Current site (if any):",
-  "Codes on PlayHQ, or what you make:",
-  "What isn’t working today:",
-  "Dates coming up:",
-].join("\n\n");
-const OUTLINE_HREF = `mailto:${SITE.email}?subject=${encodeURIComponent("New project")}&body=${encodeURIComponent(`${OUTLINE}\n`)}`;
-
-/** Contact (§6.5). One short form (Postmark via /api/contact) beside the email address; no phone, address, reply time or socials. */
+/** Contact (§6.5). One short form (Postmark via /api/contact) ; no phone, address, reply time or socials. */
 export default function Contact() {
   return (
     <>
@@ -50,37 +38,25 @@ export default function Contact() {
         </h1>
       </header>
 
-      <section className="wrap ct-body" aria-label="Email us">
+      <section className="wrap ct-body" aria-label="Contact us">
         <div className="ct-main">
-          <div className="ct-cta h-fade" style={{ "--i": 1 } as React.CSSProperties}>
-            <CopyEmail email={SITE.email} size="mail" className="ct-copy" />
-            <Button href={`mailto:${SITE.email}?subject=New%20project`} magnetic arrow="↗">
-              Email us
-            </Button>
-          </div>
-
           <div className="ct-form h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 id="ct-form-h" className="ct-k mono">
-              Or send a message
+              Send a message
             </h2>
             <ContactForm email={SITE.email} />
           </div>
 
           <div className="ct-helps h-fade" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 id="ct-helps-h" className="ct-k mono">
-              What helps in a first email
+              What helps in a message
             </h2>
             <FirstEmail items={HELPS} labelledBy="ct-helps-h" />
-            <div className="ct-outline">
-              <TextLink href={OUTLINE_HREF} arrow="↗">
-                Start an email with these prompts
-              </TextLink>
-            </div>
           </div>
 
           <p className="ct-note">
             <span className="mono ct-note-k">Note</span>
-            Messages and emails come straight to us.
+            Messages come straight to us.
           </p>
         </div>
 

@@ -8,7 +8,7 @@
 import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/Button";
 
-const TYPES = ["Club website", "Club app", "Design or brand", "Something else"] as const;
+const TYPES = ["Club website", "Club app", "Local business website", "Design or brand", "Something else"] as const;
 type Field = "name" | "email" | "message";
 type Errors = Partial<Record<Field, string>>;
 const ORDER: Field[] = ["name", "email", "message"];
@@ -103,7 +103,7 @@ export function ContactForm({ email }: { email: string }) {
       {field("name", "Name", <input {...a11y("name")} type="text" autoComplete="name" className="cf-input" />)}
       {field("email", "Email", <input {...a11y("email")} type="email" autoComplete="email" inputMode="email" className="cf-input" />)}
       <div className="cf-field">
-        <label htmlFor="cf-type">What is it? (optional)</label>
+        <label htmlFor="cf-type">What do you need?</label>
         <select id="cf-type" name="type" className="cf-input" defaultValue="">
           <option value="">Choose one</option>
           {TYPES.map((t) => (
@@ -111,7 +111,7 @@ export function ContactForm({ email }: { email: string }) {
           ))}
         </select>
       </div>
-      {field("message", "What do you need?", <textarea {...a11y("message")} rows={6} className="cf-input" />)}
+      {field("message", "Tell us more", <textarea {...a11y("message")} rows={6} className="cf-input" />)}
       <div className="cf-hp" aria-hidden="true">
         <label htmlFor="cf-website">Website</label>
         <input id="cf-website" name="website" type="text" tabIndex={-1} autoComplete="off" />

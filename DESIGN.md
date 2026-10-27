@@ -712,7 +712,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 **H7 `07 — Contact`** (`id="contact"`)
 - Columns 1–7: H2 (`--t-cta`, split) "Let’s build your club’s next chapter."
 - Columns 8–12: `ContactMark` (M28).
-- Then the email row: the link "hello@websport.com.au" (mailto, roll) plus the Flag button "Copy email".
+- Then the email row: the link "sales@websport.com.au" (mailto, roll) plus the Flag button "Copy email".
 - Sub: "Tell us about your club or your brand. A paragraph is plenty."
 - The headline never overlaps the mark (W14 / the pitch-lines contact fix).
 
@@ -828,9 +828,9 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 
 ### 6.5 Contact `/contact`
 - **Title:** "Contact — Websport"
-- **Description:** "Email Websport about a club website, a club app or a design project: hello@websport.com.au."
+- **Description:** "Email Websport about a club website, a club app or a design project: sales@websport.com.au."
 - Eyebrow "Contact". H1 (`.h-line` × 2): "Got a club, or a brief / *that deserves better?*"
-- CTA row: Ink button "Email us" (`mailto:hello@websport.com.au?subject=New%20project`, magnetic) plus `CopyEmail` showing the address at `--t-mail` (`overflow-wrap: anywhere`).
+- CTA row: Ink button "Email us" (`mailto:sales@websport.com.au?subject=New%20project`, magnetic) plus `CopyEmail` showing the address at `--t-mail` (`overflow-wrap: anywhere`).
 - Columns 9–12: ContactMark in its completed state (with a pointer tilt).
 - "What helps in a first email" (numbered mono list, muted):
   1. "Your club or company name, and a link to the current site if there is one."
@@ -844,7 +844,7 @@ Metadata pattern: `title` "{Page} — Websport", a per-page `description`, `alte
 - **Title:** "Page not found — Websport"
 - The Mark at 120 px (M38). Eyebrow "404". H1: "Out of / *bounds.*"
 - Body: "This page isn't on the field. These ones are:"
-- Links as big rows (weight glide + char-roll): Home · Work · Studio · Contact. Then "Or email hello@websport.com.au".
+- Links as big rows (weight glide + char-roll): Home · Work · Studio · Contact. Then "Or email sales@websport.com.au".
 
 ---
 

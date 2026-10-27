@@ -33,9 +33,9 @@ export function MenuOverlay({ open, email, pathname, onNavigate }: MenuOverlayPr
           </ol>
         </nav>
         <div className="menu-foot">
-          <a href={`mailto:${email}?subject=New%20project`} className="menu-mail u-line">
-            {email}
-          </a>
+          <Link href="/contact" className="menu-mail u-line" onClick={onNavigate}>
+            Contact us
+          </Link>
           <p className="menu-line mono">{SITE.line}</p>
         </div>
       </div>

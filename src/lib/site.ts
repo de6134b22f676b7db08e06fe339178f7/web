@@ -22,7 +22,7 @@ export type SiteConfig = {
 export const SITE: SiteConfig = {
   name: "Websport",
   url: "https://websport.com.au",
-  email: "hello@websport.com.au",
+  email: "sales@websport.com.au",
   line: "Your club, beautifully connected.",
   tagline: "Websites & apps for community sports clubs",
   description:

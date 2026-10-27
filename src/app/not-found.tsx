@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "@/components/IntentLink";
-import { SITE } from "@/lib/site";
 import { Roll } from "@/components/Roll";
 import { Arrow } from "@/components/Button";
 import { SwayMark } from "@/components/contact/SwayMark";
@@ -57,10 +56,10 @@ export default function NotFound() {
           ))}
         </ul>
         <p className="nf-mail">
-          Or email{" "}
-          <a href={`mailto:${SITE.email}`} className="nf-mail-a">
-            <Roll text={SITE.email} />
-          </a>
+          Or{" "}
+          <Link href="/contact" className="nf-mail-a">
+            <Roll text="use the contact form" />
+          </Link>
         </p>
       </nav>
     </>

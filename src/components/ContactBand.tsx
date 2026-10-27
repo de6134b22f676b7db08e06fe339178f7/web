@@ -1,13 +1,12 @@
 import type { ReactNode } from "react";
-import { SITE } from "@/lib/site";
 import { SplitHeading } from "./Reveal";
 import { ContactMark } from "./ContactMark";
-import { CopyEmail } from "./CopyEmail";
+import { Button } from "./Button";
 
 /**
  * Shared contact band. Ink rule + mono key, split-reveal headline (size "cta" = --t-cta the closing line,
  * "h2" = --t-h2 for Work/Studio), optional ContactMark (columns 8–12; never overlaps the headline), then the
- * action row (`actions`, e.g. a "Start a project" Button) + the email link + "Copy email", and the sub line.
+ * action row (`actions`, e.g. a "Start a project" Button) (defaults to "Start a project" → /contact), and the sub line.
  * Home: <section data-sec-name="Contact"> is set via `sec`.
  */
 export type ContactBandProps = {
@@ -39,8 +38,11 @@ export function ContactBand({ title, id = "contact", n, name = "Contact", size =
           </div>
         </div>
         <div className="cta-row">
-          {actions}
-          <CopyEmail email={SITE.email} size="mail" />
+          {actions ?? (
+            <Button href="/contact" magnetic arrow="→">
+              Start a project
+            </Button>
+          )}
         </div>
         {sub ? <p className="cta-sub">{sub}</p> : null}
       </div>

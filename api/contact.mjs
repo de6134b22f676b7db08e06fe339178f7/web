@@ -7,7 +7,7 @@
  * CONTACT_FROM must be a confirmed Postmark sender signature (nilesh@sherlabs.com is).
  */
 
-const PROJECT_TYPES = ["Club website", "Club app", "Design or brand", "Something else"];
+const PROJECT_TYPES = ["Club website", "Club app", "Local business website", "Design or brand", "Something else"];
 const MIN_FILL_MS = 2500;
 const LIMITS = { name: 120, email: 254, message: 5000 };
 const DEFAULT_TO = "Sales@websport.com.au,nilesh@sherlabs.com";
