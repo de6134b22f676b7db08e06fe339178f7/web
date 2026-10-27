@@ -4,10 +4,14 @@ import { og } from "@/lib/site";
 import { ContactBand } from "@/components/ContactBand";
 import { SecHead } from "@/components/SecHead";
 import { Button, TextLink } from "@/components/Button";
+import { WorkRow } from "@/components/work/WorkRow";
+import { GhostRow } from "@/components/work/GhostRow";
+import { allWork } from "@/content/work";
 import { StudioFig } from "@/components/studio/StudioFig";
 import { ProcessRail } from "@/components/studio/ProcessRail";
 import { Standards } from "@/components/studio/Standards";
 import "@/components/studio/studio.css";
+import "@/components/work/work.css";
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -167,9 +171,36 @@ export default function Studio() {
         </div>
       </section>
 
+      <section id="work" className="sec" aria-labelledby="st-work">
+        <div className="wrap">
+          <SecHead n="05" name="Work" id="st-work" title={<>Made for real clubs. <em>Built properly.</em></>} />
+          <div className="sec-body">
+            <ol className="wk-list">
+              {allWork.map((w, k) => (
+                <WorkRow
+                  key={w.slug}
+                  no={String(k + 1).padStart(2, "0")}
+                  href={`/work/${w.slug}`}
+                  name={w.client}
+                  kind={w.kind}
+                  meta={w.tags}
+                  slug={w.slug}
+                  shot={w.hero}
+                  domain={w.live.label}
+                  eager={false}
+                />
+              ))}
+              <li className="wk-list__ghost">
+                <GhostRow no={String(allWork.length + 1).padStart(2, "0")} />
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
       <ContactBand
         id="st-contact"
-        n="05"
+        n="06"
         title={
           <>
             Got a club, or a brief <br className="d" />

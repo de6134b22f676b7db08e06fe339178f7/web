@@ -38,7 +38,6 @@ export const SPORTS_LINE = [...CODES, "And\u00a0the\u00a0rest"].join(" · ");
 
 /** Header nav (v4 §5.1 C2). `/#playhq` is an in-page anchor on home. */
 export const NAV = [
-  { href: "/work", label: "Work" },
   { href: "/studio", label: "Studio" },
   { href: "/#playhq", label: "PlayHQ" },
   { href: "/contact", label: "Contact" },
@@ -47,7 +46,6 @@ export const NAV = [
 /** Menu items (v4 §5.1 C3), numbered 01–05. */
 export const MENU = [
   { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
   { href: "/studio", label: "Studio" },
   { href: "/#playhq", label: "PlayHQ" },
   { href: "/contact", label: "Contact" },

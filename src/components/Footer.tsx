@@ -8,7 +8,6 @@ import { FooterWordmark } from "./FooterWordmark";
  * PlayHQ trademark note; the giant outlined wordmark (M27). The only Work link besides the header nav and menu.
  */
 const LINKS = [
-  { href: "/work", label: "Work" },
   { href: "/studio", label: "Studio" },
   { href: "/#playhq", label: "PlayHQ" },
   { href: "/contact", label: "Contact" },

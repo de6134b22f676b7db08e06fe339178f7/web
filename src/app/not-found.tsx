@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: "Page not found" };
 
 const ROWS = [
   ["/", "Home"],
-  ["/work", "Work"],
   ["/studio", "Studio"],
   ["/contact", "Contact"],
 ] as const;

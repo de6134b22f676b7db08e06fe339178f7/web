@@ -323,7 +323,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           <div className="sec-body">
             <GhostRow name="Your club, next." kind="Start a project" sub="Any code on PlayHQ. Tell us what you play." />
             <div className="cs-next__all">
-              <TextLink href="/work" arrow="→">
+              <TextLink href="/studio#work" arrow="→">
                 All work
               </TextLink>
             </div>
