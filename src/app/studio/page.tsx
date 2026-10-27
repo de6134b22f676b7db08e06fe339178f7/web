@@ -118,9 +118,6 @@ export default function Studio() {
               yours.
             </p>
             <div className="note-links">
-              <TextLink href="/#any" arrow="→">
-                Try the any-domain demo
-              </TextLink>
               <TextLink href="/work/lang-lang" arrow="→">
                 Read the Lang Lang case study
               </TextLink>

@@ -235,27 +235,6 @@ export const SYNC_STEP_S = 0.6;
 const SYNC_STEPS = ["Connecting to PlayHQ", "Season 2026 · 9 grades", "142 fixtures · 38 results", "9 ladders updated", "24 clubs · 24 logos matched", "312 player profiles"];
 export const SYNC_LOG = [...SYNC_STEPS, `Done in ${(SYNC_STEPS.length * SYNC_STEP_S).toFixed(1)} s`];
 
-/* ---------- 06 any domain ---------- */
-export type ThemeId = "clinic" | "studio" | "cellar";
-export const THEMES: Record<ThemeId, { label: string; dur: string; who: string; note: string; book: string; confirm: string; priceK: string; t1: string; t2: string; edK: string; ed: string; edM: string; perks: [string, string, string]; tokens: { font: string; radius: number; accent: string; weight: number } }> = {
-  clinic: {
-    label: "Clinic", dur: "First visit · 45 min", who: "Any practitioner", note: "Cancel or pause any time.", book: "Book an appointment", confirm: "Confirm", priceK: "Membership", t1: "Essential", t2: "Complete", edK: "Journal", ed: "What a good first visit feels like", edM: "4 min read", perks: ["Priority booking", "Visit notes after every session", "Pause any month"],
-    tokens: { font: "Host Grotesk", radius: 18, accent: "#0F766E", weight: 500 },
-  },
-  studio: {
-    label: "Studio", dur: "Half day · 4 hours", who: "Studio A, natural light", note: "Unused hours roll over a month.", book: "Book a studio session", confirm: "Request", priceK: "Plans", t1: "Solo", t2: "Team", edK: "Notes", ed: "Notes on making things slowly", edM: "6 min read", perks: ["Lights and backdrops included", "Locker and storage", "Two guest passes a month"],
-    tokens: { font: "Martian Mono", radius: 0, accent: "#0A0A0A", weight: 300 },
-  },
-  cellar: {
-    label: "Cellar door", dur: "Tasting flight · 60 min", who: "Up to six guests", note: "Members taste new releases first.", book: "Reserve a tasting", confirm: "Reserve", priceK: "Wine club", t1: "Cellar", t2: "Reserve", edK: "From the vineyard", ed: "A vintage worth waiting for", edM: "3 min read", perks: ["Two shipments a year", "Members-only releases", "Free tastings for two"],
-    tokens: { font: "Georgia", radius: 6, accent: "#7A1530", weight: 400 },
-  },
-};
-export const PRICES = { m: [29, 59], y: [290, 590] } as const;
-export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-export const SLOTS = ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "1:00", "1:30", "2:30", "3:00", "3:30", "4:30"];
-export const slotTaken = (day: number, i: number) => (i * 7 + day * 3) % 5 === 0;
-
 export const ord = (n: number) => {
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;

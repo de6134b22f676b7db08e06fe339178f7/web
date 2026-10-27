@@ -8,7 +8,7 @@ import { CopyEmail } from "./CopyEmail";
  * Shared contact band. Ink rule + mono key, split-reveal headline (size "cta" = --t-cta "Plant your flag.",
  * "h2" = --t-h2 for Work/Studio), optional ContactMark (columns 8–12; never overlaps the headline), then the
  * action row (`actions`, e.g. a "Start a project" Button) + the email link + "Copy email", and the sub line.
- * Home: <section data-sec="07" data-sec-name="Contact"> is set via `sec`.
+ * Home: <section data-sec="06" data-sec-name="Contact"> is set via `sec`.
  */
 export type ContactBandProps = {
   title: ReactNode;

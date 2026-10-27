@@ -56,7 +56,7 @@ function SectionCounter() {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
-  const total = "07";
+  const total = "06";
   return (
     <p className="hdr-sec mono" aria-hidden="true">
       <b key={`n${sec.n}`} className="swap">

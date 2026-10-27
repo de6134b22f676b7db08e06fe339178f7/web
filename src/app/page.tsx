@@ -8,7 +8,6 @@ import { Sports } from "@/components/home/Sports";
 import { Build } from "@/components/home/Build";
 import { Kit } from "@/components/home/Kit";
 import { PlayHQ } from "@/components/home/PlayHQ";
-import { AnyDomain } from "@/components/home/AnyDomain";
 import "@/components/home/home.css";
 
 export const metadata: Metadata = {
@@ -31,8 +30,7 @@ export default function Home() {
       <Build />
       <Kit />
       <PlayHQ />
-      <AnyDomain />
-      <ContactBand title="Let’s build your club’s next chapter." n="07" mark="scrub" sub="A good project starts with a conversation." sec={{ n: "07", name: "Contact" }} />
+      <ContactBand title="Let’s build your club’s next chapter." n="06" mark="scrub" sub="A good project starts with a conversation." sec={{ n: "06", name: "Contact" }} />
     </SportProvider>
   );
 }
