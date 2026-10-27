@@ -8,7 +8,7 @@
 import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/Button";
 
-const TYPES = ["Club website", "Club app", "Local business website", "Design or brand", "Something else"] as const;
+const TYPES = ["Club website", "Club app", "Something else"] as const;
 type Field = "name" | "email" | "message";
 type Errors = Partial<Record<Field, string>>;
 const ORDER: Field[] = ["name", "email", "message"];
