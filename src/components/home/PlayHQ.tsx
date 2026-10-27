@@ -1,3 +1,4 @@
+import { PlayHQLogo } from "@/components/PlayHQLogo";
 import { SecHead } from "@/components/SecHead";
 import { PLAYHQ_NOTE } from "@/lib/site";
 import { SyncLine } from "./SyncLine";
@@ -15,6 +16,7 @@ export function PlayHQ() {
           title="Always up to date."
           lede="Fixtures, results and ladders, connected directly to PlayHQ."
         />
+        <PlayHQLogo className="phq-chip--lg" />
         <div className="sec-body phq">
           <SyncLine />
           <SyncLog />

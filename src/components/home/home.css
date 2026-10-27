@@ -595,6 +595,8 @@ html.hdr-hidden .kit-sw { top: 0; }
 /* PlayHQ logo chip: the logo's letters are white, so it always sits on Ink. */
 .phq-chip { align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; background: var(--ink); border-radius: var(--r-sm); padding: 8px 12px; margin: 10px 0 12px; }
 .phq-chip svg { display: block; height: 30px; width: auto; }
+.phq-chip--lg { display: inline-flex; margin: 28px 0 0; padding: 14px 20px; border-radius: var(--r-md); }
+.phq-chip--lg svg { height: 52px; }
 .phq { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); row-gap: 40px; align-items: start; }
 /* One grid for the diagram and the three node columns (1fr 1.5fr 1fr, 28px gaps). Every node dot sits on its
    column's left edge and the line passes through the dots' centres (+6px): node 1 on the upper run, a 45° drop
